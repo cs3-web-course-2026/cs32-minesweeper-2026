@@ -276,6 +276,7 @@ body {
    ========================= */
 
 @media (width <= 400px) {
+
     body {
         padding: 14px;
     }
@@ -305,4 +306,5 @@ body {
         gap: 4px;
         padding: 7px;
     }
+
 }
