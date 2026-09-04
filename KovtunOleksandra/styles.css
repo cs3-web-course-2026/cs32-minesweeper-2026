@@ -257,15 +257,19 @@ body {
     0% {
         transform: translateX(0);
     }
+
     25% {
         transform: translateX(-3px);
     }
+
     50% {
         transform: translateX(3px);
     }
+
     75% {
         transform: translateX(-3px);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -276,7 +280,6 @@ body {
    ========================= */
 
 @media (width <= 400px) {
-
     body {
         padding: 14px;
     }
