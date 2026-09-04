@@ -1,0 +1,153 @@
+/* Базові налаштування */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Контейнер гри */
+.minesweeper-container {
+    background-color: #bdbdbd;
+    padding: 15px;
+    border: 3px solid;
+    border-color: #fff #7b7b7b #7b7b7b #fff;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Хедер гри */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #333;
+    color: #ff0701;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid;
+    border-color: #7b7b7b #fff #fff #7b7b7b;
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.timer, .flag-counter {
+    flex: 1;
+}
+
+.flag-counter {
+    text-align: right;
+}
+
+.start-btn {
+    flex-shrink: 0; 
+}
+
+.start-btn {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    background-color: #bdbdbd;
+    border: 3px solid;
+    border-color: #fff #7b7b7b #7b7b7b #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-btn:active {
+    border-color: #7b7b7b #fff #fff #7b7b7b; /* Ефект натискання */
+}
+
+/* Ігрове поле */
+.game-board {
+    display: grid;
+    /* 5 колонок для прикладу. Для повноцінної гри можна змінити на 9 або 16 */
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(4, 40px);
+    border: 3px solid;
+    border-color: #7b7b7b #fff #fff #7b7b7b;
+    background-color: #7b7b7b;
+}
+
+/* Базовий стан клітинки (закрита) */
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #bdbdbd;
+    border: 3px solid;
+    border-color: #fff #7b7b7b #7b7b7b #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    position: relative
+}
+
+/* Відкрита клітинка */
+.cell.open {
+    background-color: #bdbdbd;
+    border: 1px solid #7b7b7b;
+    cursor: default;
+}
+
+/* Кольори для цифр на відкритих клітинках */
+.cell.open[data-number="1"] { color: blue; }
+.cell.open[data-number="2"] { color: green; }
+.cell.open[data-number="3"] { color: red; }
+
+/* Клітинка з прапорцем */
+.cell.flag {
+    color: red;
+}
+
+/* Неправильний прапорець (якщо гравець поставив прапорець, а там немає міни) */
+.cell.flag.wrong-flag::after {
+    content: '❌';
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.6;
+}
+
+/* Клітинка з міною (звичайна, показується в кінці гри) */
+.cell.mine {
+    background-color: #bdbdbd;
+    border: 1px solid #7b7b7b;
+}
+
+/* Міна, на яку натиснув гравець */
+.cell.mine.clicked {
+    background-color: red;
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 400px) {
+    .game-board {
+        grid-template-columns: repeat(5, 30px);
+        grid-template-rows: repeat(4, 30px);
+    }
+    .cell {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+    .start-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+}
