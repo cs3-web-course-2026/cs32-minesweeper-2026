@@ -21,7 +21,7 @@ body {
     border: 3px solid;
     border-color: #fff #7b7b7b #7b7b7b #fff;
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0 0 0 / 30%);
 }
 
 /* Хедер гри */
@@ -50,10 +50,6 @@ body {
 }
 
 .start-btn {
-    flex-shrink: 0; 
-}
-
-.start-btn {
     font-size: 24px;
     width: 40px;
     height: 40px;
@@ -62,6 +58,7 @@ body {
     border-color: #fff #7b7b7b #7b7b7b #fff;
     cursor: pointer;
     display: flex;
+    flex-shrink: 0; 
     justify-content: center;
     align-items: center;
 }
@@ -73,6 +70,7 @@ body {
 /* Ігрове поле */
 .game-board {
     display: grid;
+
     /* 5 колонок для прикладу. Для повноцінної гри можна змінити на 9 або 16 */
     grid-template-columns: repeat(5, 40px);
     grid-template-rows: repeat(4, 40px);
@@ -135,16 +133,18 @@ body {
 }
 
 /* Адаптивність для мобільних пристроїв */
-@media (max-width: 400px) {
+@media (width <= 400px) {
     .game-board {
         grid-template-columns: repeat(5, 30px);
         grid-template-rows: repeat(4, 30px);
     }
+
     .cell {
         width: 30px;
         height: 30px;
         font-size: 16px;
     }
+    
     .start-btn {
         width: 35px;
         height: 35px;
