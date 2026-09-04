@@ -13,19 +13,23 @@
     --background: #111022;
     --container: #1b1833;
     --header: #24203f;
+
     /* Ігрове поле */
     --board: #2b2748;
     --cell-closed: #353052;
     --cell-hover: #403a63;
     --cell-open: #25223f;
+
     /* Текст */
     --text: #f4f1ff;
     --text-secondary: #aaa4c7;
+
     /* Кольори цифр */
     --blue: #6ea8ff;
     --green: #69d69b;
     --red: #ff6b7a;
     --orange: #ffb86c;
+
     /* Міна */
     --mine-red: #b8324a;
 }
@@ -275,23 +279,28 @@ body {
     body {
         padding: 14px;
     }
+
     .game-container {
         padding: 14px;
         border-radius: 20px;
     }
+
     .game-header {
         padding: 8px;
     }
+
     .counter {
         min-width: 68px;
         padding: 7px 8px;
         font-size: 0.82rem;
     }
+
     .reset-btn {
         width: 40px;
         height: 40px;
         font-size: 1.35rem;
     }
+
     .game-board {
         gap: 4px;
         padding: 7px;
