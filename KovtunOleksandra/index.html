@@ -15,7 +15,7 @@
         <!-- Хедер гри -->
         <header class="game-header">
 
-            <div class="game-info">
+            <div class="game-info" role="status" aria-live="polite" aria-label="Статус гри">
 
                 <div class="counter" aria-label="Кількість прапорців">
                     <span class="counter-icon">🚩</span>
@@ -48,7 +48,7 @@
 
                 <!-- 1 ряд -->
                 <div class="cell"></div>
-                <div class="cell flag">🚩</div>
+                <div class="cell flag flagged-mine">🚩</div>
                 <div class="cell"></div>
                 <div class="cell"></div>
 
@@ -68,7 +68,7 @@
                 <div class="cell"></div>
                 <div class="cell open num-1">1</div>
                 <div class="cell open num-2">2</div>
-                <div class="cell flag">🚩</div>
+                <div class="cell flag flagged-safe">❌</div>
 
             </section>
         </main>

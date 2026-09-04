@@ -32,6 +32,10 @@
 
     /* Міна */
     --mine-red: #b8324a;
+
+    /* Налаштування логіки */
+    --board-columns: 4;
+    --mine-shake-duration: 0.3s;
 }
 
 /* =========================
@@ -146,7 +150,7 @@ body {
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(var(--board-columns), 1fr);
     gap: 5px;
     padding: 8px;
     background: var(--board);
@@ -228,9 +232,17 @@ body {
    ========================= */
 
 .cell.flag {
-    background: #3a345c;
     font-size: 1.3rem;
     box-shadow: inset 0 2px 0 rgb(255 255 255 / 7%), 0 3px 5px rgb(0 0 0 / 25%);
+}
+
+.cell.flag.flagged-mine {
+    background: #3a345c;
+}
+
+.cell.flag.flagged-safe {
+    background: #4a2a35;
+    opacity: 0.8;
 }
 
 /* =========================
@@ -246,7 +258,7 @@ body {
 .cell.mine.clicked {
     background: var(--mine-red);
     box-shadow: inset 0 3px 6px rgb(70 0 15 / 45%);
-    animation: shake 0.3s ease-in-out;
+    animation: shake var(--mine-shake-duration) ease-in-out;
 }
 
 /* =========================
