@@ -1,0 +1,325 @@
+/* =========================
+   Базові налаштування
+   ========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Основні кольори */
+    --background: #111022;
+    --container: #1b1833;
+    --header: #24203f;
+
+    /* Ігрове поле */
+    --board: #2b2748;
+    --cell-closed: #353052;
+    --cell-hover: #403a63;
+    --cell-open: #25223f;
+
+    /* Текст */
+    --text: #f4f1ff;
+    --text-secondary: #aaa4c7;
+
+    /* Кольори цифр */
+    --blue: #6ea8ff;
+    --green: #69d69b;
+    --red: #ff6b7a;
+    --orange: #ffb86c;
+
+    /* Міна */
+    --mine-red: #b8324a;
+
+    /* Налаштування логіки */
+    --board-columns: 4;
+    --mine-shake-duration: 0.3s;
+}
+
+/* =========================
+   Сторінка
+   ========================= */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top, #28234b 0%, #17152d 40%, var(--background) 75%);
+}
+
+/* =========================
+   Основний контейнер
+   ========================= */
+
+.game-container {
+    width: 100%;
+    max-width: 340px;
+    padding: 20px;
+    background: var(--container);
+    border: 1px solid rgb(255 255 255 / 6%);
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgb(0 0 0 / 45%), 0 0 30px rgb(88 70 160 / 12%);
+}
+
+/* =========================
+   Хедер
+   ========================= */
+
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding: 10px;
+    background: var(--header);
+    border: 1px solid rgb(255 255 255 / 5%);
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+}
+
+/* Інформація про гру */
+
+.game-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Лічильники */
+
+.counter {
+    min-width: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #18152f;
+    border: 1px solid rgb(255 255 255 / 6%);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: SFMono-Regular, Consolas, monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+.counter-icon {
+    font-family: sans-serif;
+    font-size: 1rem;
+}
+
+/* =========================
+   Кнопка нової гри
+   ========================= */
+
+.reset-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 6%);
+    border-radius: 12px;
+    background: #302a50;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reset-btn:hover {
+    background: #3b3461;
+    box-shadow: 0 5px 14px rgb(0 0 0 / 30%);
+}
+
+.reset-btn:active {
+    transform: scale(0.9);
+}
+
+/* =========================
+   Ігрове поле
+   ========================= */
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-columns), 1fr);
+    gap: 5px;
+    padding: 8px;
+    background: var(--board);
+    border: 1px solid rgb(255 255 255 / 5%);
+    border-radius: 14px;
+    box-shadow: inset 0 2px 6px rgb(0 0 0 / 30%);
+}
+
+/* =========================
+   Клітинка
+   ========================= */
+
+.cell {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--cell-closed);
+    color: var(--text);
+    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    font-weight: 800;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: inset 0 2px 0 rgb(255 255 255 / 8%), 0 3px 5px rgb(0 0 0 / 25%);
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+/* Закрита клітинка при наведенні */
+
+.cell:not(.open):hover {
+    background: var(--cell-hover);
+}
+
+/* Натискання на закриту клітинку */
+
+.cell:not(.open):active {
+    transform: scale(0.93);
+    box-shadow: inset 0 2px 5px rgb(0 0 0 / 30%);
+}
+
+/* =========================
+   Відкрита клітинка
+   ========================= */
+
+.cell.open {
+    background: var(--cell-open);
+    cursor: default;
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 25%);
+}
+
+/* Порожня клітинка */
+
+.cell.empty {
+    color: transparent;
+}
+
+/* =========================
+   Цифри
+   ========================= */
+
+.num-1 {
+    color: var(--blue);
+    text-shadow: 0 0 8px rgb(110 168 255 / 20%);
+}
+
+.num-2 {
+    color: var(--green);
+    text-shadow: 0 0 8px rgb(105 214 155 / 20%);
+}
+
+.num-3 {
+    color: var(--red);
+    text-shadow: 0 0 8px rgb(255 107 122 / 20%);
+}
+
+/* =========================
+   Прапорець
+   ========================= */
+
+.cell.flag {
+    font-size: 1.3rem;
+    box-shadow: inset 0 2px 0 rgb(255 255 255 / 7%), 0 3px 5px rgb(0 0 0 / 25%);
+}
+
+.cell.flag.flagged-mine {
+    background: #3a345c;
+}
+
+.cell.flag.flagged-safe {
+    background: #4a2a35;
+    opacity: 0.8;
+}
+
+/* =========================
+   Міни
+   ========================= */
+
+.cell.mine {
+    font-size: 1.3rem;
+}
+
+/* Міна, на яку натиснув користувач */
+
+.cell.mine.clicked {
+    background: var(--mine-red);
+    box-shadow: inset 0 3px 6px rgb(70 0 15 / 45%);
+    animation: shake var(--mine-shake-duration) ease-in-out;
+}
+
+/* =========================
+   Анімація вибуху
+   ========================= */
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-3px);
+    }
+
+    50% {
+        transform: translateX(3px);
+    }
+
+    75% {
+        transform: translateX(-3px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* =========================
+   Адаптивність
+   ========================= */
+
+@media (width <= 400px) {
+    body {
+        padding: 14px;
+    }
+
+    .game-container {
+        padding: 14px;
+        border-radius: 20px;
+    }
+
+    .game-header {
+        padding: 8px;
+    }
+
+    .counter {
+        min-width: 68px;
+        padding: 7px 8px;
+        font-size: 0.82rem;
+    }
+
+    .reset-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.35rem;
+    }
+
+    .game-board {
+        gap: 4px;
+        padding: 7px;
+    }
+
+}
