@@ -1,4 +1,4 @@
-﻿/* СКИДАННЯ ТА БАЗОВІ НАЛАШТУВАННЯ*/
+﻿/* СКИДАННЯ ТА БАЗОВІ НАЛАШТУВАННЯ */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -35,7 +35,7 @@ body {
     border-bottom: 2px solid #3b4252;
     width: 100%;
     padding: 14px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
 }
 
 .header-container {
@@ -75,7 +75,7 @@ body {
     font-family: "Courier New", Courier, monospace;
     font-size: 1.15rem;
     font-weight: 700;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 60%);
 }
 
 .stat-icon {
@@ -105,19 +105,19 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 30%);
     transition: all 0.15s ease;
 }
 
 .btn-start:hover {
     background: linear-gradient(180deg, #5e81ac 0%, #434c5e 100%);
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 40%);
 }
 
 .btn-start:active {
     transform: translateY(1px);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 40%);
 }
 
 .btn-icon {
@@ -140,7 +140,7 @@ body {
     padding: 16px;
     border-radius: 12px;
     border: 2px solid #3b4252;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 30px rgb(0 0 0 / 40%);
 }
 
 /* Сітка 9х9 клітинок */
@@ -232,7 +232,7 @@ body {
 .cell.mine-exploded {
     background-color: #dc2626;
     border: 1px solid #991b1b;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 10px rgb(0 0 0 / 50%);
     animation: explode-pulse 1s infinite alternate;
 }
 
@@ -242,7 +242,7 @@ body {
 }
 
 /* АДАПТИВНІСТЬ ДЛЯ СМАРТФОНІВ */
-@media (max-width: 600px) {
+@media (width <= 600px) {
     .container {
         padding: 0 12px;
     }
@@ -294,7 +294,7 @@ body {
     }
 }
 
-@media (max-width: 360px) {
+@media (width <= 360px) {
     /* Для дуже вузьких старих телефонів */
     .board {
         grid-template-columns: repeat(9, 28px);
