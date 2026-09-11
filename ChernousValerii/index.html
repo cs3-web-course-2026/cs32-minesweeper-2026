@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Web game Minesweeper</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script type="module" src="src/main.js"></script>
+    </head>
+
+    <body>
+        <div class="game-container">
+            <!-- Хедер гри -->
+            <header class="game-header">
+                <div class="container header-container">
+                    <h1 class="header-name">
+                        <span>Mine</span>sweeper
+                    </h1>
+
+                    <div class="header-stats">
+                        <div class="stat-box header-timer" title="Час гри">
+                            <span class="stat-icon">⏱️</span>
+                            <span class="stat-value">00:00</span>
+                        </div>
+
+                        <button class="btn-start" type="button" title="Почати нову гру">
+                            <span class="btn-icon">🙂</span>
+                            <span class="btn-text">Старт</span>
+                        </button>
+
+                        <div class="stat-box header-flag" title="Залишилось прапорців">
+                            <span class="stat-icon">🚩</span>
+                            <span class="stat-value">10</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Ігрове поле 9x9 -->
+            <main class="game-main">
+                <div class="board-frame">
+                    <div class="board">
+                        <!-- Рядок 1 -->
+                        <div class="cell open empty"></div>
+                        <div class="cell open empty"></div>
+                        <div class="cell open empty"></div>
+                        <div class="cell open num-1">1</div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 2 -->
+                        <div class="cell open empty"></div>
+                        <div class="cell open empty"></div>
+                        <div class="cell open num-1">1</div>
+                        <div class="cell open num-2">2</div>
+                        <div class="cell closed"></div>
+                        <div class="cell flagged" title="Прапорець на міні">🚩</div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 3 -->
+                        <div class="cell open empty"></div>
+                        <div class="cell open num-1">1</div>
+                        <div class="cell open num-2">2</div>
+                        <div class="cell flagged" title="Прапорець на міні">🚩</div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 4 -->
+                        <div class="cell open num-1">1</div>
+                        <div class="cell open num-2">2</div>
+                        <div class="cell open num-3">3</div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 5 -->
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 6 -->
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 7 -->
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 8 -->
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+                        <div class="cell closed"></div>
+
+                        <!-- Рядок 9: -->
+                        <div class="cell closed"></div>
+                        <div class="cell open num-4">4</div>
+                        <div class="cell closed"></div>
+                        <div class="cell flagged-wrong" title="Помилковий прапорець (без міни)">❌</div>
+                        <div class="cell closed"></div>
+                        <div class="cell mine" title="Звичайна відкрита міна">💣</div>
+                        <div class="cell closed"></div>
+                        <div class="cell mine-exploded" title="Міна, на яку наступив користувач">💥</div>
+                        <div class="cell closed"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
