@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="game-container">
+  <!-- Хедер гри -->
+  <header class="game-header">
+    <div class="counter" id="flag-counter">010</div>
+    <button class="reset-button" aria-label="Нова гра">🙂</button>
+    <div class="counter" id="timer">000</div>
+  </header>
+
+  <!-- Ігрове поле (демонстрація всіх необхідних станів клітинок) -->
+  <main class="game-board">
+    <!-- 1. Закриті клітинки -->
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+
+    <!-- 2. Відкриті клітинки (порожня та з цифрами) -->
+    <div class="cell open"></div>
+    <div class="cell open number-1">1</div>
+    <div class="cell open number-2">2</div>
+    <div class="cell open number-3">3</div>
+
+    <!-- 3. Клітинка з прапорцем -->
+    <div class="cell flag">🚩</div>
+
+    <!-- 4. Прапорець поставлений на міну (правильно) / без міни -->
+    <div class="cell flag">🚩</div>
+
+    <!-- 5. Клітинка з міною (незатиснута) -->
+    <div class="cell open mine">💣</div>
+
+    <!-- 6. Клітинка з міною, на яку натиснув користувач (вибух) -->
+    <div class="cell open mine exploded">💥</div>
+
+    <!-- Решта закритих клітинок для заповнення сітки 4х4 -->
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+  </main>
+</div>
+</body>
+</html>
