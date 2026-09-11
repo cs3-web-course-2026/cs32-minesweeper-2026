@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Сапер</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="game">
+        <h1 class="visually-hidden">Сапер</h1>
+
+        <!-- Хедер гри: лічильник прапорців, кнопка нової гри, таймер -->
+        <header class="game-header">
+            <div class="counter counter-flags" role="status" aria-label="Залишилось прапорців">
+                <span class="counter-icon" aria-hidden="true">🚩</span>
+                <span class="counter-value">010</span>
+            </div>
+
+            <button type="button" class="restart" aria-label="Почати нову гру">
+                <span class="restart-face" aria-hidden="true">🙂</span>
+            </button>
+
+            <div class="counter counter-timer" role="timer" aria-label="Час гри, секунд">
+                <span class="counter-icon" aria-hidden="true">⏱️</span>
+                <span class="counter-value">000</span>
+            </div>
+        </header>
+
+        <!-- Ігрове поле: сітка 9 × 9. Показано зразки всіх станів клітинок. -->
+        <div class="board" aria-label="Ігрове поле">
+            <!-- Рядок 1 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <button type="button" class="cell is-flagged" aria-label="Клітинка з прапорцем"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+
+            <!-- Рядок 2 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-flagged is-mine" aria-label="Прапорець встановлено правильно — тут міна"></div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+
+            <!-- Рядок 3 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <button type="button" class="cell is-flagged" aria-label="Клітинка з прапорцем"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка"></button>
+
+            <!-- Рядок 4 -->
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-flagged is-wrong" aria-label="Помилковий прапорець — міни немає"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="1">1</div>
+
+            <!-- Рядок 5 -->
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-mine" aria-label="Міна"></div>
+            <div class="cell is-open" data-count="1">1</div>
+
+            <!-- Рядок 6 -->
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-mine is-exploded" aria-label="Міна, на яку натиснув гравець"></div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+
+            <!-- Рядок 7 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="2">2</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+
+            <!-- Рядок 8 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <button type="button" class="cell is-flagged" aria-label="Клітинка з прапорцем"></button>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+
+            <!-- Рядок 9 -->
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open" data-count="1">1</div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+            <div class="cell is-open"></div>
+        </div>
+    </main>
+</body>
+</html>

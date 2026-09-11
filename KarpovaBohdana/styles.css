@@ -1,0 +1,356 @@
+/* ============================================================
+   Сапер — розмітка інтерфейсу
+   ============================================================ */
+
+:root {
+    /* Поверхні */
+    --bg-outer: #c2ccd6;
+    --card: #d7dee5;
+    --panel: #c3ccd5;
+    --grid-line: #9aa6b2;
+
+    /* Клітинки */
+    --cell-closed-top: #e6ecf2;
+    --cell-closed-bottom: #cbd4dd;
+    --cell-open: #eaeef2;
+    --bevel-light: #fff;
+    --bevel-dark: #99a4af;
+
+    /* Текст і акценти */
+    --text: #22303c;
+    --focus: #1f6feb;
+    --mine-hit: #e5393c;
+    --flag-ok: #d4efdb;
+    --wrong: #d32f2f;
+
+    /* Цифровий дисплей у хедері */
+    --display-bg: #1a1a1a;
+    --display-on: #ff3b30;
+
+    /* Кольори чисел (класична палітра Сапера) */
+    --n1: #1976d2;
+    --n2: #388e3c;
+    --n3: #d32f2f;
+    --n4: #512da8;
+    --n5: #8d3b00;
+    --n6: #0097a7;
+    --n7: #212121;
+    --n8: #616161;
+
+    /* Домен: розмір поля та клітинки */
+    --board-columns: 9;
+    --cell-size: 2.6rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-outer: #1f2630;
+        --card: #2a323d;
+        --panel: #333c48;
+        --grid-line: #4a5563;
+        --cell-closed-top: #47515f;
+        --cell-closed-bottom: #3a434f;
+        --cell-open: #2f3742;
+        --bevel-light: #5b6675;
+        --bevel-dark: #232a33;
+        --text: #e8edf2;
+        --flag-ok: #234b30;
+        --n1: #64b5f6;
+        --n2: #81c784;
+        --n3: #e57373;
+        --n4: #b39ddb;
+        --n5: #ffb74d;
+        --n6: #4dd0e1;
+        --n7: #eceff1;
+        --n8: #b0bec5;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at 30% 15%, #eef2f6, var(--bg-outer));
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: radial-gradient(circle at 30% 15%, #2b333e, var(--bg-outer));
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* ---------- Контейнер гри ---------- */
+
+.game {
+    width: min(96vw, 30rem);
+    padding: 0.9rem;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow:
+        0 12px 32px rgb(0 0 0 / 20%),
+        inset 2px 2px 0 var(--bevel-light),
+        inset -2px -2px 0 var(--bevel-dark);
+}
+
+/* ---------- Хедер: лічильник, кнопка, таймер ---------- */
+
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--panel);
+    border-radius: 10px;
+    box-shadow:
+        inset 2px 2px 0 var(--bevel-dark),
+        inset -2px -2px 0 var(--bevel-light);
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 5.5rem;
+    padding: 0.35rem 0.55rem;
+    background: var(--display-bg);
+    border-radius: 6px;
+    box-shadow:
+        inset 0 0 0 2px #000,
+        inset 0 2px 6px rgb(0 0 0 / 60%);
+}
+
+.counter-timer {
+    justify-content: flex-end;
+}
+
+.counter-icon {
+    font-size: 1rem;
+}
+
+.counter-value {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Courier New", monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--display-on);
+    text-shadow: 0 0 8px rgb(255 59 48 / 55%);
+}
+
+.restart {
+    flex: 0 0 auto;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--cell-closed-top), var(--cell-closed-bottom));
+    box-shadow:
+        inset 2px 2px 0 var(--bevel-light),
+        inset -2px -2px 0 var(--bevel-dark);
+    cursor: pointer;
+}
+
+.restart:hover {
+    filter: brightness(1.05);
+}
+
+.restart:active {
+    box-shadow:
+        inset -2px -2px 0 var(--bevel-light),
+        inset 2px 2px 0 var(--bevel-dark);
+}
+
+.restart:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* ---------- Ігрове поле ---------- */
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-columns), 1fr);
+    grid-auto-rows: 1fr;
+    gap: 3px;
+    margin-top: 0.75rem;
+    padding: 3px;
+    aspect-ratio: 1 / 1;
+    background: var(--grid-line);
+    border-radius: 8px;
+    box-shadow:
+        inset 2px 2px 0 var(--bevel-dark),
+        inset -2px -2px 0 var(--bevel-light);
+}
+
+/* ---------- Клітинка: базовий (закритий) стан ---------- */
+
+.cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 3.6vw, 1.35rem);
+    line-height: 1;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--cell-closed-top), var(--cell-closed-bottom));
+    box-shadow:
+        inset 2px 2px 0 var(--bevel-light),
+        inset -2px -2px 0 var(--bevel-dark);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button.cell:not(.is-open):hover {
+    filter: brightness(1.06);
+}
+
+button.cell:not(.is-open):active {
+    box-shadow:
+        inset -2px -2px 0 var(--bevel-light),
+        inset 2px 2px 0 var(--bevel-dark);
+}
+
+.cell:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+    z-index: 1;
+}
+
+/* ---------- Відкрита клітинка ---------- */
+
+.cell.is-open {
+    background: var(--cell-open);
+    box-shadow: inset 0 0 0 1px var(--grid-line);
+    cursor: default;
+}
+
+/* Кольори чисел за кількістю сусідніх мін */
+.cell.is-open[data-count="1"] { color: var(--n1); }
+.cell.is-open[data-count="2"] { color: var(--n2); }
+.cell.is-open[data-count="3"] { color: var(--n3); }
+.cell.is-open[data-count="4"] { color: var(--n4); }
+.cell.is-open[data-count="5"] { color: var(--n5); }
+.cell.is-open[data-count="6"] { color: var(--n6); }
+.cell.is-open[data-count="7"] { color: var(--n7); }
+.cell.is-open[data-count="8"] { color: var(--n8); }
+
+/* ---------- Клітинка з прапорцем ---------- */
+
+.cell.is-flagged::before {
+    content: "🚩";
+    font-size: 0.9em;
+}
+
+/* ---------- Клітинка з міною ---------- */
+
+.cell.is-mine {
+    background: var(--cell-open);
+    box-shadow: inset 0 0 0 1px var(--grid-line);
+    cursor: default;
+}
+
+.cell.is-mine::before {
+    content: "💣";
+    font-size: 0.9em;
+}
+
+/* Міна, на яку натиснув гравець — підсвічена червоним */
+.cell.is-mine.is-exploded {
+    background: var(--mine-hit);
+    box-shadow: inset 0 0 0 1px #b71c1c;
+}
+
+/* ---------- Прапорець на міні (правильно позначено) ---------- */
+
+.cell.is-flagged.is-mine {
+    background: var(--flag-ok);
+    box-shadow: inset 0 0 0 1px var(--grid-line);
+    cursor: default;
+}
+
+.cell.is-flagged.is-mine::before {
+    content: "🚩";
+}
+
+/* ---------- Помилковий прапорець (міни немає) ---------- */
+
+.cell.is-flagged.is-wrong {
+    background: var(--cell-open);
+    box-shadow: inset 0 0 0 1px var(--grid-line);
+    cursor: default;
+}
+
+.cell.is-flagged.is-wrong::before {
+    content: "💣";
+    filter: grayscale(1);
+}
+
+/* Перекреслення червоним хрестом */
+.cell.is-flagged.is-wrong::after {
+    content: "";
+    position: absolute;
+    inset: 14%;
+    background:
+        linear-gradient(45deg, transparent 43%, var(--wrong) 45%, var(--wrong) 55%, transparent 57%),
+        linear-gradient(-45deg, transparent 43%, var(--wrong) 45%, var(--wrong) 55%, transparent 57%);
+}
+
+/* ---------- Адаптивність ---------- */
+
+@media (width <= 380px) {
+    .game {
+        padding: 0.6rem;
+    }
+
+    .counter {
+        min-width: 4.6rem;
+        padding: 0.3rem 0.4rem;
+    }
+
+    .counter-value {
+        font-size: 1.15rem;
+    }
+
+    .restart {
+        width: 2.3rem;
+        height: 2.3rem;
+        font-size: 1.3rem;
+    }
+
+    .board {
+        gap: 2px;
+    }
+}
