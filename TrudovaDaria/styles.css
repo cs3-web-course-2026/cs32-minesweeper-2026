@@ -190,7 +190,7 @@ body {
 }
 
 /* Адаптація інтерфейсу для маленьких екранів */
-@media (max-width: 28rem) {
+@media (width <= 28rem) {
   :root {
     --cell-size: 2.1rem;
   }
