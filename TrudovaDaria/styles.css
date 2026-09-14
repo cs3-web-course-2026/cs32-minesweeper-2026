@@ -56,20 +56,20 @@ body {
   gap: 0.2rem;
 }
 
-.game-stat__label {
+.game-stat-label {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08rem;
 }
 
-.game-stat__value {
+.game-stat-value {
   font-size: 1.25rem;
   font-weight: 700;
 }
 
-.game-stat__label,
-.game-stat__value {
-  color: #ffffff;
+.game-stat-label,
+.game-stat-value {
+  color: #fff;
 }
 
 /* Кнопка початку нової гри */
@@ -87,13 +87,12 @@ body {
 }
 
 .restart-button:hover {
-  background: #ffffff;
+  background: #fff;
   transform: scale(1.05);
 }
 
-/* Виділення елементів при навігації клавіатурою */
-.restart-button:focus-visible,
-.cell:focus-visible {
+/* Виділення кнопки при навігації клавіатурою */
+.restart-button:focus-visible {
   outline: 0.2rem solid #0984e3;
   outline-offset: 0.1rem;
 }
@@ -123,64 +122,61 @@ body {
   cursor: pointer;
 }
 
-/* Закрита клітинка */
-.cell--closed {
-  background: #b2bec3;
-  border-top-color: #ffffff;
-  border-left-color: #ffffff;
-  border-right-color: #636e72;
-  border-bottom-color: #636e72;
+/* Виділення клітинки при навігації клавіатурою */
+.cell:focus-visible {
+  outline: 0.2rem solid #0984e3;
+  outline-offset: 0.1rem;
 }
 
-.cell--closed:hover {
+/* Закрита клітинка */
+.cell-closed {
+  background: #b2bec3;
+  border-color: #fff #636e72 #636e72 #fff;
+}
+
+.cell-closed:hover {
   background: #dfe6e9;
 }
 
 /* Відкрита клітинка */
-.cell--opened {
+.cell-opened {
   background: #dfe6e9;
   cursor: default;
 }
 
 /* Кольори чисел у відкритих клітинках */
-.cell--opened:nth-child(3n) {
+.cell-opened:nth-child(3n) {
   color: #0984e3;
 }
 
-.cell--opened:nth-child(3n + 1) {
+.cell-opened:nth-child(3n + 1) {
   color: #d63031;
 }
 
-.cell--opened:nth-child(3n + 2) {
+.cell-opened:nth-child(3n + 2) {
   color: #00b894;
 }
 
 /* Клітинка з прапорцем */
-.cell--flagged {
+.cell-flagged {
   background: #b2bec3;
-  border-top-color: #ffffff;
-  border-left-color: #ffffff;
-  border-right-color: #636e72;
-  border-bottom-color: #636e72;
+  border-color: #fff #636e72 #636e72 #fff;
 }
 
 /* Прапорець на клітинці з міною */
-.cell--flagged-mine {
+.cell-flagged-mine {
   background: #b2bec3;
-  border-top-color: #ffffff;
-  border-left-color: #ffffff;
-  border-right-color: #636e72;
-  border-bottom-color: #636e72;
+  border-color: #fff #636e72 #636e72 #fff;
 }
 
 /* Звичайна міна */
-.cell--mine {
+.cell-mine {
   background: #dfe6e9;
   cursor: default;
 }
 
 /* Міна, на яку натиснув користувач */
-.cell--mine-hit {
+.cell-mine-hit {
   background: #ff7675;
   cursor: default;
 }
