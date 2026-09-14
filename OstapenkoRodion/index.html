@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPER MEGA Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="minesweeper-wrapper">
+        <h1 class="top-title">SUPER MEGA</h1>
+
+        <div class="game-container">
+            <!-- Хедер гри -->
+            <div class="game-header">
+                <div class="display flags-count">🚩002</div>
+                <button class="start-btn" aria-label="Нова гра">😮</button>
+                <div class="display timer">🕝067</div>
+            </div>
+
+            <!-- Ігрове поле -->
+            <div class="game-board">
+                
+                <!-- Закриті клітинки -->
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                
+                <div class="cell open"></div>
+                <div class="cell open"></div>
+                <div class="cell open"></div>
+                
+                <!-- Клітинка з прапорцем (на мінні) -->
+                <div class="cell flag">🚩</div>
+                
+                <!-- Клітинка з прапорцем (без міни) -->
+                <div class="cell flag wrong-flag">🚩</div>
+                
+                <div class="cell"></div>
+                
+                <div class="cell open"></div>
+                <div class="cell open"></div>
+                
+                <!-- Міни -->
+                <div class="cell open mine">💣</div>
+                <div class="cell open mine exploded">💣</div>
+                
+                
+                <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+                <div class="cell"></div><div class="cell"></div>
+
+                <!-- Відкриті клітинки з цифрами -->
+                <div class="open cell" data-num="1">1</div> <div class="open cell" data-num="2">2</div><div class="open cell" data-num="3">3</div><div class="open cell" data-num="4">4</div>
+                <div class="open cell" data-num="5">5</div><div class="open cell" data-num="6">6</div><div class="open cell" data-num="7">7</div><div class="open cell" data-num="8">8</div>
+                
+                <div class="cell"></div>
+
+            </div>
+        </div>
+        <h1 class="bottom-title">Minesweeper</h1>
+    </div>
+</body>
+</html>
