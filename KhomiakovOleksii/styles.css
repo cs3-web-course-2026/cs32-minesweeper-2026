@@ -11,101 +11,74 @@ body {
 body {
     min-height: 100vh;
     padding: 20px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: #2b2b2b;
-
     font-family: Arial, sans-serif;
 }
 
 .minesweeper-app {
     width: min(100%, 520px);
     max-width: 520px;
-
     padding: 12px;
-
     background-color: #bdbdbd;
-
     border: 4px solid;
-    border-color: #ffffff #7b7b7b #7b7b7b #ffffff;
-
+    border-color: #fff #7b7b7b #7b7b7b #fff;
     overflow: hidden;
 }
 
 .game-header {
     width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     gap: 8px;
-
     padding: 8px;
     margin-bottom: 12px;
-
     background-color: #bdbdbd;
-
     border: 3px solid;
-    border-color: #7b7b7b #ffffff #ffffff #7b7b7b;
+    border-color: #7b7b7b #fff #fff #7b7b7b;
 }
 
 .counter {
     flex: 1;
     min-width: 0;
-
     padding: 4px 6px;
-
-    background-color: #000000;
-    color: #ff0000;
-
+    background-color: #000;
+    color: #f00;
     font-family: "Courier New", monospace;
     font-size: clamp(18px, 6vw, 30px);
     font-weight: bold;
-
     text-align: center;
 }
 
 .reset-btn {
     flex: 0 0 clamp(38px, 12vw, 52px);
-
     width: clamp(38px, 12vw, 52px);
     height: clamp(38px, 12vw, 52px);
-
     padding: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: #bdbdbd;
-
     border: 3px solid;
-    border-color: #ffffff #7b7b7b #7b7b7b #ffffff;
-
+    border-color: #fff #7b7b7b #7b7b7b #fff;
     font-size: clamp(20px, 7vw, 32px);
-
     cursor: pointer;
 }
 
 .reset-btn:active {
-    border-color: #7b7b7b #ffffff #ffffff #7b7b7b;
+    border-color: #7b7b7b #fff #fff #7b7b7b;
 }
 
 .game-board {
     width: 100%;
     min-width: 0;
-
     display: grid;
-
     grid-template-columns: repeat(9, minmax(0, 1fr));
-
     border: 3px solid;
-    border-color: #7b7b7b #ffffff #ffffff #7b7b7b;
-
+    border-color: #7b7b7b #fff #fff #7b7b7b;
     overflow: hidden;
 }
 
@@ -113,25 +86,18 @@ body {
     width: 100%;
     min-width: 0;
     min-height: 0;
-
     aspect-ratio: 1 / 1;
-
     padding: 0;
     margin: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: #bdbdbd;
-
     border: 3px solid;
-    border-color: #ffffff #7b7b7b #7b7b7b #ffffff;
-
+    border-color: #fff #7b7b7b #7b7b7b #fff;
     font-family: Arial, sans-serif;
     font-size: clamp(11px, 4vw, 24px);
     font-weight: bold;
-
     cursor: pointer;
     user-select: none;
 }
@@ -142,15 +108,12 @@ body {
 
 .cell.open {
     background-color: #d1d1d1;
-
     border: 1px solid #8a8a8a;
-
     cursor: default;
 }
 
 .cell.flagged::after {
     content: "🚩";
-
     font-size: 70%;
 }
 
@@ -167,7 +130,7 @@ body {
 }
 
 .cell.number-1 {
-    color: #0000ff;
+    color: #00f;
 }
 
 .cell.number-2 {
@@ -175,7 +138,7 @@ body {
 }
 
 .cell.number-3 {
-    color: #ff0000;
+    color: #f00;
 }
 
 .cell.number-4 {
@@ -191,77 +154,64 @@ body {
 }
 
 .cell.number-7 {
-    color: #000000;
+    color: #000;
 }
 
 .cell.number-8 {
-    color: #666666;
+    color: #666;
 }
 
-@media (max-width: 400px) {
-
+@media (width <= 400px) {
     body {
         padding: 8px;
     }
-
     .minesweeper-app {
         width: 100%;
         padding: 8px;
     }
-
     .game-header {
         padding: 6px;
         gap: 5px;
         margin-bottom: 8px;
     }
-
     .counter {
         font-size: 20px;
     }
-
     .reset-btn {
         flex-basis: 40px;
         width: 40px;
         height: 40px;
         font-size: 22px;
     }
-
     .cell {
         border-width: 2px;
         font-size: 14px;
     }
-
     .cell.open {
         border-width: 1px;
     }
 }
 
-@media (max-width: 300px) {
-
+@media (width <= 300px) {
     body {
         padding: 4px;
     }
-
     .minesweeper-app {
         padding: 5px;
     }
-
     .game-header {
         padding: 4px;
     }
-
     .counter {
         font-size: 17px;
         padding: 3px;
     }
-
     .reset-btn {
         flex-basis: 34px;
         width: 34px;
         height: 34px;
         font-size: 19px;
     }
-
     .cell {
         border-width: 1px;
         font-size: 11px;
