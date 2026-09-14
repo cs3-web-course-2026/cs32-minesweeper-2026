@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <!-- Хедер гри -->
+        <header class="game-header">
+
+            <div class="game-info" role="status" aria-live="polite" aria-label="Статус гри">
+
+                <div class="counter" aria-label="Кількість прапорців">
+                    <span class="counter-icon">🚩</span>
+                    <span id="flag-count">010</span>
+                </div>
+
+                <div class="counter" aria-label="Час гри">
+                    <span class="counter-icon">⏱️</span>
+                    <span id="timer">000</span>
+                </div>
+
+            </div>
+
+            <button
+                class="reset-btn"
+                type="button"
+                aria-label="Почати нову гру"
+            >
+                😃
+            </button>
+
+        </header>
+
+        <!-- Ігрове поле -->
+        <main>
+            <section
+                class="game-board"
+                aria-label="Ігрове поле Minesweeper"
+            >
+
+                <!-- 1 ряд -->
+                <div class="cell"></div>
+                <div class="cell flag flagged-mine">🚩</div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+
+                <!-- 2 ряд -->
+                <div class="cell open num-1">1</div>
+                <div class="cell open num-2">2</div>
+                <div class="cell open num-1">1</div>
+                <div class="cell open empty"></div>
+
+                <!-- 3 ряд -->
+                <div class="cell open empty"></div>
+                <div class="cell open num-1">1</div>
+                <div class="cell open mine clicked">💣</div>
+                <div class="cell open mine">💣</div>
+
+                <!-- 4 ряд -->
+                <div class="cell"></div>
+                <div class="cell open num-1">1</div>
+                <div class="cell open num-2">2</div>
+                <div class="cell flag flagged-safe">❌</div>
+
+            </section>
+        </main>
+
+    </div>
+
+</body>
+</html>
