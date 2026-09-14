@@ -2,7 +2,7 @@
 :root {
   --board-columns: 9;
   --cell-size: 2.5rem;
-  --game-width: 24rem;
+  --game-width: 25.2rem;
   --border-radius: 0.75rem;
   --shadow-size: 0.75rem;
   --cell-font-size: 1.25rem;
