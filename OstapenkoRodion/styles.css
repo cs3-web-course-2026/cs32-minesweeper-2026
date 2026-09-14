@@ -41,7 +41,7 @@ body {
     border-right: 4px solid #7b7b7b;
     border-bottom: 4px solid #7b7b7b;
     display: inline-block;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 50%);
 }
 
 /* Заголовки */
@@ -51,7 +51,7 @@ body {
     color: #fff;
     font-weight: 900;
     line-height: 1;
-    text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 5px 10px rgb(0 0 0 / 30%);
 }
 
 .top-title {
@@ -218,7 +218,7 @@ body {
 }
 
 /* Адаптивність */
-@media (max-width: 500px) {
+@media (width <= 500px) {
     .game-board {
         grid-template-columns: repeat(var(--board-cols), var(--cell-size-mobile));
         grid-auto-rows: var(--cell-size-mobile);
