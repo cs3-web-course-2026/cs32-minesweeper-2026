@@ -1,9 +1,15 @@
+:root {
+    --board-cols: 9;
+    --cell-size: 45px;
+    --cell-size-mobile: 30px;
+}
+
 /* Базові налаштування */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;
 }
 
@@ -30,18 +36,19 @@ body {
 .game-container {
     background-color: #bdbdbd;
     padding: 15px;
-    border-top: 4px solid #ffffff;
-    border-left: 4px solid #ffffff;
+    border-top: 4px solid #fff;
+    border-left: 4px solid #fff;
     border-right: 4px solid #7b7b7b;
     border-bottom: 4px solid #7b7b7b;
     display: inline-block;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
+
 /* Заголовки */
-.top-title, .bottom-title {
+.top-title,
+.bottom-title {
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     font-weight: 900;
     line-height: 1;
     text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
@@ -65,15 +72,15 @@ body {
     margin-bottom: 15px;
     border-top: 3px solid #7b7b7b;
     border-left: 3px solid #7b7b7b;
-    border-right: 3px solid #ffffff;
-    border-bottom: 3px solid #ffffff;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
 }
 
 /* Таймер та Лічильник прапорців */
 .display {
-    background-color: black;
-    color: #ff0000;
-    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    color: #f00;
+    font-family: "Courier New", Courier, monospace;
     font-size: 28px;
     font-weight: bold;
     padding: 2px 8px;
@@ -92,8 +99,8 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #bdbdbd;
-    border-top: 3px solid #ffffff;
-    border-left: 3px solid #ffffff;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
     border-right: 3px solid #7b7b7b;
     border-bottom: 3px solid #7b7b7b;
     cursor: pointer;
@@ -102,29 +109,29 @@ body {
 .start-btn:active {
     border-top: 3px solid #7b7b7b;
     border-left: 3px solid #7b7b7b;
-    border-right: 3px solid #ffffff;
-    border-bottom: 3px solid #ffffff;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
     transform: scale(0.98);
 }
 
-/* Сітка ігрового поля*/
+/* Сітка ігрового поля */
 .game-board {
     display: grid;
-    grid-template-columns: repeat(9, 45px);
-    grid-auto-rows: 45px;
+    grid-template-columns: repeat(var(--board-cols), var(--cell-size));
+    grid-auto-rows: var(--cell-size);
     gap: 1px;
     border-top: 4px solid #7b7b7b;
     border-left: 4px solid #7b7b7b;
-    border-right: 4px solid #ffffff;
-    border-bottom: 4px solid #ffffff;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
     background-color: #7b7b7b;
 }
 
 /* Дефолтна закрита клітинка */
 .cell {
     background-color: #bdbdbd;
-    border-top: 3px solid #ffffff;
-    border-left: 3px solid #ffffff;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
     border-right: 3px solid #7b7b7b;
     border-bottom: 3px solid #7b7b7b;
     display: flex;
@@ -149,14 +156,37 @@ body {
 }
 
 /* Кольори цифр */
-.cell[data-num="1"] { color: #0000ff; }
-.cell[data-num="2"] { color: #008000; }
-.cell[data-num="3"] { color: #ff0000; }
-.cell[data-num="4"] { color: #000080; }
-.cell[data-num="5"] { color: #800000; }
-.cell[data-num="6"] { color: #008080; }
-.cell[data-num="7"] { color: #000000; }
-.cell[data-num="8"] { color: #808080; }
+.cell[data-num="1"] {
+    color: #00f;
+}
+
+.cell[data-num="2"] {
+    color: #008000;
+}
+
+.cell[data-num="3"] {
+    color: #f00;
+}
+
+.cell[data-num="4"] {
+    color: #000080;
+}
+
+.cell[data-num="5"] {
+    color: #800000;
+}
+
+.cell[data-num="6"] {
+    color: #008080;
+}
+
+.cell[data-num="7"] {
+    color: #000;
+}
+
+.cell[data-num="8"] {
+    color: #808080;
+}
 
 /* Клітинка з прапорцем */
 .cell.flag {
@@ -167,8 +197,9 @@ body {
 .cell.wrong-flag {
     position: relative;
 }
+
 .cell.wrong-flag::after {
-    content: '❌';
+    content: "❌";
     position: absolute;
     font-size: 22px;
     color: red;
@@ -183,19 +214,21 @@ body {
 
 /* Клітинка з міною, на яку натиснули */
 .cell.mine.exploded {
-    background-color: #ff0000;
+    background-color: #f00;
 }
 
 /* Адаптивність */
 @media (max-width: 500px) {
     .game-board {
-        grid-template-columns: repeat(9, 30px);
-        grid-auto-rows: 30px;
+        grid-template-columns: repeat(var(--board-cols), var(--cell-size-mobile));
+        grid-auto-rows: var(--cell-size-mobile);
     }
+
     .display {
         font-size: 20px;
         min-width: 50px;
     }
+
     .start-btn {
         width: 35px;
         height: 35px;
