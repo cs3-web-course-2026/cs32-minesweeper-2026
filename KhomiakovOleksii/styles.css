@@ -118,7 +118,7 @@ body {
 }
 
 .cell.flagged.mine {
-    background-color: #bdbdbd;
+    background-color: #a0a0a0;
 }
 
 .cell.open.mine {
