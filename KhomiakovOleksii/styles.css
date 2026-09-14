@@ -1,3 +1,7 @@
+:root {
+    --board-size: 9;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -76,7 +80,7 @@ body {
     width: 100%;
     min-width: 0;
     display: grid;
-    grid-template-columns: repeat(9, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
     border: 3px solid;
     border-color: #7b7b7b #fff #fff #7b7b7b;
     overflow: hidden;
