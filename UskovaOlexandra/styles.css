@@ -1,0 +1,89 @@
+:root {
+  --board-columns: 3;
+  --cell-size: 9rem;
+  --cell-font-size: 1.5rem;
+  --bg-color: #f7f4f4;
+  --cell-bg: #f4ebeb;
+  --cell-border: #bd9a9a;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+header button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), var(--cell-size));
+  gap: 2px;
+  background-color: var(--cell-border);
+  padding: 2px;
+  border: 2px solid var(--cell-border);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: var(--cell-bg);
+  border: none;
+  font-size: var(--cell-font-size);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover {
+  background-color: #bd9a9a;
+}
+
+.cell.open {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  cursor: default;
+}
+
+.cell.flagged {
+  background-color: #e0e0e0;
+}
+.cell.flagged::after {
+  content: "🚩";
+  font-size: 0.9rem;
+}
+
+.cell.mine {
+  background-color: #ffcccc;
+}
+.cell.mine::after {
+  content: "💣";
+  font-size: 0.9rem;
+}
+
+.cell.exploded {
+  background-color: #b63333;
+}
+.cell.exploded::after {
+  content: "💥";
+  font-size: 0.9rem;
+}
