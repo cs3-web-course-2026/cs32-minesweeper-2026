@@ -104,7 +104,7 @@ header span {
 }
 
 .cell.open[data-value="2"] {
-  color: #bf6386;
+  color: #94556d;
 }
 
 .cell.flagged {
@@ -115,6 +115,10 @@ header span {
 .cell.flagged::after {
   content: "🚩";
   font-size: 2rem;
+}
+
+.cell.mine.flagged::after {
+    content: "🚩";
 }
 
 .cell.mine {
