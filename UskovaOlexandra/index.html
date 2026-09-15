@@ -9,24 +9,26 @@
   <body>
     <header>
       <button type="button" aria-label="New Game"><b>Start new game</b></button>
-      <span id="mine-counter">Mines: 10</span>
-      <span id="timer">Time: 0</span>
+      <span id="mine-counter">Mines: 2</span>
+      <span id="timer">Time: 00:04</span>
     </header>
     <main>
-      <div id="board">
+        <div id="board">
+        <!-- Ряд 1 -->
+        <button type="button" class="cell flagged" aria-label="Row 1, column 1, flagged"></button>
+        <button type="button" class="cell open" data-value="1" aria-label="Row 1, column 2, open, contains 1">1</button>
+        <button type="button" class="cell open" aria-label="Row 1, column 3, open, empty"></button>
 
-        <button type="button" class="cell" aria-label="Row 1, column 1, closed"></button>
-        <button type="button" class="cell" aria-label="Row 1, column 2, closed"></button>
-        <button type="button" class="cell" aria-label="Row 1, column 3, closed"></button>
-        
-        <button type="button" class="cell" aria-label="Row 2, column 1, closed"></button>
-        <button type="button" class="cell" aria-label="Row 2, column 2, closed"></button>
-        <button type="button" class="cell" aria-label="Row 2, column 3, closed"></button>
-        
-        <button type="button" class="cell" aria-label="Row 3, column 1, closed"></button>
-        <button type="button" class="cell" aria-label="Row 3, column 2, closed"></button>
-        <button type="button" class="cell" aria-label="Row 3, column 3, closed"></button>
-      </div>
+        <!-- Ряд 2 -->
+        <button type="button" class="cell open" data-value="2" aria-label="Row 2, column 1, open, contains 2">2</button>
+        <button type="button" class="cell mine" aria-label="Row 2, column 2, mine"></button>
+        <button type="button" class="cell open" data-value="1" aria-label="Row 2, column 3, open, contains 1">1</button>
+
+        <!-- Ряд 3 -->
+        <button type="button" class="cell open" aria-label="Row 3, column 1, open, empty"></button>
+        <button type="button" class="cell mine" aria-label="Row 3, column 2, mine"></button>
+        <button type="button" class="cell open" aria-label="Row 3, column 3, open, empty"></button>
+        </div>
       <p id="game-message" role="status" aria-live="polite"></p>
     </main>
   </body>

@@ -1,10 +1,10 @@
 :root {
   --board-columns: 3;
   --cell-size: 9rem;
-  --cell-font-size: 1.5rem;
-  --bg-color: #f7f4f4;
-  --cell-bg: #f4ebeb;
-  --cell-border: #bd9a9a;
+  --cell-font-size: 1.8rem;
+  --bg-color: #f9e9ed;
+  --cell-bg: #fdd0dc;
+  --cell-border: #ee719b;
 }
 
 body {
@@ -20,11 +20,12 @@ body {
 
 header {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: center;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  margin-bottom: 1.6rem;
+  font-size: 1.4rem;
   font-weight: bold;
+  color: #381653;
 }
 
 header button {
@@ -39,14 +40,16 @@ header button {
   gap: 2px;
   background-color: var(--cell-border);
   padding: 2px;
-  border: 2px solid var(--cell-border);
+  border: 3px solid #6e3580;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgb(113, 69, 127);
 }
 
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
   background-color: var(--cell-bg);
-  border: none;
+  border: 2px solid #593c62;
   font-size: var(--cell-font-size);
   cursor: pointer;
   display: flex;
@@ -55,35 +58,78 @@ header button {
 }
 
 .cell:hover {
-  background-color: #bd9a9a;
+  background-color: #95b6d7;
 }
 
 .cell.open {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  background-color: #fff4f5;
+  border: 2px solid #593c62;
   cursor: default;
 }
 
 .cell.flagged {
-  background-color: #e0e0e0;
+  background-color: #cde6ff;
+  border: 2px solid #593c62;
 }
+
 .cell.flagged::after {
   content: "🚩";
-  font-size: 0.9rem;
+  font-size: 3.5rem;
 }
 
 .cell.mine {
-  background-color: #ffcccc;
+  background-color: #ea94b8;
+  border: 2px solid #593c62;
 }
+
 .cell.mine::after {
   content: "💣";
-  font-size: 0.9rem;
+  font-size: 3.5rem;
 }
 
 .cell.exploded {
-  background-color: #b63333;
+  background-color: #be69b1;
+  border: 2px solid #593c62;
 }
+
 .cell.exploded::after {
   content: "💥";
-  font-size: 0.9rem;
+  font-size: 3.5rem;
 }
+
+header button {
+  background-color: #c55d78;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+header span {
+  background-color: #fdd0dc;
+  border: 2px solid #6e3580;
+  border-radius: 6px;      
+  padding: 0.4rem 1rem;     
+  box-shadow: inset 0 2px 5px rgba(110, 53, 128, 0.2); 
+  min-width: 100px;        
+  text-align: center;     
+}
+
+header button:hover {
+  background-color: #c55d78;
+}
+
+header button:active {
+  transform: scale(0.98);
+}
+
+.cell.open {
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #401363;
+}
+
