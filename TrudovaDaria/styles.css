@@ -1,0 +1,205 @@
+/* Основні змінні гри */
+:root {
+  --board-columns: 9;
+  --cell-size: 2.5rem;
+  --game-width: 25.2rem;
+  --border-radius: 0.75rem;
+  --shadow-size: 0.75rem;
+  --cell-font-size: 1.25rem;
+  --transition-duration: 0.15s;
+}
+
+/* Базові налаштування сторінки */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: #dfe6e9;
+  color: #2d3436;
+  font-family: Arial, sans-serif;
+}
+
+/* Основний контейнер гри */
+.game {
+  width: min(100%, var(--game-width));
+  padding: 1rem;
+  border: 0.15rem solid #b2bec3;
+  border-radius: var(--border-radius);
+  background: #f5f6fa;
+  box-shadow: 0 var(--shadow-size) 1.5rem rgb(0 0 0 / 15%);
+}
+
+/* Хедер із лічильником, кнопкою та таймером */
+.game-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: #2d3436;
+}
+
+/* Блоки статистики гри */
+.game-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.game-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+}
+
+.game-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.game-stat-label,
+.game-stat-value {
+  color: #fff;
+}
+
+/* Кнопка початку нової гри */
+.restart-button {
+  width: 3rem;
+  height: 3rem;
+  border: 0.15rem solid #636e72;
+  border-radius: 0.5rem;
+  background: #dfe6e9;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition:
+    transform var(--transition-duration) ease,
+    background var(--transition-duration) ease;
+}
+
+.restart-button:hover {
+  background: #fff;
+  transform: scale(1.05);
+}
+
+/* Виділення кнопки при навігації клавіатурою */
+.restart-button:focus-visible {
+  outline: 0.2rem solid #0984e3;
+  outline-offset: 0.1rem;
+}
+
+/* Ігрове поле у вигляді сітки */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), var(--cell-size));
+  justify-content: center;
+  overflow: auto;
+  border: 0.2rem solid #636e72;
+  background: #636e72;
+}
+
+/* Загальні стилі клітинок */
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid #636e72;
+  border-radius: 0;
+  font-size: var(--cell-font-size);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Виділення клітинки при навігації клавіатурою */
+.cell:focus-visible {
+  outline: 0.2rem solid #0984e3;
+  outline-offset: 0.1rem;
+}
+
+/* Закрита клітинка */
+.cell-closed {
+  background: #b2bec3;
+  border-color: #fff #636e72 #636e72 #fff;
+}
+
+.cell-closed:hover {
+  background: #dfe6e9;
+}
+
+/* Відкрита клітинка */
+.cell-opened {
+  background: #dfe6e9;
+  cursor: default;
+}
+
+/* Кольори чисел у відкритих клітинках */
+.cell-opened:nth-child(3n) {
+  color: #0984e3;
+}
+
+.cell-opened:nth-child(3n + 1) {
+  color: #d63031;
+}
+
+.cell-opened:nth-child(3n + 2) {
+  color: #00b894;
+}
+
+/* Клітинка з прапорцем */
+.cell-flagged {
+  background: #b2bec3;
+  border-color: #fff #636e72 #636e72 #fff;
+}
+
+/* Прапорець на клітинці з міною */
+.cell-flagged-mine {
+  background: #b2bec3;
+  border-color: #fff #636e72 #636e72 #fff;
+}
+
+/* Звичайна міна */
+.cell-mine {
+  background: #dfe6e9;
+  cursor: default;
+}
+
+/* Міна, на яку натиснув користувач */
+.cell-mine-hit {
+  background: #ff7675;
+  cursor: default;
+}
+
+/* Повідомлення про стан гри */
+.game-message {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Адаптація інтерфейсу для маленьких екранів */
+@media (width <= 28rem) {
+  :root {
+    --cell-size: 2.1rem;
+  }
+
+  .game {
+    padding: 0.75rem;
+  }
+
+  .game-header {
+    gap: 0.5rem;
+  }
+}
