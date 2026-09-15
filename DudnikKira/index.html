@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="game-container">
+  <header class="game-header">
+    <div class="counter" id="flag-counter">010</div>
+    <button class="reset-button" aria-label="Нова гра">🙂</button>
+    <div class="counter" id="timer">000</div>
+  </header>
+
+  <main class="game-board">
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+
+    <div class="cell open"></div>
+    <div class="cell open number-1">1</div>
+    <div class="cell open number-2">2</div>
+    <div class="cell open number-3">3</div>
+
+    <div class="cell flag">🚩</div>
+    <div class="cell flag">🚩</div>
+    <div class="cell open mine">💣</div>
+    <div class="cell open mine exploded">💥</div>
+
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+    <button class="cell"></button>
+  </main>
+</div>
+</body>
+</html>
