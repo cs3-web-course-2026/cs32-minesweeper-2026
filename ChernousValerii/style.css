@@ -1,4 +1,12 @@
-﻿/* СКИДАННЯ ТА БАЗОВІ НАЛАШТУВАННЯ */
+﻿/* КОНСТАНТИ */
+:root {
+  --cell-size: 40px;
+  --board-columns: 9;
+  --board-gap: 4px;
+  --animation-duration: 0.2s;
+}
+
+/* СКИДАННЯ ТА БАЗОВІ НАЛАШТУВАННЯ */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -148,7 +156,7 @@ body {
     display: grid;
     grid-template-columns: repeat(9, 38px);
     grid-template-rows: repeat(9, 38px);
-    gap: 3px;
+    gap: var(--board-gap);
     background-color: #161922;
     padding: 6px;
     border-radius: 6px;
@@ -158,8 +166,8 @@ body {
 
 /* Базовий вигляд однієї клітинки */
 .cell {
-    width: 38px;
-    height: 38px;
+    width: var(--cell-size);
+    height: var(--cell-size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,7 +175,7 @@ body {
     font-weight: 800;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.1s ease, transform 0.05s ease;
+    transition: background-color var(--animation-duration) ease;
 }
 
 /* 1. Закрита клітинка */
