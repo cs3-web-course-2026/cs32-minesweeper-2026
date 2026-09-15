@@ -1,7 +1,7 @@
 :root {
   --board-columns: 3;
-  --cell-size: 9rem;
-  --cell-font-size: 1.8rem;
+  --cell-size: 7rem;
+  --cell-font-size: 1.5rem;
   --bg-color: #f9e9ed;
   --cell-bg: #fdd0dc;
   --cell-border: #ee719b;
@@ -29,9 +29,33 @@ header {
 }
 
 header button {
-  padding: 0.5rem 1rem;
+  background-color: #c55d78;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+header button:hover {
+  background-color: #a84b63;
+}
+
+header button:active {
+  transform: scale(0.98);
+}
+
+header span {
+  background-color: #fdd0dc;
+  border: 2px solid #6e3580;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  box-shadow: inset 0 2px 5px rgb(110 53 128 / 20%);
+  min-width: 100px;
+  text-align: center;
 }
 
 #board {
@@ -42,7 +66,7 @@ header button {
   padding: 2px;
   border: 3px solid #6e3580;
   border-radius: 6px;
-  box-shadow: 0 8px 20px rgb(113, 69, 127);
+  box-shadow: 0 8px 20px rgb(113 69 127 / 40%);
 }
 
 .cell {
@@ -55,16 +79,32 @@ header button {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 
 .cell:hover {
-  background-color: #95b6d7;
+  background-color: #f494ae;
+}
+
+.cell:active {
+  transform: scale(0.95);
 }
 
 .cell.open {
   background-color: #fff4f5;
   border: 2px solid #593c62;
   cursor: default;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #401363;
+}
+
+.cell.open[data-value="1"] {
+  color: #6891e4;
+}
+
+.cell.open[data-value="2"] {
+  color: #bf6386;
 }
 
 .cell.flagged {
@@ -74,7 +114,7 @@ header button {
 
 .cell.flagged::after {
   content: "🚩";
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
 
 .cell.mine {
@@ -84,7 +124,7 @@ header button {
 
 .cell.mine::after {
   content: "💣";
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
 
 .cell.exploded {
@@ -94,42 +134,5 @@ header button {
 
 .cell.exploded::after {
   content: "💥";
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
-
-header button {
-  background-color: #c55d78;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-header span {
-  background-color: #fdd0dc;
-  border: 2px solid #6e3580;
-  border-radius: 6px;      
-  padding: 0.4rem 1rem;     
-  box-shadow: inset 0 2px 5px rgba(110, 53, 128, 0.2); 
-  min-width: 100px;        
-  text-align: center;     
-}
-
-header button:hover {
-  background-color: #c55d78;
-}
-
-header button:active {
-  transform: scale(0.98);
-}
-
-.cell.open {
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  color: #401363;
-}
-
