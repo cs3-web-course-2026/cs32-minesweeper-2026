@@ -4,8 +4,7 @@
   --border-dark: #808080;
   --border-black: #000;
   --cell-size: clamp(30px, 7vw, 38px);
-  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
+  --font-stack: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif;}
 
 *,
 *::before,
