@@ -1,0 +1,213 @@
+:root {
+  --ui-bg: #c0c0c0;
+  --border-light: #ffffff;
+  --border-dark: #808080;
+  --border-black: #000000;
+  --cell-size: clamp(30px, 7vw, 38px);
+  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 1. Box Model скидання та базова структура */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a252f;
+  font-family: var(--font-stack);
+  padding: 1rem;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 2. Класичний рельєф (Bevel) */
+.minesweeper {
+  background-color: var(--ui-bg);
+  padding: 10px;
+  user-select: none;
+}
+
+.bevel-outer {
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-black);
+  border-bottom: 3px solid var(--border-black);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.bevel-inset {
+  border-top: 3px solid var(--border-dark);
+  border-left: 3px solid var(--border-dark);
+  border-right: 3px solid var(--border-light);
+  border-bottom: 3px solid var(--border-light);
+}
+
+.bevel-btn {
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-dark);
+  border-bottom: 3px solid var(--border-dark);
+}
+
+/* 3. Хедер та органи керування (Flexbox) */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+
+.lcd-counter {
+  background-color: var(--border-black);
+  padding: 2px 5px;
+  display: flex;
+  gap: 2px;
+  border-radius: 2px;
+}
+
+.lcd-digit {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ff0000;
+  line-height: 1;
+  text-shadow: 0 0 4px rgba(255, 0, 0, 0.8);
+}
+
+.btn-face {
+  width: 40px;
+  height: 40px;
+  background-color: var(--ui-bg);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  transition: transform 0.05s ease;
+}
+
+/* A11y: видимий контур фокусу при переході через Tab */
+.btn-face:focus-visible,
+.cell:focus-visible {
+  outline: 3px solid #ffbf00;
+  outline-offset: 1px;
+}
+
+.btn-face:active {
+  border-top: 3px solid var(--border-dark);
+  border-left: 3px solid var(--border-dark);
+  border-right: 3px solid var(--border-light);
+  border-bottom: 3px solid var(--border-light);
+  transform: scale(0.97);
+}
+
+/* 4. Ігрова сітка (CSS Grid) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, var(--cell-size));
+  grid-template-rows: repeat(8, var(--cell-size));
+  background-color: var(--border-dark);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: calc(var(--cell-size) * 0.55);
+  font-weight: 900;
+  border: none;
+  background: none;
+}
+
+/* 5. Стани клітинок */
+.cell--closed {
+  background-color: var(--ui-bg);
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-dark);
+  border-bottom: 3px solid var(--border-dark);
+  cursor: pointer;
+}
+
+.cell--closed:hover {
+  filter: brightness(1.06);
+}
+
+.cell--closed:active {
+  border: 1px solid var(--border-dark);
+  filter: none;
+}
+
+.cell--open {
+  background-color: var(--ui-bg);
+  border: 1px solid #7d7d7d;
+}
+
+/* Кольори цифр кількості сусідніх мін */
+.cell--num-1 { color: #0000ff; }
+.cell--num-2 { color: #017e00; }
+.cell--num-3 { color: #ff0000; }
+.cell--num-4 { color: #010080; }
+.cell--num-5 { color: #7f0300; }
+.cell--num-6 { color: #008080; }
+.cell--num-7 { color: #000000; }
+.cell--num-8 { color: #808080; }
+
+/* Стани позначок і мін */
+.cell--flagged,
+.cell--question {
+  cursor: pointer;
+}
+
+.cell--mine {
+  background-color: var(--ui-bg);
+}
+
+.cell--mine-exploded {
+  background-color: #ff2525;
+}
+
+.cell--flagged-correct {
+  background-color: #b4e3b4;
+}
+
+.cell--flagged-wrong {
+  background-color: #f7c0c0;
+}
+
+/* 6. Адаптивність (Медіа-запити) */
+@media (max-width: 360px) {
+  .minesweeper {
+    padding: 6px;
+  }
+  
+  .game-header {
+    padding: 4px 6px;
+  }
+  
+  .btn-face {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .lcd-digit {
+    font-size: 1.25rem;
+  }
+}
