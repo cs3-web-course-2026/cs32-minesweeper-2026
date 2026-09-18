@@ -168,12 +168,6 @@ body {
   outline: none;
 }
 
-.valhalla-btn:focus-visible,
-.v-cell:focus-visible {
-  outline: 3px solid var(--gold-runic);
-  outline-offset: 3px;
-}
-
 .valhalla-btn:hover {
   transform: scale(1.06);
   border-color: var(--gold-glow);
@@ -237,6 +231,12 @@ body {
   transition:
     filter 0.15s,
     transform 0.1s;
+}
+
+.valhalla-btn:focus-visible,
+.v-cell:focus-visible {
+  outline: 3px solid var(--gold-runic);
+  outline-offset: 3px;
 }
 
 .v-cell:hover:not(.v-cell-revealed) {
