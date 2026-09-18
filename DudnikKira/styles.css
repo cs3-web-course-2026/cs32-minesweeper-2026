@@ -18,7 +18,7 @@ body {
     border: 3px solid;
     border-color: #fff #808080 #808080 #fff;
     padding: 12px;
-    box-shadow: 0 10px 20px rgba(0 0 0 / 0.3);
+    box-shadow: none;
 }
 
 .game-header {
