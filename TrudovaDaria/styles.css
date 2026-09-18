@@ -145,16 +145,16 @@ body {
 }
 
 /* Кольори чисел у відкритих клітинках */
-.cell-opened:nth-child(3n) {
+.cell-number-1 {
   color: #0984e3;
 }
 
-.cell-opened:nth-child(3n + 1) {
-  color: #d63031;
+.cell-number-2 {
+  color: #00b894;
 }
 
-.cell-opened:nth-child(3n + 2) {
-  color: #00b894;
+.cell-number-3 {
+  color: #d63031;
 }
 
 /* Клітинка з прапорцем */
