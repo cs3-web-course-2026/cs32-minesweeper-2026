@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <main class="game">
+        <h1>Minesweeper</h1>
+
+        <header class="game-header">
+            <div class="game-info">
+                <span class="label">Час</span>
+                <span class="value">00:42</span>
+            </div>
+
+            <button class="restart-button" type="button" aria-label="Почати нову гру">
+                🙂
+            </button>
+
+            <div class="game-info">
+                <span class="label">Прапорці</span>
+                <span class="value">8 / 10</span>
+            </div>
+        </header>
+
+        <section class="board" aria-label="Ігрове поле Minesweeper">
+
+            <!-- 1 рядок -->
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+            <div class="cell flagged-mine">🚩</div>
+            <div class="cell closed"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+
+            <!-- 2 рядок -->
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-2">2</div>
+            <div class="cell closed"></div>
+            <div class="cell flagged-safe">🚩</div>
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+
+            <!-- 3 рядок -->
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+            <div class="cell opened number-2">2</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+
+            <!-- 4 рядок -->
+            <div class="cell closed"></div>
+            <div class="cell flagged-mine">🚩</div>
+            <div class="cell flagged-safe">🚩</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+
+            <!-- 5 рядок -->
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-2">2</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+            <div class="cell closed"></div>
+
+            <!-- 6 рядок -->
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+            <div class="cell flagged-mine">🚩</div>
+            <div class="cell closed"></div>
+
+            <!-- 7 рядок -->
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell mine">💣</div>
+            <div class="cell opened number-2">2</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+
+            <!-- 8 рядок -->
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-2">2</div>
+            <div class="cell exploded">💣</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+
+            <!-- 9 рядок -->
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell opened"></div>
+            <div class="cell opened"></div>
+            <div class="cell opened number-1">1</div>
+            <div class="cell closed"></div>
+
+        </section>
+
+        <section class="cell-states">
+            <h2>Стани клітинок</h2>
+
+            <div class="states-list">
+                <div class="state">
+                    <span class="cell closed"></span>
+                    <span>Закрита</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell opened"></span>
+                    <span>Відкрита</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell flagged-mine">🚩</span>
+                    <span>Прапорець на міні</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell flagged-safe">🚩</span>
+                    <span>Прапорець без міни</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell mine">💣</span>
+                    <span>Міна</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell exploded">💣</span>
+                    <span>Натиснута міна</span>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
