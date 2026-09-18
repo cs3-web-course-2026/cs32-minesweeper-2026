@@ -103,6 +103,7 @@ button.cell:active {
     background-color: #ff0000;
 }
 
+
 @media (max-width: 400px) {
     .game-board {
         grid-template-columns: repeat(4, 32px);
