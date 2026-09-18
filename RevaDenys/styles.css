@@ -168,6 +168,12 @@ body {
   outline: none;
 }
 
+.valhalla-btn:focus-visible,
+.v-cell:focus-visible {
+  outline: 3px solid var(--gold-runic);
+  outline-offset: 3px;
+}
+
 .valhalla-btn:hover {
   transform: scale(1.06);
   border-color: var(--gold-glow);
@@ -430,5 +436,18 @@ body {
 
   .game-title {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viking-frame,
+  .v-cell-flagged::after,
+  .v-cell-exploded {
+    animation: none;
+  }
+
+  .valhalla-btn,
+  .v-cell {
+    transition: none;
   }
 }
