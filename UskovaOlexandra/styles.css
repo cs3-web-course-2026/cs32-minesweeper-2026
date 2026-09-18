@@ -1,10 +1,13 @@
 :root {
   --board-columns: 3;
-  --cell-size: 7rem;
+  --cell-size: min(7rem, 28vw);
   --cell-font-size: 1.5rem;
   --bg-color: #f9e9ed;
   --cell-bg: #fdd0dc;
   --cell-border: #ee719b;
+  --anim-duration-slow: 0.2s;
+  --anim-duration-fast: 0.1s;
+  --anim-duration-medium: 0.15s;
 }
 
 body {
@@ -37,7 +40,7 @@ header button {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color var(--anim-duration-slow) ease, transform var(--anim-duration-fast) ease;
 }
 
 header button:hover {
@@ -79,7 +82,7 @@ header span {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  transition: background-color var(--anim-duration-medium) ease, transform var(--anim-duration-fast) ease;
 }
 
 .cell:hover {
@@ -117,8 +120,12 @@ header span {
   font-size: 2rem;
 }
 
+.cell.flagged.safe {
+  background-color: #e2f0ff;
+}
+
 .cell.mine.flagged::after {
-    content: "🚩";
+  content: "🚩";
 }
 
 .cell.mine {
