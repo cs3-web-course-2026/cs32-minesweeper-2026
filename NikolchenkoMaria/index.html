@@ -9,7 +9,6 @@
 
 <body>
     <main class="game">
-
         <h1>Minesweeper</h1>
 
         <header class="game-header">
@@ -35,7 +34,7 @@
             <div class="cell opened number-1">1</div>
             <div class="cell closed"></div>
             <div class="cell closed"></div>
-            <div class="cell flagged">🚩</div>
+            <div class="cell flagged-mine">🚩</div>
             <div class="cell closed"></div>
             <div class="cell opened number-1">1</div>
             <div class="cell opened"></div>
@@ -45,7 +44,7 @@
             <div class="cell opened number-1">1</div>
             <div class="cell opened number-2">2</div>
             <div class="cell closed"></div>
-            <div class="cell flagged">🚩</div>
+            <div class="cell flagged-safe">🚩</div>
             <div class="cell closed"></div>
             <div class="cell closed"></div>
             <div class="cell opened number-1">1</div>
@@ -65,8 +64,8 @@
 
             <!-- 4 рядок -->
             <div class="cell closed"></div>
-            <div class="cell flagged">🚩</div>
-            <div class="cell closed"></div>
+            <div class="cell flagged-mine">🚩</div>
+            <div class="cell flagged-safe">🚩</div>
             <div class="cell opened number-1">1</div>
             <div class="cell opened"></div>
             <div class="cell opened"></div>
@@ -93,7 +92,7 @@
             <div class="cell opened"></div>
             <div class="cell opened number-1">1</div>
             <div class="cell closed"></div>
-            <div class="cell flagged">🚩</div>
+            <div class="cell flagged-mine">🚩</div>
             <div class="cell closed"></div>
 
             <!-- 7 рядок -->
@@ -146,8 +145,13 @@
                 </div>
 
                 <div class="state">
-                    <span class="cell flagged">🚩</span>
-                    <span>Прапорець</span>
+                    <span class="cell flagged-mine">🚩</span>
+                    <span>Прапорець на міні</span>
+                </div>
+
+                <div class="state">
+                    <span class="cell flagged-safe">🚩</span>
+                    <span>Прапорець без міни</span>
                 </div>
 
                 <div class="state">
@@ -161,7 +165,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 </body>
 </html>
