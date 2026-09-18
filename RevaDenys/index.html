@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viking Minesweeper</title>
+    <!-- Підключення шрифтів у нордичному/фентезі стилі -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=MedievalSharp&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Загальна фентезійна рамка гри -->
+    <main class="viking-frame">
+      <!-- Декоративні кутові заклепки/руни (приховані від screen reader) -->
+      <span class="rune-corner top-left" aria-hidden="true">ᚠ</span>
+      <span class="rune-corner top-right" aria-hidden="true">ᚦ</span>
+      <span class="rune-corner bottom-left" aria-hidden="true">ᛟ</span>
+      <span class="rune-corner bottom-right" aria-hidden="true">ᛏ</span>
+
+      <h1 class="game-title">MineSweeper</h1>
+
+      <!-- Оптимізований хедер гри -->
+      <header class="viking-header">
+        <div
+          class="stone-tracker"
+          title="Залишилося ворожих пасток"
+          role="status"
+          aria-live="polite"
+        >
+          <span class="tracker-icon" aria-hidden="true">🚩</span>
+          <span
+            class="tracker-value"
+            id="flag-count"
+            aria-label="Залишилось пасток: 12"
+            >012</span
+          >
+        </div>
+
+        <button
+          type="button"
+          class="valhalla-btn"
+          aria-label="Розпочати нову битву"
+          id="btn-restart"
+        >
+          <span class="viking-avatar" aria-hidden="true">🛡️</span>
+        </button>
+
+        <div class="stone-tracker" title="Час випробування">
+          <span class="tracker-icon" aria-hidden="true">⏳</span>
+          <time
+            class="tracker-value"
+            id="timer"
+            role="timer"
+            aria-live="off"
+            aria-label="Минуло секунд: 0"
+            >000</time
+          >
+        </div>
+      </header>
+
+      <!-- Ігрове поле (WAI-ARIA Grid 8x8) -->
+      <section
+        class="viking-grid"
+        id="grid"
+        role="grid"
+        aria-label="Ігрове поле Сапер, сітка 8 на 8"
+        aria-rowcount="8"
+        aria-colcount="8"
+      >
+        <!-- Рядок 1: Закриті та прапорці -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="2"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-flagged"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="3"
+            aria-label="Позначено сокирою або стягом"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="4"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="1"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 2: Відкриті рунічні цифри -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-1"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="1"
+            aria-label="1 міна поруч"
+            disabled
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-2"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="2"
+            aria-label="2 міни поруч"
+            disabled
+          >
+            2
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-3"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="3"
+            aria-label="3 міни поруч"
+            disabled
+          >
+            3
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-4"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="4"
+            aria-label="4 міни поруч"
+            disabled
+          >
+            4
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-5"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="5"
+            aria-label="5 мін поруч"
+            disabled
+          >
+            5
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="6"
+            aria-label="Відкрито, порожньо"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="2"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 3: Комбінації станів -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-1"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="2"
+            aria-label="1 міна поруч"
+            disabled
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="3"
+            aria-label="Відкрито, порожньо"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-1"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="4"
+            aria-label="1 міна поруч"
+            disabled
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-flagged"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="6"
+            aria-label="Позначено сокирою або стягом"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="3"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 4: Виявлені пастки та підірвана плита -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-trap"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="2"
+            aria-label="Магічна пастка"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-trap v-cell-exploded"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="3"
+            aria-label="Пастка спрацювала, вибух"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-2"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="4"
+            aria-label="2 міни поруч"
+            disabled
+          >
+            2
+          </button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="4"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 5: Хибний прапорець -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-flagged-wrong"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="2"
+            aria-label="Хибний прапорець, міни тут не було"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed v-cell-1"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="3"
+            aria-label="1 міна поруч"
+            disabled
+          >
+            1
+          </button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="4"
+            aria-label="Відкрито, порожньо"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell v-cell-revealed"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="5"
+            aria-label="Відкрито, порожньо"
+            disabled
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="5"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 6: Закриті плити -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="2"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="3"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="4"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="6"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 7: Закриті плити -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="2"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="3"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="4"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="7"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+
+        <!-- Рядок 8: Закриті плити -->
+        <div role="row">
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="1"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="2"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="3"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="4"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="5"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="6"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="7"
+            aria-label="Закрита плита"
+          ></button>
+          <button
+            type="button"
+            class="v-cell"
+            role="gridcell"
+            aria-rowindex="8"
+            aria-colindex="8"
+            aria-label="Закрита плита"
+          ></button>
+        </div>
+      </section>
+
+      <!-- Індикатор статусу гри знизу для атмосфери -->
+      <footer class="viking-footer">
+        <span>Гарної гри</span>
+      </footer>
+    </main>
+  </body>
+</html>

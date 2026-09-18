@@ -1,0 +1,453 @@
+/* ==========================================================================
+   Нордична колірна палітра та глобальні змінні
+   ========================================================================== */
+:root {
+  /* Текстури та матеріали */
+  --stone-dark: #191c1e;
+  --stone-mid: #2c3338;
+  --stone-light: #47535b;
+  --stone-carved: #14181a;
+  --iron-border: #52473d;
+  --iron-highlight: #8d7d6f;
+  --wood-bg: #1c140e;
+  --gold-glow: #e8a638;
+  --gold-runic: #ffcf68;
+
+  /* Рунічні кольори небезпеки */
+  --rune-blue: #38bdf8;
+  --rune-green: #4ade80;
+  --rune-amber: #fbbf24;
+  --rune-purple: #c084fc;
+  --rune-crimson: #f87171;
+  --rune-cyan: #2dd4bf;
+  --rune-silver: #e2e8f0;
+  --rune-obsidian: #94a3b8;
+
+  /* Динамічний розмір клітинки */
+  --cell-size: clamp(32px, 8.5vw, 54px);
+  --frame-padding: clamp(10px, 2.5vw, 24px);
+}
+
+/* Скидання стилів */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #1b2026 0%, #0c0e12 100%);
+  font-family: MedievalSharp, cursive, serif;
+  color: #e5e5e5;
+  padding: 12px;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Головний контейнер
+   ========================================================================== */
+.viking-frame {
+  position: relative;
+  background: linear-gradient(145deg, #261f1a, #16120e);
+  padding: var(--frame-padding);
+  border: 4px solid var(--iron-border);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 3px #0d0a08,
+    0 15px 40px rgb(0 0 0 / 90%),
+    inset 0 0 15px rgb(0 0 0 / 80%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 18px);
+  max-width: 98vw;
+  animation: frame-appear 0.5s ease-out;
+}
+
+/* Декоративні руни по кутах рамки */
+.rune-corner {
+  position: absolute;
+  font-size: 1.1rem;
+  color: var(--iron-highlight);
+  text-shadow: 0 0 4px var(--gold-glow);
+  opacity: 0.7;
+}
+
+.top-left {
+  top: 6px;
+  left: 8px;
+}
+
+.top-right {
+  top: 6px;
+  right: 8px;
+}
+
+.bottom-left {
+  bottom: 6px;
+  left: 8px;
+}
+
+.bottom-right {
+  bottom: 6px;
+  right: 8px;
+}
+
+.game-title {
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  letter-spacing: 3px;
+  color: var(--gold-runic);
+  text-shadow:
+    0 0 10px rgb(232 166 56 / 40%),
+    2px 2px 4px #000;
+}
+
+/* ==========================================================================
+   Хедер: Дисплеї та Кнопка
+   ========================================================================== */
+.viking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #13171a, #20262b);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 2px solid var(--stone-light);
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 80%);
+}
+
+.stone-tracker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0d1013;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--iron-border);
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 90%);
+}
+
+.tracker-icon {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  filter: drop-shadow(0 0 3px var(--gold-glow));
+}
+
+.tracker-value {
+  font-family: 'Cinzel Decorative', monospace;
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-weight: 700;
+  color: var(--gold-runic);
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgb(255 207 104 / 60%);
+}
+
+.valhalla-btn {
+  background: radial-gradient(circle, #3e4850 0%, #1c2227 100%);
+  width: clamp(42px, 9vw, 56px);
+  height: clamp(42px, 9vw, 56px);
+  border-radius: 50%;
+  border: 3px solid var(--iron-highlight);
+  box-shadow:
+    0 4px 10px rgb(0 0 0 / 80%),
+    inset 0 2px 4px rgb(255 255 255 / 20%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  outline: none;
+}
+
+.valhalla-btn:hover {
+  transform: scale(1.06);
+  border-color: var(--gold-glow);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.valhalla-btn:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 4px 8px rgb(0 0 0 / 90%);
+}
+
+.viking-avatar {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 80%));
+}
+
+/* ==========================================================================
+   Ігрове поле
+   ========================================================================== */
+.viking-grid {
+  display: grid;
+  grid-template-columns: repeat(8, var(--cell-size));
+  grid-auto-rows: var(--cell-size);
+  gap: 3px;
+  background-color: #0c0e11;
+  padding: 6px;
+  border-radius: 8px;
+  border: 3px solid var(--iron-border);
+  box-shadow: inset 0 0 16px rgb(0 0 0 / 95%);
+  margin: 0 auto;
+}
+
+.viking-grid [role='row'] {
+  display: contents;
+}
+
+/* ==========================================================================
+   Стани клітинок
+   ========================================================================== */
+
+/* 1. Закрита клітинка */
+.v-cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background: linear-gradient(135deg, #3f474e, #23292e);
+  border: none;
+  border-top: 2px solid #5a6670;
+  border-left: 2px solid #5a6670;
+  border-bottom: 2px solid #141719;
+  border-right: 2px solid #141719;
+  border-radius: 4px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: calc(var(--cell-size) * 0.48);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition:
+    filter 0.15s,
+    transform 0.1s;
+}
+
+.valhalla-btn:focus-visible,
+.v-cell:focus-visible {
+  outline: 3px solid var(--gold-runic);
+  outline-offset: 3px;
+}
+
+.v-cell:hover:not(.v-cell-revealed) {
+  filter: brightness(1.2);
+}
+
+.v-cell:active:not(.v-cell-revealed) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 80%);
+}
+
+/* 2. Відкрита клітинка */
+.v-cell-revealed {
+  background: #15191c;
+  border: 1px solid #232a30;
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 85%);
+  cursor: default;
+}
+
+.v-cell-1 {
+  color: var(--rune-blue);
+  text-shadow: 0 0 8px var(--rune-blue);
+}
+
+.v-cell-2 {
+  color: var(--rune-green);
+  text-shadow: 0 0 8px var(--rune-green);
+}
+
+.v-cell-3 {
+  color: var(--rune-amber);
+  text-shadow: 0 0 8px var(--rune-amber);
+}
+
+.v-cell-4 {
+  color: var(--rune-purple);
+  text-shadow: 0 0 8px var(--rune-purple);
+}
+
+.v-cell-5 {
+  color: var(--rune-crimson);
+  text-shadow: 0 0 8px var(--rune-crimson);
+}
+
+.v-cell-6 {
+  color: var(--rune-cyan);
+  text-shadow: 0 0 8px var(--rune-cyan);
+}
+
+.v-cell-7 {
+  color: var(--rune-silver);
+  text-shadow: 0 0 8px var(--rune-silver);
+}
+
+.v-cell-8 {
+  color: var(--rune-obsidian);
+  text-shadow: 0 0 8px var(--rune-obsidian);
+}
+
+/* 3. Клітинка з прапорцем */
+.v-cell-flagged::after {
+  content: '⚔️';
+  font-size: calc(var(--cell-size) * 0.52);
+  filter: drop-shadow(0 0 4px var(--gold-glow));
+  animation: flag-sway 2s ease-in-out infinite alternate;
+}
+
+/* 4. Хибний прапорець */
+.v-cell-flagged-wrong {
+  position: relative;
+}
+
+.v-cell-flagged-wrong::after {
+  content: '⚔️';
+  font-size: calc(var(--cell-size) * 0.52);
+  opacity: 0.5;
+}
+
+.v-cell-flagged-wrong::before {
+  content: '✕';
+  position: absolute;
+  color: #ef4444;
+  font-family: sans-serif;
+  font-size: calc(var(--cell-size) * 0.7);
+  font-weight: 900;
+  text-shadow: 0 0 6px #7f1d1d;
+  z-index: 2;
+}
+
+/* 5. Звичайна відкрита міна */
+.v-cell-trap {
+  background: #191418;
+  border: 1px solid #4a1d24;
+}
+
+.v-cell-trap::after {
+  content: '💀';
+  font-size: calc(var(--cell-size) * 0.55);
+  filter: drop-shadow(0 0 5px #a855f7);
+}
+
+/* 6. Підірвана міна */
+.v-cell-exploded {
+  background: radial-gradient(circle, #b91c1c 20%, #450a0a 100%) !important;
+  border: 2px solid #f87171 !important;
+  box-shadow:
+    0 0 15px #dc2626,
+    inset 0 0 8px #fca5a5 !important;
+  animation: pulse-rage 1.2s infinite alternate;
+}
+
+.v-cell-exploded::after {
+  content: '💥';
+  font-size: calc(var(--cell-size) * 0.6);
+  filter: drop-shadow(0 0 8px #ffedd5);
+}
+
+/* ==========================================================================
+   Футер
+   ========================================================================== */
+.viking-footer {
+  text-align: center;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  color: #8d7d6f;
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* ==========================================================================
+   Анімації
+   ========================================================================== */
+@keyframes frame-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse-rage {
+  from {
+    box-shadow: 0 0 8px #dc2626;
+  }
+
+  to {
+    box-shadow:
+      0 0 20px #ef4444,
+      inset 0 0 10px #fee2e2;
+  }
+}
+
+@keyframes flag-sway {
+  0% {
+    transform: rotate(-3deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+/* ==========================================================================
+   Адаптивні медіа-запити
+   ========================================================================== */
+@media (width <= 480px) {
+  .viking-frame {
+    width: 100%;
+    border-width: 2px;
+  }
+
+  .viking-header {
+    padding: 6px 8px;
+  }
+
+  .stone-tracker {
+    padding: 4px 8px;
+  }
+}
+
+@media (height <= 520px) and (orientation: landscape) {
+  :root {
+    --cell-size: clamp(24px, 7vh, 38px);
+  }
+
+  body {
+    padding: 4px;
+  }
+
+  .viking-frame {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .game-title {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viking-frame,
+  .v-cell-flagged::after,
+  .v-cell-exploded {
+    animation: none;
+  }
+
+  .valhalla-btn,
+  .v-cell {
+    transition: none;
+  }
+}
