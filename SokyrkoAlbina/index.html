@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сапер</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="game-container">
+        <header class="game-header">
+            <div class="display" aria-label="Кількість прапорців" title="Прапорці">
+                <span class="icon-flag">🏴‍☠️</span> <span id="flags-count">010</span>
+            </div>
+
+            <button class="start-btn" id="start-btn" aria-label="Почати нову гру">
+                🧭
+            </button>
+
+            <div class="display" aria-label="Час гри" title="Час">
+                ⏳ <span id="timer">000</span>
+            </div>
+        </header>
+
+        <section class="game-board" aria-label="Ігрове поле">
+            <!-- (демонстрація станів) -->
+            <button class="cell flagged" aria-label="Клітинка з прапорцем">🏴‍☠️</button>
+            <button class="cell open mine" aria-label="Міна">💣</button>
+            <button class="cell open mine exploded" aria-label="Вибухнула міна">🐙</button>
+            <button class="cell open" data-number="1" aria-label="1 міна поруч">1</button>
+            <button class="cell open" data-number="2" aria-label="2 міни поруч">2</button>
+            <button class="cell open" data-number="3" aria-label="3 міни поруч">3</button>
+            <button class="cell open" aria-label="Порожня відкрита клітинка"></button>
+            <button class="cell" aria-label="Закрита клітинка"></button>
+
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+          
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+           
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+            
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+            
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+            
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+            
+            <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        </section>
+    </main>
+
+</body>
+</html>

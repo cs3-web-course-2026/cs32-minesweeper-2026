@@ -1,0 +1,146 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-main: #13242c; 
+    --board-bg: #d4b886; 
+    --border-light: #deb887;
+    --border-dark: #4a2e15;
+    --cell-closed: #8b5a2b;
+    --cell-open-bg: #f5deb3;
+    --display-bg: #2e1a0f;
+    --display-text: #ffd700;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-main);
+    font-family: Georgia, 'Times New Roman', serif; 
+    padding: 20px;
+}
+
+.game-container {
+    background-color: var(--board-bg);
+    padding: 15px;
+    border: 6px solid var(--border-dark);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px);
+    width: 100%;
+    max-width: 400px; /* Обмежує максимальну ширину поля */
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--cell-open-bg);
+    padding: 10px;
+    border: 3px solid var(--border-dark);
+    border-radius: 5px;
+}
+
+.display {
+    background-color: var(--display-bg);
+    color: var(--display-text);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 2px inset var(--border-dark);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: inset 0 0 10px #000000;
+}
+
+.start-btn {
+    font-size: 1.8rem;
+    cursor: pointer;
+    background-color: var(--cell-open-bg);
+    border: 3px outset var(--border-light);
+    border-radius: 50%; 
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s;
+}
+
+.start-btn:active {
+    border-style: inset;
+    transform: scale(0.95);
+}
+
+.game-board {
+    display: grid;
+    /* Відносні одиниці дозволяють сітці адаптуватися під будь-який екран */
+    grid-template-columns: repeat(8, 1fr); 
+    border: 4px solid var(--border-dark);
+    background-color: var(--border-dark);
+    gap: 2px; 
+}
+
+.cell {
+    position: relative;
+    background-color: var(--cell-closed);
+    border: 3px outset var(--border-light);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    user-select: none;
+    color: var(--border-dark);
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Робить клітинки ідеально квадратними при зміні розміру */
+}
+
+.cell:not(.open):hover {
+    filter: brightness(1.1);
+}
+
+.cell:not(.open):active {
+    border-style: inset;
+}
+
+.cell.open {
+    background-color: var(--cell-open-bg);
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    cursor: default;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.cell.false-flag::after {
+    content: '❌';
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.cell.mine.exploded {
+    background-color: #8b0000;
+    border-color: #4a0000;
+}
+
+/* Кольори для різних чисел (як в оригінальній грі) */
+.cell[data-number="1"] { color: #005f73; } 
+.cell[data-number="2"] { color: #386641; } 
+.cell[data-number="3"] { color: #bc4749; } 
+.cell[data-number="4"] { color: #2a0080; }
+.cell[data-number="5"] { color: #7f4f24; } 
+.cell[data-number="6"] { color: #0081a7; }
+.cell[data-number="7"] { color: #1a1a1a; }
+.cell[data-number="8"] { color: #6c757d; }
