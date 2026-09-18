@@ -16,15 +16,15 @@ body {
 .game-container {
     background-color: #c0c0c0;
     border: 3px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
+    border-color: #fff #808080 #808080 #fff;
     padding: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 30%);
 }
 
 .game-header {
     background-color: #c0c0c0;
     border: 2px solid;
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +34,7 @@ body {
 
 .counter {
     background-color: #000;
-    color: #ff0000;
+    color: #f00;
     font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
     font-weight: bold;
@@ -48,7 +48,7 @@ body {
     font-size: 20px;
     background-color: #c0c0c0;
     border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
+    border-color: #fff #808080 #808080 #fff;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -56,7 +56,7 @@ body {
 }
 
 .reset-button:active {
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
 }
 
 .game-board {
@@ -65,7 +65,7 @@ body {
     grid-template-rows: repeat(4, 40px);
     gap: 0;
     border: 3px solid;
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
 }
 
 .cell {
@@ -73,7 +73,7 @@ body {
     height: 40px;
     background-color: #c0c0c0;
     border: 3px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
+    border-color: #fff #808080 #808080 #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,18 +91,25 @@ button.cell:active {
     background-color: #bdbdbd;
 }
 
-.number-1 { color: #0000ff; }
-.number-2 { color: #008000; }
-.number-3 { color: #ff0000; }
+.number-1 {
+    color: #00f;
+}
+
+.number-2 {
+    color: #008000;
+}
+
+.number-3 {
+    color: #f00;
+}
 
 .cell.mine {
     background-color: #bdbdbd;
 }
 
 .cell.exploded {
-    background-color: #ff0000;
+    background-color: #f00;
 }
-
 
 @media (max-width: 400px) {
     .game-board {
