@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>* Minesweeper *</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <button type="button" aria-label="New Game"><b>Start new game</b></button>
+      <span id="mine-counter">Mines: 3</span>
+      <span id="timer">Time: 00:04</span>
+    </header>
+    <main>
+      <div id="board">
+        <button type="button" class="cell" aria-label="Row 1, column 1, closed"></button>
+        <button type="button" class="cell flagged safe" aria-label="Row 1, column 2, flagged safe"></button>
+        <button type="button" class="cell mine flagged" aria-label="Row 1, column 3, mine and flagged"></button>
+
+        <button type="button" class="cell open" data-value="1" aria-label="Row 2, column 1, open, contains 1">1</button>
+        <button type="button" class="cell mine" aria-label="Row 2, column 2, unclicked mine"></button>
+        <button type="button" class="cell exploded" aria-label="Row 2, column 3, exploded mine"></button>
+
+        <button type="button" class="cell open" data-value="1" aria-label="Row 3, column 1, open, contains 1">1</button>
+        <button type="button" class="cell open" data-value="2" aria-label="Row 3, column 2, open, contains 2">2</button>
+        <button type="button" class="cell open" data-value="1" aria-label="Row 3, column 3, open, contains 1">1</button>
+      </div>
+      <p id="game-message" role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
