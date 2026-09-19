@@ -131,13 +131,13 @@ h1 {
   outline: none;
 }
 
-.cell:hover:not(.reveal) {
-  background-color: #d0d0d0;
-}
-
 .cell:focus-visible {
   outline: 2px solid #000;
   outline-offset: -4px;
+}
+
+.cell:hover:not(.reveal) {
+  background-color: #d0d0d0;
 }
 
 /* Відкрита клітинка */
@@ -153,9 +153,19 @@ h1 {
 .cell.num-3 { color: #f00; }
 .cell.num-4 { color: #000080; }
 
-/* Прапор */
+/* Прапорці */
 .cell.flag {
   font-size: 18px;
+}
+
+.cell.flag.mine {
+  background-color: #d4edda;
+  border: 1px solid #28a745;
+}
+
+.cell.flag.safe {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
 }
 
 /* Міна */
