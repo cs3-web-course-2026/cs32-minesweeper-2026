@@ -92,7 +92,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: active var(--press-duration);
+  transition: border-color var(--press-duration);
 }
 
 .start-btn:active {
