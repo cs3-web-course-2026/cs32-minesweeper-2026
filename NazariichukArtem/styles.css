@@ -84,12 +84,15 @@ body {
 .cell.num-1 {
   color: #4a90e2;
 }
+
 .cell.num-2 {
   color: #50e3c2;
 }
+
 .cell.num-3 {
   color: #e35050;
 }
+
 .cell.num-4 {
   color: #bd50e3;
 }
