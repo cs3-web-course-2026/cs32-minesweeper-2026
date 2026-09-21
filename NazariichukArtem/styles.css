@@ -1,0 +1,123 @@
+:root {
+  --board-columns: 9;
+  --cell-size: 2.25rem;
+  --cell-font-size: 1rem;
+}
+
+body {
+  background-color: #1a1d24;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  background-color: #222730;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.4);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #15181e;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.375rem;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.counter, .timer {
+  font-size: 1.125rem;
+  letter-spacing: 0.0625rem;
+}
+
+.restart-btn {
+  background-color: #2d68c4;
+  color: white;
+  border: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restart-btn:hover {
+  background-color: #3b7ad6;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), var(--cell-size));
+  grid-template-rows: repeat(var(--board-columns), var(--cell-size));
+  gap: 0.125rem;
+  background-color: #15181e;
+  padding: 0.125rem;
+  border-radius: 0.25rem;
+}
+
+.cell {
+  background-color: #2b313b;
+  border: none;
+  font-size: var(--cell-font-size);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.125rem;
+}
+
+.cell.closed:hover {
+  background-color: #373f4d;
+}
+
+.cell.open {
+  background-color: #1f232b;
+}
+
+.cell.num-1 {
+  color: #4a90e2;
+}
+
+.cell.num-2 {
+  color: #50e3c2;
+}
+
+.cell.num-3 {
+  color: #e35050;
+}
+
+.cell.num-4 {
+  color: #bd50e3;
+}
+
+.cell.flagged {
+  color: #ff4d4d;
+}
+
+.cell.mine {
+  color: #ffffff;
+}
+
+.cell.mine-exploded {
+  background-color: #e35050;
+  color: #ffffff;
+}
+
+#game-message {
+  margin-top: 0.75rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.875rem;
+}
