@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="game-container">
+    <h1>MINESWEEPER</h1>
+
+    <!-- Хедер гри -->
+    <header class="game-header">
+      <div class="stat-box">
+        <span class="stat-label">🚩</span>
+        <span id="flags-count">03</span>
+      </div>
+
+      <button type="button" id="start-btn" class="start-btn" title="Почати нову гру" aria-label="Restart game">🤓</button>
+
+      <div class="stat-box">
+        <span class="stat-label">⏱️</span>
+        <span id="timer">013</span>
+      </div>
+    </header>
+
+    <!-- Ігрове поле 6x6 -->
+    <main class="game-board">
+      <!-- Рядок 1 -->
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+
+      <!-- Рядок 2 -->
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell mine exploded" aria-label="Exploded mine">💣</button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+
+      <!-- Рядок 3 -->
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell mine" aria-label="Mine">💣</button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell flag" aria-label="Flag">🚩</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+
+      <!-- Рядок 4 -->
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell reveal" aria-label="Empty opened cell"></button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+
+      <!-- Рядок 5 -->
+      <button type="button" class="cell flag" aria-label="Flag">🚩</button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-2" aria-label="Opened cell, 2 mines nearby">2</button>
+      <button type="button" class="cell mine" aria-label="Mine">💣</button>
+
+      <!-- Рядок 6 -->
+      <button type="button" class="cell flag" aria-label="Flag">🚩</button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell" aria-label="Closed cell"></button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+      <button type="button" class="cell reveal num-1" aria-label="Opened cell, 1 mine nearby">1</button>
+    </main>
+  </div>
+
+</body>
+</html>
