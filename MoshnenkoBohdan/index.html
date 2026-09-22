@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сапер — Старт</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,11 +11,11 @@
 </head>
 <body>
 
-<div class="menu-card" id = "menu-card">
+<!-- Стартовое меню -->
+<div class="menu-card hidden" id="menu-card">
     <div class="card-header">
         <h1>Minesweeper</h1>
     </div>
-
 
     <div class="card-body">
         <div class="size-selector">
@@ -24,30 +25,65 @@
             <input type="number" id="columns" min="5" max="15" value="5">
         </div>
 
-        <button class="btn-start" id="start-btn">Start</button>
+        <button type="button" class="btn-start" id="start-btn">Start</button>
     </div>
 </div>
 
-<div class="game-container hidden" id="game-container">
+<!-- Игровой контейнер -->
+<div class="game-container" id="game-container">
 
-    <div class="game-header">
+    <header class="game-header">
         <div class="info-box">
             <span class="info-label">💣 Mines:</span>
-            <span id="mines-count">0</span>
+            <span id="mines-count">5</span>
         </div>
         <div class="info-box">
             <span class="info-label">⏱️ Time:</span>
-            <span id="timer">00:00</span>
+            <span id="timer">00:01</span>
         </div>
         <div class="info-box">
-            <span class="info-label"> Cells left:</span>
-            <span id="closed-count">0</span>
+            <span class="info-label">Cells left:</span>
+            <span id="closed-count">18</span>
         </div>
-    </div>
+        <button type="button" class="btn-restart" id="restart-btn">Restart</button>
+        <div id="game-status" role="status" aria-live="polite" class="sr-only">Game in progress</div>
+    </header>
 
-    <div class="board" id="board"></div>
+    <main class="board-wrapper">
+        <!-- Статическое игровое поле 5x5 для верстки -->
+        <div class="board" id="board">
+            <div class="cell revealed number-2">2</div>
+            <div class="cell revealed number-2">2</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell revealed">💣</div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell revealed">💣</div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </main>
 </div>
-<script src="script.js"></script>
 
 </body>
 </html>
