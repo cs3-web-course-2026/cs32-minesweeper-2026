@@ -32,8 +32,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px);
+    box-shadow: 0 15px 30px rgb(0 0 0 / 80%);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgb(0 0 0 / 3%) 10px, rgb(0 0 0 / 3%) 20px);
     width: 100%;
     max-width: 400px; 
 }
@@ -60,7 +60,7 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
-    box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000;
 }
 
 .start-btn {
@@ -84,7 +84,6 @@ body {
 
 .game-board {
     display: grid;
-    /* Відносні одиниці дозволяють сітці адаптуватися під будь-який екран */
     grid-template-columns: repeat(8, 1fr); 
     border: 4px solid var(--border-dark);
     background-color: var(--border-dark);
@@ -118,9 +117,9 @@ body {
 
 .cell.open {
     background-color: var(--cell-open-bg);
-    border: 1px solid rgba(139, 90, 43, 0.3);
+    border: 1px solid rgb(139 90 43 / 30%);
     cursor: default;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 5px rgb(0 0 0 / 10%);
 }
 
 .cell.false-flag::after {
