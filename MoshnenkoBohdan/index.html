@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сапер — Старт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="menu-card" id = "menu-card">
+    <div class="card-header">
+        <h1>Minesweeper</h1>
+    </div>
+
+
+    <div class="card-body">
+        <div class="size-selector">
+            <span>Choose size of the field:</span>
+            <input type="number" id="rows" min="5" max="15" value="5">
+            <span class="multiply">X</span>
+            <input type="number" id="columns" min="5" max="15" value="5">
+        </div>
+
+        <button class="btn-start" id="start-btn">Start</button>
+    </div>
+</div>
+
+<div class="game-container hidden" id="game-container">
+
+    <div class="game-header">
+        <div class="info-box">
+            <span class="info-label">💣 Mines:</span>
+            <span id="mines-count">0</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">⏱️ Time:</span>
+            <span id="timer">00:00</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label"> Cells left:</span>
+            <span id="closed-count">0</span>
+        </div>
+    </div>
+
+    <div class="board" id="board"></div>
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>
