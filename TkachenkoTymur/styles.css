@@ -23,7 +23,7 @@ body {
   background-color: var(--bg-board);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 40%);
+  box-shadow: 0 10px 30px rgba(0 0 0 / 40%);
   display: inline-block;
 }
 
@@ -127,13 +127,13 @@ body {
 }
 
 .cell.false-flag {
-  background-image: linear-gradient(45deg, transparent 45%, rgba(0, 0, 0, 70%) 45%, rgba(0, 0, 0, 70%) 55%, transparent 55%),
-                    linear-gradient(-45deg, transparent 45%, rgba(0, 0, 0, 70%) 45%, rgba(0, 0, 0, 70%) 55%, transparent 55%);
+  background-image: linear-gradient(45deg, transparent 45%, rgba(0 0 0 / 70%) 45%, rgba(0 0 0 / 70%) 55%, transparent 55%),
+                    linear-gradient(-45deg, transparent 45%, rgba(0 0 0 / 70%) 45%, rgba(0 0 0 / 70%) 55%, transparent 55%);
 }
 
 .cell.false-flag::before,
 .cell.false-flag::after {
-  opacity: 40%;
+  opacity: 0.4;
 }
 
 .cell.mine::before {
@@ -154,7 +154,7 @@ body {
   border-radius: 50%;
   top: 10px;
   left: 11px;
-  opacity: 80%;
+  opacity: 0.8;
 }
 
 .num-1 { color: #0984e3; }
