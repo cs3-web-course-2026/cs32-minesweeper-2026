@@ -1,12 +1,12 @@
 body {
-  margin: 50px;
-  font-family: 'Silkscreen', sans-serif;
+  margin: 30px auto;
+  font-family: Silkscreen, sans-serif;
   background-color: #b15ede50;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px auto;
 }
+
 .game {
   font-size: x-large;
   color: #621a88;
@@ -31,7 +31,7 @@ body {
   background-color: #9b4fc4;
   border-color: #4a1c6d;
   transform: scale(1.08);
-  box-shadow: 0 2px 8px rgba(98, 26, 136, 0.4);
+  box-shadow: 0 2px 8px rgba(98 26 136 / 40%);
 }
 
 .icon {
@@ -39,7 +39,7 @@ body {
   width: 1em;
   height: 1em;
   stroke-width: 0;
-  stroke: currentColor;
+  stroke: currentcolor;
   fill: #3f075db8;
 }
 
@@ -86,12 +86,12 @@ body {
 }
 
 .cell:hover {
-  border: 1px solid rgb(61, 61, 61);
+  border: 1px solid rgb(61 61 61);
 }
 
 /* Additional classes */
 .opened {
-  border: 1px solid rgb(79, 79, 79);
+  border: 1px solid rgb(79 79 79);
   background-color: #b15ede8a;
   cursor: default;
 }
@@ -112,7 +112,7 @@ body {
 
 .exploded {
   background-color: #c34d4d;
-  border: 1px solid rgb(79, 79, 79);
+  border: 1px solid rgb(79 79 79);
 }
 
 .exploded::after {
