@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 12px;
+  background: #f4f4f4;
+  color: #222;
+  font: 16px Arial, sans-serif;
+}
+
+.game {
+  width: min(100%, 360px);
+  margin: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+button {
+  padding: 10px 14px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eee;
+}
+
+button:focus-visible {
+  outline: 2px solid #245cad;
+  outline-offset: 2px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.cell {
+  display: grid;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid #aaa;
+  background: #d4d4d4;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cell--open {
+  border-color: #ddd;
+  background: #fafafa;
+}
+
+.cell--1 { color: #245cad; }
+.cell--2 { color: #28733c; }
+.cell--flag { color: #28733c; }
+
+.cell--wrong {
+  background: #f7d7cc;
+  color: #a32620;
+  text-decoration: line-through;
+}
+
+.cell--mine {
+  background: #bbb;
+}
+
+.cell--hit {
+  background: #b52d26;
+  color: white;
+}
