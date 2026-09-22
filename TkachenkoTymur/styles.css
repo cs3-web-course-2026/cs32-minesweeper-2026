@@ -1,6 +1,6 @@
 :root {
   --bg-body: #1e1e2f;
-  --bg-board: #ffffff;
+  --bg-board: #fff;
   --cell-closed: #b2bec3;
   --cell-open: #dfe6e9;
   --cell-hover: #95a5a6;
@@ -23,7 +23,7 @@ body {
   background-color: var(--bg-board);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 40%);
   display: inline-block;
 }
 
@@ -53,7 +53,7 @@ body {
 .start-btn {
   font-size: 14px;
   font-weight: bold;
-  color: #ffffff;
+  color: #fff;
   background-color: var(--accent);
   border: none;
   border-radius: 6px;
@@ -127,13 +127,13 @@ body {
 }
 
 .cell.false-flag {
-  background-image: linear-gradient(45deg, transparent 45%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.7) 55%, transparent 55%),
-                    linear-gradient(-45deg, transparent 45%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.7) 55%, transparent 55%);
+  background-image: linear-gradient(45deg, transparent 45%, rgba(0, 0, 0, 70%) 45%, rgba(0, 0, 0, 70%) 55%, transparent 55%),
+                    linear-gradient(-45deg, transparent 45%, rgba(0, 0, 0, 70%) 45%, rgba(0, 0, 0, 70%) 55%, transparent 55%);
 }
 
 .cell.false-flag::before,
 .cell.false-flag::after {
-  opacity: 0.4;
+  opacity: 40%;
 }
 
 .cell.mine::before {
@@ -150,11 +150,11 @@ body {
   position: absolute;
   width: 4px;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 50%;
   top: 10px;
   left: 11px;
-  opacity: 0.8;
+  opacity: 80%;
 }
 
 .num-1 { color: #0984e3; }
