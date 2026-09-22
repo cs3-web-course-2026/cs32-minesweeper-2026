@@ -161,3 +161,9 @@ body {
 .num-2 { color: #00b894; }
 .num-3 { color: #d63031; }
 .num-4 { color: #6c5ce7; }
+
+@media (max-width: 350px) {
+  :root {
+    --cell-size: 30px;
+  }
+}
