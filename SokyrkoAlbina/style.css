@@ -11,6 +11,8 @@
     --cell-open-bg: #f5deb3;
     --display-bg: #2e1a0f;
     --display-text: #ffd700;
+    --anim-duration: 0.1s;
+    --board-width: 8;
 }
 
 body {
@@ -74,7 +76,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.1s;
+    transition: transform var(--anim-duration);
 }
 
 .start-btn:active {
@@ -84,7 +86,7 @@ body {
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); 
+    grid-template-columns: repeat(var(--board-width), 1fr); 
     border: 4px solid var(--border-dark);
     background-color: var(--border-dark);
     gap: 2px; 
