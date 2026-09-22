@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Classic Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="mobile-app-container">
+
+    <!-- Top Header Panel -->
+    <header class="top-panel">
+        <div class="led-display">
+            <span class="led-icon">💣</span> 093
+        </div>
+
+        <button class="smiley-btn">
+            🙂
+        </button>
+
+        <div class="led-display">
+            <span class="led-icon">⏰</span> 01:45
+        </div>
+    </header>
+
+    <!-- Main Game Grid (Matching the specific layout from your image) -->
+    <main class="game-grid">
+        <!-- Row 1 -->
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+
+        <!-- Row 2 -->
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell closed"></div>
+        <div class="cell open num-3">3</div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+
+        <!-- Row 3 -->
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell open font-black">?</div>
+        <div class="cell open num-1">1</div>
+        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+
+        <!-- Row 4 -->
+        <div class="cell open"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell closed"></div>
+        <div class="cell open num-2">2</div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+
+        <!-- Row 5 -->
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open font-black">?</div>
+        <div class="cell open num-2">2</div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+
+        <!-- Row 6 -->
+        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open num-1">1</div>
+
+        <!-- Row 7 -->
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell closed"></div>
+        <div class="cell closed"></div>
+
+        <!-- Row 8 -->
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open"></div>
+        <div class="cell open num-3">3</div>
+        <div class="cell open num-2">2</div>
+        <div class="cell closed"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+
+        <!-- Row 9 -->
+        <div class="cell open num-4">4</div>
+        <div class="cell open font-black">?</div>
+        <div class="cell open"></div>
+        <div class="cell closed"></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell open num-1">1</div>
+        <div class="cell open"></div>
+        <div class="cell open num-1">1</div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <footer class="bottom-nav">
+        <button class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>New Game</span>
+        </button>
+        <button class="nav-item active">
+            <span class="nav-icon">🚩</span>
+            <span>Flag</span>
+        </button>
+        <button class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span>Settings</span>
+        </button>
+    </footer>
+
+</div>
+
+</body>
+</html>

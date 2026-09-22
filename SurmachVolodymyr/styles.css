@@ -1,0 +1,172 @@
+:root {
+    --bg-grey: #c0c0c0;
+    --border-light: #ffffff;
+    --border-dark: #7b7b7b;
+    --open-border: #9e9e9e;
+    --cell-size: 38px;
+    
+    /* Number Colors */
+    --c-1: #0000ff;
+    --c-2: #008000;
+    --c-3: #ff0000;
+    --c-4: #000080;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b5fb4; /* The blue background behind the phone */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* The Mobile App Frame */
+.mobile-app-container {
+    width: 350px;
+    background-color: var(--bg-grey);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Mimicking phone bezels */
+    border: 12px solid #222;
+    border-top-width: 30px;
+    border-bottom-width: 30px;
+}
+
+/* Header / Score Panel */
+.top-panel {
+    background-color: var(--bg-grey);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 2px solid var(--border-dark);
+}
+
+.led-display {
+    background-color: #000000;
+    color: #ff0000;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border: 2px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 80px;
+    justify-content: flex-end;
+}
+
+.led-icon {
+    font-size: 14px;
+    filter: sepia(1) hue-rotate(-50deg) saturate(5) opacity(0.5); /* Tinting emoji to red */
+}
+
+.smiley-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    background-color: var(--bg-grey);
+    border: 3px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.smiley-btn:active {
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    font-size: 22px; /* Slight scale down on click */
+}
+
+/* Game Grid */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    background-color: var(--border-dark);
+    border: 3px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+}
+
+.cell {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    user-select: none;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Closed Cell 3D Bevel */
+.closed {
+    background-color: var(--bg-grey);
+    border: 3px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+}
+
+/* Open Cell Flat */
+.open {
+    background-color: var(--bg-grey);
+    border: 1px solid var(--open-border);
+    border-right: none;
+    border-bottom: none;
+}
+
+.flag {
+    font-size: 18px;
+}
+
+/* Specific Number Colors */
+.num-1 { color: var(--c-1); }
+.num-2 { color: var(--c-2); }
+.num-3 { color: var(--c-3); }
+.num-4 { color: var(--c-4); }
+.font-black { color: #000; font-weight: normal; }
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    background-color: #e4e4e4;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #ccc;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav-icon {
+    font-size: 20px;
+    filter: grayscale(1);
+    opacity: 0.6;
+}
+
+/* Active State for Flag Button (as seen in image) */
+.nav-item.active {
+    color: #d32f2f;
+}
+.nav-item.active .nav-icon {
+    filter: none;
+    opacity: 1;
+}
