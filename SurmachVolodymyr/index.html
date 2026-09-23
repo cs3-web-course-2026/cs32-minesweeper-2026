@@ -12,13 +12,11 @@
 
     <!-- Top Header Panel -->
     <header class="top-panel">
-        <!-- R15, R16: Added accessibility roles and updated counter to 005 -->
         <div class="led-display" role="status" aria-live="polite" aria-label="Mine count">
             <span class="led-icon">💣</span> 005
         </div>
 
-        <!-- R19: Added type="button" and aria-label -->
-        <button class="smiley-btn" type="button" aria-label="Restart game">
+        <button type="button" class="smiley-btn" aria-label="Restart game">
             🙂
         </button>
 
@@ -58,15 +56,14 @@
         <div class="cell closed"></div>
         <div class="cell open font-black">?</div>
         <div class="cell open num-1">1</div>
-        <div class="cell closed"><span class="flag">🚩</span></div>
+        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
 
         <!-- Row 4 -->
         <div class="cell open"></div>
         <div class="cell open num-1">1</div>
-        <!-- R59: Flagged mine (correct) -->
-        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
+        <div class="cell closed flagged-safe"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
         <div class="cell open num-2">2</div>
         <div class="cell open num-1">1</div>
@@ -86,8 +83,7 @@
         <div class="cell closed"></div>
 
         <!-- Row 6 -->
-        <!-- R59: Flagged safe (incorrect flag) -->
-        <div class="cell closed flagged-safe"><span class="flag">🚩</span></div>
+        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
@@ -104,7 +100,6 @@
         <div class="cell open"></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
-        <!-- Flagged mine -->
         <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
@@ -124,10 +119,8 @@
         <div class="cell open num-4">4</div>
         <div class="cell open font-black">?</div>
         <div class="cell open"></div>
-        <!-- R59: Unclicked mine -->
         <div class="cell open mine">💣</div>
         <div class="cell open num-1">1</div>
-        <!-- R59: Exploded mine -->
         <div class="cell open exploded-mine">💥</div>
         <div class="cell open num-1">1</div>
         <div class="cell open"></div>
@@ -136,7 +129,6 @@
 
     <!-- Bottom Navigation Bar -->
     <footer class="bottom-nav">
-        <!-- R132: Added type="button" to nav-items -->
         <button type="button" class="nav-item">
             <span class="nav-icon">➕</span>
             <span>New Game</span>
