@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сапер</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game" aria-label="Сапер">
+    <header>
+      <span aria-label="Залишилось прапорців: 6">⚑ 06</span>
+      <form action="index.html">
+        <button type="submit">Нова гра</button>
+      </form>
+      <time datetime="PT42S" aria-label="Час гри: 42 секунди">00:42</time>
+    </header>
+    <div class="board" role="group" aria-label="Ігрове поле 8 на 8">
+      <span class="cell cell--open" role="img" aria-label="Рядок 1, стовпець 1. Відкрита порожня клітинка"></span>
+      <span class="cell cell--open" role="img" aria-label="Рядок 1, стовпець 2. Відкрита порожня клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 1, стовпець 3. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--2" role="img" aria-label="Рядок 1, стовпець 4. Відкрита клітинка, мін поруч: 2">2</span>
+      <span class="cell" role="img" aria-label="Рядок 1, стовпець 5. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 1, стовпець 6. Закрита клітинка"></span>
+      <span class="cell cell--mine" role="img" aria-label="Рядок 1, стовпець 7. Міна">✹</span>
+      <span class="cell" role="img" aria-label="Рядок 1, стовпець 8. Закрита клітинка"></span>
+      <span class="cell cell--open" role="img" aria-label="Рядок 2, стовпець 1. Відкрита порожня клітинка"></span>
+      <span class="cell cell--open" role="img" aria-label="Рядок 2, стовпець 2. Відкрита порожня клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 2, стовпець 3. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--flag" role="img" aria-label="Рядок 2, стовпець 4. Прапорець на міні">⚑</span>
+      <span class="cell cell--open cell--2" role="img" aria-label="Рядок 2, стовпець 5. Відкрита клітинка, мін поруч: 2">2</span>
+      <span class="cell" role="img" aria-label="Рядок 2, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 2, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 2, стовпець 8. Закрита клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 3, стовпець 1. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 3, стовпець 2. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--2" role="img" aria-label="Рядок 3, стовпець 3. Відкрита клітинка, мін поруч: 2">2</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 3, стовпець 4. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 3, стовпець 5. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell" role="img" aria-label="Рядок 3, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 3, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 3, стовпець 8. Закрита клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 4, стовпець 1. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--flag" role="img" aria-label="Рядок 4, стовпець 2. Прапорець на міні">⚑</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 4, стовпець 3. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 4, стовпець 4. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 4, стовпець 5. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell" role="img" aria-label="Рядок 4, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 4, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 4, стовпець 8. Закрита клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 5, стовпець 1. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 5, стовпець 2. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 5, стовпець 3. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 5, стовпець 4. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell cell--mine cell--hit" role="img" aria-label="Рядок 5, стовпець 5. Міна, на яку натиснули">✹</span>
+      <span class="cell" role="img" aria-label="Рядок 5, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 5, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 5, стовпець 8. Закрита клітинка"></span>
+      <span class="cell cell--open" role="img" aria-label="Рядок 6, стовпець 1. Відкрита порожня клітинка"></span>
+      <span class="cell cell--open cell--1" role="img" aria-label="Рядок 6, стовпець 2. Відкрита клітинка, мін поруч: 1">1</span>
+      <span class="cell" role="img" aria-label="Рядок 6, стовпець 3. Закрита клітинка"></span>
+      <span class="cell cell--open cell--2" role="img" aria-label="Рядок 6, стовпець 4. Відкрита клітинка, мін поруч: 2">2</span>
+      <span class="cell" role="img" aria-label="Рядок 6, стовпець 5. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 6, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 6, стовпець 7. Закрита клітинка"></span>
+      <span class="cell cell--mine" role="img" aria-label="Рядок 6, стовпець 8. Міна">✹</span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 1. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 2. Закрита клітинка"></span>
+      <span class="cell cell--flag" role="img" aria-label="Рядок 7, стовпець 3. Прапорець на міні">⚑</span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 4. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 5. Закрита клітинка"></span>
+      <span class="cell cell--flag cell--wrong" role="img" aria-label="Рядок 7, стовпець 6. Помилковий прапорець: міни немає">⚑</span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 7, стовпець 8. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 1. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 2. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 3. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 4. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 5. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 6. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 7. Закрита клітинка"></span>
+      <span class="cell" role="img" aria-label="Рядок 8, стовпець 8. Закрита клітинка"></span>
+    </div>
+  </main>
+</body>
+</html>
