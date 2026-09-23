@@ -12,10 +12,13 @@
 
     <!-- Top Header Panel -->
     <header class="top-panel">
-        <div class="led-display">
-          <span class="led-icon">💣</span> 005
+        <!-- R15, R16: Added accessibility roles and updated counter to 005 -->
+        <div class="led-display" role="status" aria-live="polite" aria-label="Mine count">
+            <span class="led-icon">💣</span> 005
         </div>
-        <button class="smiley-btn">
+
+        <!-- R19: Added type="button" and aria-label -->
+        <button class="smiley-btn" type="button" aria-label="Restart game">
             🙂
         </button>
 
@@ -24,7 +27,7 @@
         </div>
     </header>
 
-    <!-- Main Game Grid (Matching the specific layout from your image) -->
+    <!-- Main Game Grid -->
     <main class="game-grid">
         <!-- Row 1 -->
         <div class="cell closed"></div>
@@ -62,7 +65,8 @@
         <!-- Row 4 -->
         <div class="cell open"></div>
         <div class="cell open num-1">1</div>
-        <div class="cell closed"><span class="flag">🚩</span></div>
+        <!-- R59: Flagged mine (correct) -->
+        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
         <div class="cell open num-2">2</div>
         <div class="cell open num-1">1</div>
@@ -82,7 +86,8 @@
         <div class="cell closed"></div>
 
         <!-- Row 6 -->
-        <div class="cell closed"><span class="flag">🚩</span></div>
+        <!-- R59: Flagged safe (incorrect flag) -->
+        <div class="cell closed flagged-safe"><span class="flag">🚩</span></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
@@ -99,7 +104,8 @@
         <div class="cell open"></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
-        <div class="cell closed"><span class="flag">🚩</span></div>
+        <!-- Flagged mine -->
+        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
 
@@ -118,9 +124,11 @@
         <div class="cell open num-4">4</div>
         <div class="cell open font-black">?</div>
         <div class="cell open"></div>
-        <div class="cell closed"></div>
+        <!-- R59: Unclicked mine -->
+        <div class="cell open mine">💣</div>
         <div class="cell open num-1">1</div>
-        <div class="cell closed"><span class="flag">🚩</span></div>
+        <!-- R59: Exploded mine -->
+        <div class="cell open exploded-mine">💥</div>
         <div class="cell open num-1">1</div>
         <div class="cell open"></div>
         <div class="cell open num-1">1</div>
@@ -128,15 +136,16 @@
 
     <!-- Bottom Navigation Bar -->
     <footer class="bottom-nav">
-        <button class="nav-item">
+        <!-- R132: Added type="button" to nav-items -->
+        <button type="button" class="nav-item">
             <span class="nav-icon">➕</span>
             <span>New Game</span>
         </button>
-        <button class="nav-item active">
+        <button type="button" class="nav-item active">
             <span class="nav-icon">🚩</span>
             <span>Flag</span>
         </button>
-        <button class="nav-item">
+        <button type="button" class="nav-item">
             <span class="nav-icon">⚙️</span>
             <span>Settings</span>
         </button>

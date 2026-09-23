@@ -125,6 +125,31 @@ body {
   font-size: 18px;
 }
 
+/* Distinct Mine States */
+
+.flagged-safe {
+  position: relative;
+}
+
+.flagged-safe::after {
+  content: '❌';
+  position: absolute;
+  font-size: 24px;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+.mine {
+  background-color: var(--bg-grey);
+}
+
+.exploded-mine {
+  background-color: #d32f2f; /* Красный фон */
+  border: 1px solid var(--open-border);
+  border-right: none;
+  border-bottom: none;
+}
+
 /* Specific Number Colors */
 .num-1 {
   color: var(--c-1);
