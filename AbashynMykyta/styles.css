@@ -1,9 +1,11 @@
 :root {
-    --bg-main: #bdbdbd;
-    --border-light: #fff;
-    --border-dark: #7b7b7b;
-    --cell-size: 35px;
+    --bg-body: #0d0f12;
+    --bg-wrapper: #17191f;
+    --bg-cell: #2a2d36;
+    --bg-cell-open: #1a1c23;
+    --text-main: #fff;
     --board-size: 8;
+    --cell-size: 42px;
 }
 
 * {
@@ -13,62 +15,74 @@
 }
 
 body {
-    background-color: #2c3e50;
+    background-color: var(--bg-body);
+    color: var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Добавляем полупрозрачное темное перекрытие и саму картинку */
+    background-image: linear-gradient(rgba(13, 15, 18, 0.85), rgba(13, 15, 18, 0.85)), url('images.jpeg');
+    background-repeat: no-repeat; /* Убираем плитку */
+    background-size: cover; /* Растягиваем на весь экран */
+    background-position: center;
+    background-attachment: fixed; /* Фон стоит на месте при прокрутке */
 }
 
 .minesweeper-wrapper {
-    background-color: var(--bg-main);
-    padding: 16px;
-    border: 3px solid;
-    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    background-color: var(--bg-wrapper);
+    padding: 24px;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 10px 20px rgb(0 0 0 / 30%);
+    gap: 20px;
+    box-shadow: 0 0 50px rgb(138 43 226 / 8%), inset 0 1px 0 rgb(255 255 255 / 5%);
+    border: 1px solid #2a2d36;
 }
 
-/* --- Хедер гри --- */
+/* --- Хедер --- */
 .game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
-    border: 2px solid;
-    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    padding: 10px 16px;
+    background-color: #0d0f12;
+    border-radius: 12px;
+    border: 1px solid #2a2d36;
 }
 
 .counter {
-    background-color: #000;
-    color: #f00;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 2px 6px;
-    width: 60px;
-    text-align: center;
-    border: 1px inset #fff;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #a0a5b1;
 }
 
 .action-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
     cursor: pointer;
-    background-color: var(--bg-main);
-    border: 3px solid;
-    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    background-color: #2a2d36;
+    border: 1px solid #3a3d46;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: #353945;
 }
 
 .action-btn:active {
-    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    transform: scale(0.95);
 }
 
 /* --- Ігрове поле --- */
@@ -76,62 +90,62 @@ body {
     display: grid;
     grid-template-columns: repeat(var(--board-size), var(--cell-size));
     grid-template-rows: repeat(var(--board-size), var(--cell-size));
-    border: 3px solid;
-    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    gap: 4px; /* Відстань між клітинками, як на референсі */
 }
 
 /* --- Стани клітинок --- */
-
-/* 1. Закрита клітинка (базовий стан) */
 .cell {
     width: var(--cell-size);
     height: var(--cell-size);
-    background-color: var(--bg-main);
-    border: 3px solid;
-    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    background-color: var(--bg-cell);
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    font-weight: 900;
+    font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
     user-select: none;
+    box-shadow: inset 0 2px 0 rgb(255 255 255 / 8%);
+    transition: background-color 0.2s ease;
 }
 
-/* 2. Відкрита клітинка */
+.cell:hover:not(.open) {
+    background-color: #353945;
+}
+
 .cell.open {
-    border: 1px solid var(--border-dark);
-    background-color: #d1d1d1;
+    background-color: var(--bg-cell-open);
+    box-shadow: inset 0 2px 6px rgb(0 0 0 / 40%);
     cursor: default;
 }
 
-/* Кольори для цифр */
-.cell[data-num="1"] { color: #00f; }
-.cell[data-num="2"] { color: #008000; }
-.cell[data-num="3"] { color: #f00; }
-.cell[data-num="4"] { color: #000080; }
-.cell[data-num="5"] { color: #800000; }
-.cell[data-num="6"] { color: #008080; }
-.cell[data-num="7"] { color: #000; }
-.cell[data-num="8"] { color: #808080; }
+/* Неонові кольори цифр */
+.cell[data-num="1"] { color: #5dade2; }
+.cell[data-num="2"] { color: #58d68d; }
+.cell[data-num="3"] { color: #ec7063; }
+.cell[data-num="4"] { color: #af7ac5; }
+.cell[data-num="5"] { color: #f5b041; }
+.cell[data-num="6"] { color: #45b39d; }
+.cell[data-num="7"] { color: #d0d3d4; }
+.cell[data-num="8"] { color: #7f8c8d; }
 
-/* 3. Клітинка з прапорцем */
+/* Іконки та їх візуальні ефекти */
 .cell.flag::after {
     content: '🚩';
+    filter: drop-shadow(0 0 4px rgb(255 0 0 / 40%));
 }
 
-/* 4. Клітинка з прапорцем, але без міни (помилка, показується в кінці гри) */
 .cell.flag.false::after {
-    content: '❌'; 
+    content: '❌';
 }
 
-/* 5. Звичайна міна (показується в кінці гри, якщо програли) */
 .cell.open.mine::after {
     content: '💣';
+    filter: drop-shadow(0 0 6px rgb(138 43 226 / 80%)); /* Фіолетове світіння міни */
 }
 
-/* 6. Міна, на яку натиснув користувач */
 .cell.open.mine.exploded {
-    background-color: #f00;
-    border: 1px solid #8b0000;
+    background-color: #6d1b33;
+    box-shadow: inset 0 0 12px rgb(255 0 0 / 40%);
 }

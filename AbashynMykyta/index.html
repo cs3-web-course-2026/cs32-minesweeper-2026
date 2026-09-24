@@ -3,49 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper UI</title>
+    <title>Minesweeper UI - Dark Theme</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="minesweeper-wrapper">
-        <!-- Хедер гри -->
+        <!-- Оновлений хедер у сучасному стилі -->
         <header class="game-header">
-            <div class="counter flags-counter">010</div>
+            <div class="counter flags-counter">🚩 010</div>
             <button type="button" class="action-btn" title="Почати нову гру" aria-label="Почати нову гру">🙂</button>
-            <div class="counter timer">000</div>
+            <div class="counter timer">⏱️ 000</div>
         </header>
 
-        <!-- Ігрове поле (сітка 8x8 для демонстрації станів) -->
+        <!-- Ігрове поле -->
         <main class="game-board">
             <!-- Демонстрація різних станів клітинок -->
             <div class="cell open"></div>
             <div class="cell open" data-num="1">1</div>
             <div class="cell open" data-num="2">2</div>
             <div class="cell open" data-num="3">3</div>
-            <div class="cell flag"></div> <!-- Прапорець (на міні) -->
-            <div class="cell flag false"></div> <!-- Прапорець без міни (помилковий) -->
-            <div class="cell open mine"></div> <!-- Звичайна міна -->
-            <div class="cell open mine exploded"></div> <!-- Міна, на яку натиснули -->
+            <div class="cell flag"></div>
+            <div class="cell flag false"></div>
+            <div class="cell open mine"></div>
+            <div class="cell open mine exploded"></div>
 
-            <!-- Решта поля (закриті клітинки) -->
+            <!-- Заповнюємо решту поля (56 закритих клітинок для сітки 8x8) -->
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
             <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
         </main>
