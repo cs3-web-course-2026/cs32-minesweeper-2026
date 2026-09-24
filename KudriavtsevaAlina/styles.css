@@ -2,7 +2,8 @@
     --surface-color: #c0c0c0;
     --light-edge: #fff;
     --dark-edge: #808080;
-    --box-size: 34px;
+    --box-size: min(34px, 10vw);
+    --board-size: 9;
 }
 
 * {
@@ -12,7 +13,7 @@
 }
 
 body {
-    background-color: #e94494; /* Класичний колір робочого столу Windows 95 */
+    background-color: pink; /* Класичний колір робочого столу Windows 95 */
     display: flex;
     justify-content: center;
     align-items: center;
