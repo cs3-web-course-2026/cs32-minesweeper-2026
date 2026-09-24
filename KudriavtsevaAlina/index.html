@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper - Web Lab 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-window">
+        <!-- Верхня панель (хедер) -->
+        <header class="top-panel">
+            <div class="digital-display">010</div>
+            <button class="restart-btn" title="Нова гра">😎</button>
+            <div class="digital-display">000</div>
+        </header>
+
+        <!-- Ігрове поле (стандартна сітка 9x9) -->
+        <main class="grid-board">
+            <!-- Демонстрація різних станів клітинок для викладача -->
+            <div class="box open"></div>
+            <div class="box open" data-val="1">1</div>
+            <div class="box open" data-val="2">2</div>
+            <div class="box open" data-val="3">3</div>
+            <div class="box marked"></div> <!-- Прапорець -->
+            <div class="box marked error"></div> <!-- Помилковий прапорець -->
+            <div class="box open bomb"></div> <!-- Звичайна міна -->
+            <div class="box open bomb boom"></div> <!-- Вибухнула міна -->
+            <div class="box"></div> <!-- Звичайна закрита -->
+
+            <!-- Решта поля (закриті клітинки, щоб заповнити сітку 9x9) -->
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+        </main>
+    </div>
+</body>
+</html>
