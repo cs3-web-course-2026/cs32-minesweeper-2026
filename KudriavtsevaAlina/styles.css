@@ -1,6 +1,6 @@
 :root {
     --surface-color: #c0c0c0;
-    --light-edge: #ffffff;
+    --light-edge: #fff;
     --dark-edge: #808080;
     --box-size: 34px;
 }
@@ -27,7 +27,7 @@ body {
     border-left: 3px solid var(--light-edge);
     border-bottom: 3px solid var(--dark-edge);
     border-right: 3px solid var(--dark-edge);
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 15px rgb(0 0 0 / 50%);
 }
 
 /* --- Верхня панель --- */
