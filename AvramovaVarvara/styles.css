@@ -1,0 +1,805 @@
+
+body {
+  background-color: #f1dfcb;
+}
+
+h1 {
+  color: #673303;
+  font-family: Cooper, sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+header {
+  order: -1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  background-color: #f1dfcb;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  max-width: 1200px;
+  border-top: 3px solid #673303;
+  border-bottom: 3px solid #673303;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+}
+
+.right-panel {
+  justify-self: end;
+}
+
+.start,
+.restart {
+  padding: 8px 16px;
+  background-color: #673303;
+  color: #f1dfcb;
+  border: none;
+  border-radius: 4px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.1s,
+    transform 0.1s;
+}
+
+.start {
+  display: var(--start-btn, inline-block);
+}
+
+.restart {
+  display: var(--restart-btn, none);
+}
+
+.start:hover,
+.restart:hover {
+  background-color: #b94131;
+  transform: scale(0.96);
+}
+
+.start:active,
+.restart:active {
+  background-color: #f1d2ae;
+  color: #673303;
+  transform: scale(0.96);
+}
+
+.timer {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #673303;
+  padding: 4px 10px;
+  animation: var(--tick, none);
+  animation-play-state: var(--play, running);
+  counter-reset: h var(--h) m var(--m) s var(--s);
+}
+
+.cats-count {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: bold;
+  color: #673303;
+}
+
+.paw-icon {
+  font-size: 25px;
+}
+
+.center {
+  text-align: center;
+}
+
+.status {
+  min-height: 1.6em;
+  margin-top: 6px;
+}
+
+.msg {
+  display: none;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #673303;
+}
+
+.msg-idle {
+  display: var(--idle, block);
+}
+
+.msg-lose {
+  display: var(--lose, none);
+  color: #b94131;
+}
+
+.msg-win {
+  display: var(--win, none);
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  counter-reset: cats 40;
+
+  --lock: none;
+  --play: running;
+  --tick: none;
+  --idle: block;
+  --lose: none;
+  --win: none;
+  --start-btn: inline-block;
+  --restart-btn: none;
+}
+
+#game:where(:has(.start-box:checked)) {
+  --lock: auto;
+  --idle: none;
+  --start-btn: none;
+  --restart-btn: inline-block;
+  --tick:
+    tick-s 60s steps(60, end) infinite, tick-m 3600s steps(60, end) infinite,
+    tick-h 360000s steps(100, end) infinite;
+}
+
+#game:where(:has(.cat .o:checked)) {
+  --lock: none;
+  --play: paused;
+  --lose: block;
+}
+
+#game:where(:has(
+    .z1:checked
+  ):has(
+    #o4:checked, .z1:checked
+  ):has(
+    #o6:checked
+  ):has(
+    #o7:checked
+  ):has(
+    #o8:checked
+  ):has(
+    #o9:checked
+  ):has(
+    #o11:checked
+  ):has(
+    #o12:checked
+  ):has(
+    #o14:checked, .z2:checked
+  ):has(
+    .z2:checked
+  ):has(
+    #o20:checked, .z1:checked
+  ):has(
+    #o21:checked
+  ):has(
+    #o22:checked
+  ):has(
+    #o23:checked
+  ):has(
+    #o25:checked
+  ):has(
+    #o26:checked
+  ):has(
+    #o27:checked
+  ):has(
+    #o29:checked, .z2:checked
+  ):has(
+    #o30:checked, .z2:checked
+  ):has(
+    #o32:checked, .z1:checked
+  ):has(
+    #o33:checked, .z1:checked
+  ):has(
+    #o36:checked, .z1:checked
+  ):has(
+    #o37:checked
+  ):has(
+    #o38:checked, .z3:checked
+  ):has(
+    #o39:checked, .z3:checked
+  ):has(
+    #o40:checked, .z3:checked
+  ):has(
+    #o41:checked
+  ):has(
+    #o44:checked, .z2:checked
+  ):has(
+    #o45:checked, .z2:checked
+  ):has(
+    #o49:checked, .z1:checked
+  ):has(
+    #o52:checked, .z1:checked
+  ):has(
+    #o54:checked, .z3:checked
+  ):has(
+    .z3:checked
+  ):has(
+    #o56:checked, .z3:checked
+  ):has(
+    #o58:checked
+  ):has(
+    #o59:checked
+  ):has(
+    #o60:checked, .z2:checked
+  ):has(
+    #o64:checked, .z4:checked
+  ):has(
+    #o65:checked, .z1:checked, .z4:checked
+  ):has(
+    #o66:checked, .z1:checked
+  ):has(
+    #o67:checked, .z1:checked
+  ):has(
+    #o68:checked, .z1:checked
+  ):has(
+    #o70:checked, .z3:checked
+  ):has(
+    #o72:checked, .z3:checked
+  ):has(
+    #o73:checked
+  ):has(
+    #o75:checked
+  ):has(
+    #o76:checked, .z2:checked
+  ):has(
+    #o77:checked, .z2:checked
+  ):has(
+    #o78:checked, .z2:checked
+  ):has(
+    .z4:checked
+  ):has(
+    #o81:checked, .z4:checked
+  ):has(
+    #o83:checked
+  ):has(
+    #o85:checked
+  ):has(
+    #o86:checked, .z3:checked
+  ):has(
+    #o87:checked, .z3:checked
+  ):has(
+    #o88:checked, .z3:checked, .z5:checked
+  ):has(
+    #o89:checked, .z5:checked
+  ):has(
+    #o90:checked, .z5:checked
+  ):has(
+    #o91:checked, .z5:checked
+  ):has(
+    #o92:checked, .z5:checked
+  ):has(
+    #o94:checked, .z2:checked
+  ):has(
+    #o97:checked, .z4:checked
+  ):has(
+    #o98:checked, .z4:checked
+  ):has(
+    #o99:checked
+  ):has(
+    #o102:checked
+  ):has(
+    #o104:checked, .z5:checked
+  ):has(
+    .z5:checked
+  ):has(
+    #o108:checked, .z5:checked
+  ):has(
+    #o110:checked, .z2:checked
+  ):has(
+    #o111:checked, .z2:checked
+  ):has(
+    #o114:checked, .z4:checked
+  ):has(
+    #o117:checked
+  ):has(
+    #o118:checked
+  ):has(
+    #o119:checked
+  ):has(
+    #o120:checked, .z5:checked
+  ):has(
+    #o121:checked, .z5:checked
+  ):has(
+    #o122:checked, .z5:checked
+  ):has(
+    #o123:checked, .z5:checked
+  ):has(
+    #o124:checked, .z5:checked
+  ):has(
+    #o125:checked
+  ):has(
+    #o127:checked
+  ):has(
+    #o130:checked, .z4:checked
+  ):has(
+    #o131:checked
+  ):has(
+    #o132:checked, .z6:checked
+  ):has(
+    #o133:checked, .z6:checked
+  ):has(
+    #o134:checked, .z6:checked
+  ):has(
+    #o135:checked
+  ):has(
+    #o136:checked
+  ):has(
+    #o138:checked
+  ):has(
+    #o140:checked
+  ):has(
+    #o142:checked, .z7:checked
+  ):has(
+    #o143:checked, .z7:checked
+  ):has(
+    #o146:checked, .z4:checked
+  ):has(
+    #o147:checked
+  ):has(
+    #o148:checked, .z6:checked
+  ):has(
+    .z6:checked
+  ):has(
+    #o150:checked, .z6:checked
+  ):has(
+    #o152:checked
+  ):has(
+    #o153:checked
+  ):has(
+    #o154:checked
+  ):has(
+    #o155:checked
+  ):has(
+    #o156:checked
+  ):has(
+    #o157:checked
+  ):has(
+    #o158:checked, .z7:checked
+  ):has(
+    .z7:checked
+  ):has(
+    #o162:checked, .z4:checked
+  ):has(
+    #o164:checked, .z6:checked
+  ):has(
+    #o165:checked, .z6:checked
+  ):has(
+    #o166:checked, .z6:checked
+  ):has(
+    #o167:checked
+  ):has(
+    #o168:checked
+  ):has(
+    #o170:checked
+  ):has(
+    #o171:checked
+  ):has(
+    #o172:checked
+  ):has(
+    #o173:checked
+  ):has(
+    #o174:checked, .z7:checked
+  ):has(
+    #o175:checked, .z7:checked
+  ):has(
+    #o176:checked, .z4:checked
+  ):has(
+    #o177:checked, .z4:checked, .z8:checked
+  ):has(
+    #o178:checked, .z4:checked, .z8:checked
+  ):has(
+    #o179:checked, .z8:checked
+  ):has(
+    #o180:checked, .z8:checked
+  ):has(
+    #o182:checked
+  ):has(
+    #o183:checked
+  ):has(
+    #o185:checked, .z9:checked
+  ):has(
+    #o186:checked, .z9:checked
+  ):has(
+    #o187:checked, .z9:checked
+  ):has(
+    #o189:checked
+  ):has(
+    #o190:checked
+  ):has(
+    #o193:checked, .z8:checked
+  ):has(
+    .z8:checked
+  ):has(
+    #o196:checked, .z8:checked
+  ):has(
+    #o197:checked, .z8:checked
+  ):has(
+    #o199:checked
+  ):has(
+    #o200:checked, .z9:checked
+  ):has(
+    #o201:checked, .z9:checked
+  ):has(
+    .z9:checked
+  ):has(
+    #o203:checked, .z9:checked
+  ):has(
+    #o204:checked, .z9:checked
+  ):has(
+    #o205:checked
+  ):has(
+    #o206:checked, .z10:checked
+  ):has(
+    #o207:checked, .z10:checked
+  ):has(
+    #o208:checked
+  ):has(
+    #o209:checked, .z8:checked
+  ):has(
+    #o213:checked, .z8:checked
+  ):has(
+    #o214:checked
+  ):has(
+    #o216:checked, .z9:checked
+  ):has(
+    #o220:checked, .z9:checked
+  ):has(
+    #o221:checked
+  ):has(
+    #o222:checked, .z10:checked
+  ):has(
+    .z10:checked
+  ):has(
+    #o224:checked
+  ):has(
+    #o225:checked, .z8:checked
+  ):has(
+    #o226:checked, .z8:checked
+  ):has(
+    #o229:checked, .z8:checked
+  ):has(
+    #o231:checked, .z9:checked
+  ):has(
+    #o232:checked, .z9:checked
+  ):has(
+    #o234:checked, .z9:checked
+  ):has(
+    #o235:checked, .z9:checked
+  ):has(
+    #o236:checked, .z9:checked
+  ):has(
+    #o238:checked, .z10:checked
+  ):has(
+    #o242:checked, .z8:checked
+  ):has(
+    #o245:checked, .z8:checked
+  ):has(
+    #o246:checked
+  ):has(
+    #o247:checked, .z9:checked
+  ):has(
+    #o250:checked, .z9:checked
+  ):has(
+    #o252:checked
+  ):has(
+    #o253:checked
+  ):has(
+    #o254:checked, .z10:checked
+  ):not(:has(.safe .f:checked))) {
+  --lock: none;
+  --play: paused;
+  --win: block;
+}
+
+@property --s {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --m {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --h {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@keyframes tick-s {
+  to {
+    --s: 60;
+  }
+}
+
+@keyframes tick-m {
+  to {
+    --m: 60;
+  }
+}
+
+@keyframes tick-h {
+  to {
+    --h: 100;
+  }
+}
+
+
+.timer::before {
+  content: counter(h, decimal-leading-zero) ':' counter(m, decimal-leading-zero) ':'
+    counter(s, decimal-leading-zero);
+}
+
+.cats-count::before {
+  content: counter(cats);
+}
+
+.board-container {
+  overflow-x: auto;
+  padding: 24px 10px 8px;
+}
+
+.game-board {
+  --cell: clamp(26px, calc((100vw - 60px) / 16), 42px);
+
+  display: grid;
+  grid-template-columns: repeat(16, 32px);
+  grid-auto-rows: 32px;
+  width: max-content;
+  margin: 0 auto;
+  border: 4px solid #673303;
+  border-radius: 6px;
+  background-color: #673303;
+  box-shadow: 0 4px 0 #4a2402;
+  pointer-events: var(--lock, none);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.cell {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.cell input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.f:checked {
+  counter-increment: cats -1;
+}
+
+
+.t0 {
+  --closed: url("image/odejalo_x.jpg");
+  --flag: url("image/odejalo_balls.jpg");
+}
+
+.t1 {
+  --closed: url("image/odezka_x.jpg");
+  --flag: url("image/odezka_balls.jpg");
+}
+
+.t2 {
+  --closed: url("image/pled_x.jpg");
+  --flag: url("image/pled_balls.jpg");
+}
+
+.t3 {
+  --closed: url("image/poduszka_x.jpg");
+  --flag: url("image/poduszka_balls.jpg");
+}
+
+.t4 {
+  --closed: url("image/rusznyk_x.jpg");
+  --flag: url("image/rusznyk_balls.jpg");
+}
+
+/* коти (міни) */
+.k0 {
+  --open: url("image/ryz_kot.jpg");
+}
+
+.k1 {
+  --open: url("image/ser_kot.jpg");
+}
+
+.k2 {
+  --open: url("image/siam_kot.jpg");
+}
+
+.k3 {
+  --open: url("image/czerep_kot.jpg");
+}
+
+.k4 {
+  --open: url("image/czorn_kot.jpg");
+}
+
+.n0 {
+  --open: url("image/open_0.jpg");
+}
+
+.n1 {
+  --open: url("image/open_1.jpg");
+}
+
+.n2 {
+  --open: url("image/open_2.jpg");
+}
+
+.n3 {
+  --open: url("image/open_3.jpg");
+}
+
+.n4 {
+  --open: url("image/open_4.jpg");
+}
+
+.n5 {
+  --open: url("image/open_5.jpg");
+}
+
+.n6 {
+  --open: url("image/open_6.jpg");
+}
+
+.n7 {
+  --open: url("image/open_7.jpg");
+}
+
+.n8 {
+  --open: url("image/open_8.jpg");
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  background-image: var(--face, var(--closed));
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.f:checked ~ .face {
+  background-image: var(--flag);
+}
+
+.o:checked ~ .face {
+  background-image: var(--open);
+}
+
+.cat .o:checked ~ .face {
+  box-shadow: inset 0 0 0 3px #b94131;
+}
+
+.hit {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.hit:hover {
+  background-color: rgb(255 255 255 / 25%);
+}
+
+.o:checked ~ .hit,
+.f:checked ~ .hit-o {
+  pointer-events: none;
+}
+
+.hit-f {
+  display: none;
+}
+
+#game:where(:has(#mode-flag:checked)) .hit-o {
+  display: none;
+}
+
+#game:where(:has(#mode-flag:checked)) .hit-f {
+  display: block;
+}
+
+.mode {
+  order: -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 1200px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+}
+
+.mode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #673303;
+  border-radius: 8px;
+  color: #673303;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.1s,
+    color 0.1s;
+}
+
+.mode-btn:hover {
+  background-color: #f1d2ae;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+#game:where(:has(#mode-open:checked)) label[for='mode-open'],
+#game:where(:has(#mode-flag:checked)) label[for='mode-flag'] {
+  background-color: #673303;
+  color: #f1dfcb;
+}
+
+@media (width <= 640px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  header {
+    padding: 12px 10px;
+  }
+}
+
+.game-board:has(.z1:checked) .r1:not(:has(.f:checked)),
+.game-board:has(.z2:checked) .r2:not(:has(.f:checked)),
+.game-board:has(.z3:checked) .r3:not(:has(.f:checked)),
+.game-board:has(.z4:checked) .r4:not(:has(.f:checked)),
+.game-board:has(.z5:checked) .r5:not(:has(.f:checked)),
+.game-board:has(.z6:checked) .r6:not(:has(.f:checked)),
+.game-board:has(.z7:checked) .r7:not(:has(.f:checked)),
+.game-board:has(.z8:checked) .r8:not(:has(.f:checked)),
+.game-board:has(.z9:checked) .r9:not(:has(.f:checked)),
+.game-board:has(.z10:checked) .r10:not(:has(.f:checked)) {
+  --face: var(--open);
+
+  pointer-events: none;
+}
+
+.game-board:has(.cat .o:checked) .cat:not(:has(.f:checked)) {
+  --face: var(--open);
+}
