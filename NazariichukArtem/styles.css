@@ -1,0 +1,112 @@
+body {
+  background-color: #1a1d24;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  background-color: #222730;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 40%);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #15181e;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.counter,
+.timer {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.restart-btn {
+  background-color: #2d68c4;
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.restart-btn:hover {
+  background-color: #3b7ad6;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 36px);
+  grid-template-rows: repeat(9, 36px);
+  gap: 2px;
+  background-color: #15181e;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.cell {
+  background-color: #2b313b;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.cell.closed:hover {
+  background-color: #373f4d;
+}
+
+.cell.open {
+  background-color: #1f232b;
+}
+
+.cell.num-1 {
+  color: #4a90e2;
+}
+
+.cell.num-2 {
+  color: #50e3c2;
+}
+
+.cell.num-3 {
+  color: #e35050;
+}
+
+.cell.num-4 {
+  color: #bd50e3;
+}
+
+.cell.flagged {
+  color: #ff4d4d;
+  font-size: 16px;
+}
+
+.cell.mine {
+  color: #fff;
+}
+
+.cell.mine-exploded {
+  background-color: #e35050;
+  color: #fff;
+}
