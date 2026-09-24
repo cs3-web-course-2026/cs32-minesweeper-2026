@@ -22,9 +22,7 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-    /* Добавляем полупрозрачное темное перекрытие и саму картинку */
-    background-image: linear-gradient(rgba(13, 15, 18, 0.85), rgba(13, 15, 18, 0.85)), url('images.jpeg');
+    background-image: linear-gradient(rgb(13 15 18 / 85%), rgb(13 15 18 / 85%)), url('images.jpeg');
     background-repeat: no-repeat; /* Убираем плитку */
     background-size: cover; /* Растягиваем на весь экран */
     background-position: center;
