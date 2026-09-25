@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #c0c0c0;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.minesweeper-container {
+    background-color: #c0c0c0;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #808080;
+    border-bottom: 3px solid #808080;
+    padding: 10px;
+}
+
+.game-header {
+    background-color: #c0c0c0;
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.counter {
+    background-color: #000;
+    color: #f00;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 2px 6px;
+    letter-spacing: 2px;
+    border: 1px inset #808080;
+}
+
+.smile-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.smile-btn:active {
+    border: 1px solid #808080;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(9, 25px);
+    grid-template-rows: repeat(9, 25px);
+    border-top: 3px solid #808080;
+    border-left: 3px solid #808080;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    background-color: #bdbdbd;
+}
+
+.cell {
+    width: 25px;
+    height: 25px;
+    background-color: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cell.revealed {
+    border: 1px solid #7b7b7b;
+    background-color: #c0c0c0;
+}
+
+.cell.flagged::after {
+    content: "🚩";
+    font-size: 12px;
+}

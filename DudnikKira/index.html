@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сапер - Лабораторна робота</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="minesweeper-container">
+  <!-- Шапка гри -->
+  <div class="game-header">
+    <div class="counter" id="mines-count">010</div>
+    <button class="smile-btn" id="reset-btn">😊</button>
+    <div class="counter" id="timer">000</div>
+  </div>
+
+  <!-- Ігрове поле (сітка 9х9) -->
+  <div class="game-board" id="board">
+    <!-- Приклад клітинок для верстки -->
+    <div class="cell" data-row="0" data-col="0"></div>
+    <div class="cell" data-row="0" data-col="1">1</div>
+    <div class="cell revealed" data-row="0" data-col="2">2</div>
+    <div class="cell flagged" data-row="0" data-col="3"></div>
+    <!-- Можете розмножити або залишити для базової сітки -->
+  </div>
+</div>
+</body>
+</html>
