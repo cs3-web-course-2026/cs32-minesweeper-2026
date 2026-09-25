@@ -1,0 +1,139 @@
+:root {
+    --surface-color: #c0c0c0;
+    --light-edge: #fff;
+    --dark-edge: #808080;
+    --box-size: min(34px, 10vw);
+    --board-size: 9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: pink; /* Класичний колір робочого столу Windows 95 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.game-window {
+    background-color: var(--surface-color);
+    padding: 12px;
+    border-top: 3px solid var(--light-edge);
+    border-left: 3px solid var(--light-edge);
+    border-bottom: 3px solid var(--dark-edge);
+    border-right: 3px solid var(--dark-edge);
+    box-shadow: 5px 5px 15px rgb(0 0 0 / 50%);
+}
+
+/* --- Верхня панель --- */
+.top-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    border-top: 3px solid var(--dark-edge);
+    border-left: 3px solid var(--dark-edge);
+    border-bottom: 3px solid var(--light-edge);
+    border-right: 3px solid var(--light-edge);
+}
+
+.digital-display {
+    background-color: black;
+    color: #ff0707;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 2px 5px;
+    width: 65px;
+    text-align: center;
+    border: 1px solid #777;
+}
+
+.restart-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: var(--surface-color);
+    border-top: 3px solid var(--light-edge);
+    border-left: 3px solid var(--light-edge);
+    border-bottom: 3px solid var(--dark-edge);
+    border-right: 3px solid var(--dark-edge);
+}
+
+.restart-btn:active {
+    border-top: 3px solid var(--dark-edge);
+    border-left: 3px solid var(--dark-edge);
+    border-bottom: 3px solid var(--light-edge);
+    border-right: 3px solid var(--light-edge);
+}
+
+/* --- Ігрове поле --- */
+.grid-board {
+    display: grid;
+    grid-template-columns: repeat(9, var(--box-size));
+    grid-template-rows: repeat(9, var(--box-size));
+    border-top: 3px solid var(--dark-edge);
+    border-left: 3px solid var(--dark-edge);
+    border-bottom: 3px solid var(--light-edge);
+    border-right: 3px solid var(--light-edge);
+}
+
+/* --- Стани клітинок --- */
+.box {
+    width: var(--box-size);
+    height: var(--box-size);
+    background-color: var(--surface-color);
+    border-top: 3px solid var(--light-edge);
+    border-left: 3px solid var(--light-edge);
+    border-bottom: 3px solid var(--dark-edge);
+    border-right: 3px solid var(--dark-edge);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    user-select: none;
+}
+
+.box.open {
+    border: 1px solid var(--dark-edge);
+    background-color: #c9c9c9;
+    cursor: default;
+}
+
+/* Кольори для цифр через data-атрибути */
+.box[data-val="1"] { color: blue; }
+.box[data-val="2"] { color: green; }
+.box[data-val="3"] { color: red; }
+.box[data-val="4"] { color: darkblue; }
+.box[data-val="5"] { color: brown; }
+.box[data-val="6"] { color: cyan; }
+.box[data-val="7"] { color: black; }
+.box[data-val="8"] { color: gray; }
+
+/* Іконки через псевдоелементи */
+.box.marked::after {
+    content: '🚩';
+}
+
+.box.marked.error::after {
+    content: '❌'; 
+}
+
+.box.open.bomb::after {
+    content: '💣';
+}
+
+.box.open.bomb.boom {
+    background-color: red;
+    border: 1px solid darkred;
+}
