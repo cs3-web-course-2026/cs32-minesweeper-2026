@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сапер — Старт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="menu-card hidden" id="menu-card">
+    <div class="card-header">
+        <h1>Minesweeper</h1>
+    </div>
+
+    <div class="card-body">
+        <div class="size-selector">
+            <span>Choose size of the field:</span>
+            <input type="number" id="rows" min="5" max="15" value="5">
+            <span class="multiply">X</span>
+            <input type="number" id="columns" min="5" max="15" value="5">
+        </div>
+
+        <button type="button" class="btn-start" id="start-btn">Start</button>
+    </div>
+</div>
+
+<div class="game-container" id="game-container">
+
+    <header class="game-header">
+        <div class="info-box">
+            <span class="info-label">💣 Mines:</span>
+            <span id="mines-count">5</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">⏱️ Time:</span>
+            <span id="timer">00:01</span>
+        </div>
+        <div class="info-box">
+            <span class="info-label">Cells left:</span>
+            <span id="closed-count">18</span>
+        </div>
+        <button type="button" class="btn-restart" id="restart-btn">Restart</button>
+        <div id="game-status" role="status" aria-live="polite" class="sr-only">Game in progress</div>
+    </header>
+
+    <main class="board-wrapper">
+        <div class="board" id="board">
+            <div class="cell revealed number-2">2</div>
+            <div class="cell revealed number-2">2</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell revealed">💣</div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell revealed">💣</div>
+            <div class="cell revealed">💣</div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
