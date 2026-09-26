@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper - Dudnik Kira</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="minesweeper-container">
+
+  <header class="game-header">
+    <div class="counter" id="mines-count" role="status" aria-live="polite">010</div>
+    <button type="button" class="smile-btn" id="reset-btn" aria-label="Нова гра"></button>
+    <div class="counter" id="timer" role="status" aria-live="polite">000</div>
+  </header>
+
+  <main class="game-board">
+    <div class="cell" data-row="0" data-col="0"></div>
+    <div class="cell open number-1" data-row="0" data-col="1">1</div>
+    <div class="cell open number-2" data-row="0" data-col="2">2</div>
+    <div class="cell flagged" data-row="0" data-col="3"></div>
+
+    <div class="cell open number-3" data-row="1" data-col="0">3</div>
+    <div class="cell mine" data-row="1" data-col="1"></div>
+    <div class="cell open" data-row="1" data-col="2"></div>
+    <div class="cell flagged" data-row="1" data-col="3"></div>
+
+    <div class="cell" data-row="2" data-col="0"></div>
+    <div class="cell open" data-row="2" data-col="1"></div>
+    <div class="cell mine exploded" data-row="2" data-col="2"></div>
+    <div class="cell open" data-row="2" data-col="3"></div>
+
+    <div class="cell" data-row="3" data-col="0"></div>
+    <div class="cell" data-row="3" data-col="1"></div>
+    <div class="cell" data-row="3" data-col="2"></div>
+    <div class="cell" data-row="3" data-col="3"></div>
+  </main>
+
+</div>
+</body>
+</html>

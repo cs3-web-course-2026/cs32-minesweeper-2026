@@ -1,0 +1,124 @@
+:root {
+    --cell-size: 32px;
+    --board-size: calc(var(--cell-size) * 4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #2c3e50;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.minesweeper-container {
+    background-color: #c0c0c0;
+    border: 3px solid;
+    border-color: #fff #808080 #808080 #fff;
+    padding: 10px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #808080 #fff #fff #808080;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.counter {
+    background-color: #000;
+    color: #f00;
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 5px;
+    letter-spacing: 2px;
+}
+
+.smile-btn {
+    width: 26px;
+    height: 26px;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    cursor: pointer;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, var(--cell-size));
+    grid-template-rows: repeat(4, var(--cell-size));
+    border: 2px solid;
+    border-color: #808080 #fff #fff #808080;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cell.open {
+    border: 1px solid #7b7b7b;
+    background-color: #bdbdbd;
+}
+
+.cell.flagged {
+    background-color: #c0c0c0;
+}
+
+.cell.flagged::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
+.cell.mine {
+    background-color: #c0c0c0;
+}
+
+.cell.mine.exploded {
+    background-color: #f00;
+}
+
+.cell.mine.exploded::after {
+    content: "💣";
+    font-size: 12px;
+}
+
+.number-1 {
+    color: #00f;
+}
+
+.number-2 {
+    color: #008000;
+}
+
+.number-3 {
+    color: #f00;
+}
+
+@media (width <= 400px) {
+    :root {
+        --cell-size: 24px;
+    }
+}
