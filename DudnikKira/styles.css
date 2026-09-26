@@ -117,7 +117,7 @@ body {
     color: #f00;
 }
 
-@media (max-width: 400px) {
+@media (width <= 400px) {
     :root {
         --cell-size: 24px;
     }
