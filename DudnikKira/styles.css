@@ -1,3 +1,8 @@
+:root {
+    --cell-size: 32px;
+    --board-size: calc(var(--cell-size) * 4);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,65 +22,53 @@ body {
     background-color: #c0c0c0;
     border: 3px solid;
     border-color: #fff #808080 #808080 #fff;
-    padding: 12px;
-    box-shadow: 0 10px 20px rgb(0 0 0 / 30%);
+    padding: 10px;
 }
 
 .game-header {
-    background-color: #c0c0c0;
-    border: 2px solid;
-    border-color: #808080 #fff #fff #808080;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6px 10px;
-    margin-bottom: 12px;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #808080 #fff #fff #808080;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 .counter {
     background-color: #000;
     color: #f00;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 24px;
+    font-family: monospace;
+    font-size: 20px;
     font-weight: bold;
-    padding: 2px 6px;
-    border: 1px solid #808080;
+    padding: 2px 5px;
+    letter-spacing: 2px;
 }
 
 .smile-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+    width: 26px;
+    height: 26px;
     background-color: #c0c0c0;
     border: 2px solid;
     border-color: #fff #808080 #808080 #fff;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.smile-btn:active {
-    border-color: #808080 #fff #fff #808080;
 }
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(9, 25px);
-    grid-template-rows: repeat(9, 25px);
-    gap: 0;
-    border: 3px solid;
+    grid-template-columns: repeat(4, var(--cell-size));
+    grid-template-rows: repeat(4, var(--cell-size));
+    border: 2px solid;
     border-color: #808080 #fff #fff #808080;
 }
 
 .cell {
-    width: 25px;
-    height: 25px;
+    width: var(--cell-size);
+    height: var(--cell-size);
     background-color: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -85,7 +78,7 @@ body {
     user-select: none;
 }
 
-.cell.revealed {
+.cell.open {
     border: 1px solid #7b7b7b;
     background-color: #bdbdbd;
 }
@@ -94,19 +87,38 @@ body {
     background-color: #c0c0c0;
 }
 
+.cell.flagged::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
+.cell.mine {
+    background-color: #c0c0c0;
+}
+
 .cell.mine.exploded {
     background-color: #f00;
 }
 
-@media (width <= 600px) {
-    .game-board {
-        grid-template-columns: repeat(9, 20px);
-        grid-template-rows: repeat(9, 20px);
-    }
+.cell.mine.exploded::after {
+    content: "💣";
+    font-size: 12px;
+}
 
-    .cell {
-        width: 20px;
-        height: 20px;
-        font-size: 12px;
+.number-1 {
+    color: #00f;
+}
+
+.number-2 {
+    color: #008000;
+}
+
+.number-3 {
+    color: #f00;
+}
+
+@media (max-width: 400px) {
+    :root {
+        --cell-size: 24px;
     }
 }
