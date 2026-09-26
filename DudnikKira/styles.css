@@ -16,15 +16,15 @@ body {
 .minesweeper-container {
     background-color: #c0c0c0;
     border: 3px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
+    border-color: #fff #808080 #808080 #fff;
     padding: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 30%);
 }
 
 .game-header {
     background-color: #c0c0c0;
     border: 2px solid;
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,8 +33,8 @@ body {
 }
 
 .counter {
-    background-color: #000000;
-    color: #ff0000;
+    background-color: #000;
+    color: #f00;
     font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
     font-weight: bold;
@@ -48,7 +48,7 @@ body {
     font-size: 20px;
     background-color: #c0c0c0;
     border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
+    border-color: #fff #808080 #808080 #fff;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -56,7 +56,7 @@ body {
 }
 
 .smile-btn:active {
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
 }
 
 .game-board {
@@ -65,7 +65,7 @@ body {
     grid-template-rows: repeat(9, 25px);
     gap: 0;
     border: 3px solid;
-    border-color: #808080 #ffffff #ffffff #808080;
+    border-color: #808080 #fff #fff #808080;
 }
 
 .cell {
@@ -95,14 +95,15 @@ body {
 }
 
 .cell.mine.exploded {
-    background-color: #ff0000;
+    background-color: #f00;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
     .game-board {
         grid-template-columns: repeat(9, 20px);
         grid-template-rows: repeat(9, 20px);
     }
+
     .cell {
         width: 20px;
         height: 20px;
