@@ -8,9 +8,9 @@
   </head>
   <body>
     <form id="game" autocomplete="off">
-      <input type="checkbox" id="start" class="start-box" hidden />
-      <input type="radio" name="mode" id="mode-open" checked hidden />
-      <input type="radio" name="mode" id="mode-flag" hidden />
+      <input type="checkbox" id="start" class="start-box sr-only" />
+      <input type="radio" name="mode" id="mode-open" class="sr-only" checked />
+      <input type="radio" name="mode" id="mode-flag" class="sr-only" />
 
       <main class="board-container">
         <div id="board" class="game-board">
@@ -281,14 +281,14 @@
         </div>
         <div class="center">
           <h1>Don't Wake the Cats!</h1>
-          <div class="status">
+          <div class="status" role="status" aria-live="polite">
             <p class="msg msg-idle">Press Start to begin</p>
             <p class="msg msg-lose">You woke the cats! Press Restart.</p>
             <p class="msg msg-win">All cats are still asleep!</p>
           </div>
         </div>
         <div class="right-panel">
-          <span class="cats-count" aria-label="Cats left"></span>
+          <span class="cats-count" role="status" aria-live="polite" aria-label="Cats left"></span>
           <span class="paw-icon">🐾</span>
         </div>
       </header>
@@ -298,9 +298,9 @@
           <span aria-hidden="true">✋</span>
           <span class="sr-only">Open a cell</span>
         </label>
-        <label class="mode-btn" for="mode-flag" title="Place a balls">
+        <label class="mode-btn" for="mode-flag" title="Place a ball of yarn">
           <span aria-hidden="true">🧶</span>
-          <span class="sr-only">Place a balls</span>
+          <span class="sr-only">Place a ball of yarn</span>
         </label>
       </footer>
     </form>

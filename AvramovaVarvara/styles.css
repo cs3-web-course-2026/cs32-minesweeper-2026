@@ -144,6 +144,7 @@ header {
   --win: none;
   --start-btn: inline-block;
   --restart-btn: none;
+  --cell-input-display: none;
 }
 
 #game:where(:has(.start-box:checked)) {
@@ -151,6 +152,7 @@ header {
   --idle: none;
   --start-btn: none;
   --restart-btn: inline-block;
+  --cell-input-display: inline-block;
   --tick:
     tick-s 60s steps(60, end) infinite, tick-m 3600s steps(60, end) infinite,
     tick-h 360000s steps(100, end) infinite;
@@ -160,6 +162,7 @@ header {
   --lock: none;
   --play: paused;
   --lose: block;
+  --cell-input-display: none;
 }
 
 #game:where(:has(
@@ -504,6 +507,7 @@ header {
   --lock: none;
   --play: paused;
   --win: block;
+  --cell-input-display: none;
 }
 
 @property --s {
@@ -557,12 +561,14 @@ header {
   padding: 24px 10px 8px;
 }
 
-.game-board {
+:root {
   --cell: clamp(26px, calc((100vw - 60px) / 16), 42px);
+}
 
+.game-board {
   display: grid;
-  grid-template-columns: repeat(16, 32px);
-  grid-auto-rows: 32px;
+  grid-template-columns: repeat(16, var(--cell));
+  grid-auto-rows: var(--cell);
   width: max-content;
   margin: 0 auto;
   border: 4px solid #673303;
@@ -577,8 +583,8 @@ header {
 
 .cell {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: var(--cell);
+  height: var(--cell);
 }
 
 .cell input {
@@ -588,6 +594,7 @@ header {
   margin: 0;
   opacity: 0;
   pointer-events: none;
+  display: var(--cell-input-display, none);
 }
 
 .f:checked {
@@ -802,4 +809,29 @@ header {
 
 .game-board:has(.cat .o:checked) .cat:not(:has(.f:checked)) {
   --face: var(--open);
+}
+
+#game:has(.start-box:focus-visible) .start,
+#game:has(.start-box:focus-visible) .restart,
+#game:has(#mode-open:focus-visible) label[for='mode-open'],
+#game:has(#mode-flag:focus-visible) label[for='mode-flag'] {
+  outline: 3px solid #b94131;
+  outline-offset: 2px;
+}
+
+.cell:has(input:focus-visible) .hit {
+  outline: 2px solid #b94131;
+  outline-offset: -2px;
+}
+
+.game-board:has(.cat .o:checked) .cell:not(.cat):has(.f:checked) .face::after {
+  content: '✕';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b94131;
+  font-weight: bold;
+  font-size: 1.2em;
 }
