@@ -59,26 +59,26 @@ button:focus-visible {
   font-weight: bold;
 }
 
-.cell--open {
+.cell-open {
   border-color: #ddd;
   background: #fafafa;
 }
 
-.cell--1 { color: #245cad; }
-.cell--2 { color: #28733c; }
-.cell--flag { color: #28733c; }
+.cell-one { color: #245cad; }
+.cell-two { color: #28733c; }
+.cell-flag { color: #28733c; }
 
-.cell--wrong {
+.cell-wrong {
   background: #f7d7cc;
   color: #a32620;
   text-decoration: line-through;
 }
 
-.cell--mine {
+.cell-mine {
   background: #bbb;
 }
 
-.cell--hit {
+.cell-hit {
   background: #b52d26;
   color: white;
 }
