@@ -1,3 +1,7 @@
+:root {
+  --cell-size: 25px;
+}
+
 body {
   margin: 30px auto;
   font-family: Silkscreen, sans-serif;
@@ -49,7 +53,8 @@ body {
   border: 2px solid black;
   border-radius: 10px;
   padding: 10px;
-  width: 250px;
+  box-sizing: border-box;
+  width: min(100%, 274px);
   justify-content: space-around;
   margin-top: 50px;
   margin-left: auto;
@@ -78,8 +83,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25px;
-  height: 25px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   border: 1px solid gray;
   border-radius: 4px;
   cursor: pointer;
@@ -106,8 +111,14 @@ body {
   font-size: 14px;
 }
 
+.flagged.mined {
+  background-color: rgb(76 175 80 / 40%);
+  border: 1px solid rgb(46 125 50);
+}
+
 .flagged.mined::after {
   content: '🚩';
+  font-size: 14px;
 }
 
 .exploded {
