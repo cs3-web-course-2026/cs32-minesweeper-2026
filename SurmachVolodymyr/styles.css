@@ -37,7 +37,7 @@ body {
   border-bottom-width: 30px;
 }
 
-/* Header / Score Panel */
+/*  Header / Score Panel  */
 .top-panel {
   background-color: var(--bg-grey);
   display: flex;
