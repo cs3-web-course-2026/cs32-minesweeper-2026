@@ -96,6 +96,12 @@ body {
     background-color: #c0c0c0;
 }
 
+/* Стиль для міни під прапорцем (flagged-mine) */
+.cell.flagged.mine::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
 .cell.mine.exploded {
     background-color: #f00;
 }
