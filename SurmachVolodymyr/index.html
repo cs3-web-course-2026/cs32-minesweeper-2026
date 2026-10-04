@@ -13,15 +13,15 @@
     <!-- Top Header Panel -->
     <header class="top-panel">
         <div class="led-display" role="status" aria-live="polite" aria-label="Mine count">
-            <span class="led-icon" aria-hidden="true">💣</span>
+            <span class="led-icon" aria-hidden="true">💣</span> 004
         </div>
 
         <button type="button" class="smiley-btn" aria-label="Restart game">
             🙂
         </button>
 
-        <div class="led-display">
-            <span class="led-icon">⏰</span> 01:45
+        <div class="led-display" role="timer" aria-live="polite" aria-label="Time elapsed">
+            <span class="led-icon" aria-hidden="true">⏰</span> 01:45
         </div>
     </header>
 
@@ -29,7 +29,7 @@
     <main class="game-grid">
         <!-- Row 1 -->
         <div class="cell closed"></div>
-        <div class="cell closed"></div>
+        <div class="cell open mine">💣</div>
         <div class="cell closed"></div>
         <div class="cell open num-1">1</div>
         <div class="cell open"></div>
@@ -42,7 +42,7 @@
         <div class="cell open num-1">1</div>
         <div class="cell open"></div>
         <div class="cell open num-1">1</div>
-        <div class="cell closed"></div>
+        <div class="cell open mine">💣</div>
         <div class="cell open num-3">3</div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
@@ -53,7 +53,7 @@
         <div class="cell open"></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
-        <div class="cell closed"></div>
+        <div class="cell open mine">💣</div>
         <div class="cell open font-black">?</div>
         <div class="cell open num-1">1</div>
         <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
@@ -77,7 +77,7 @@
         <div class="cell open font-black">?</div>
         <div class="cell open num-2">2</div>
         <div class="cell closed"></div>
-        <div class="cell closed"></div>
+        <div class="cell open mine">💣</div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
         <div class="cell closed"></div>
@@ -98,7 +98,7 @@
         <div class="cell open"></div>
         <div class="cell open"></div>
         <div class="cell open"></div>
-        <div class="cell closed"></div>
+        <div class="cell open mine">💣</div>
         <div class="cell closed"></div>
         <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
         <div class="cell closed"></div>
@@ -147,4 +147,3 @@
 
 </body>
 </html>
-
