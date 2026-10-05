@@ -3,8 +3,9 @@
   --border-light: #fff;
   --border-dark: #808080;
   --border-black: #000;
-  --cell-size: clamp(30px, 7vw, 38px);
-  --font-stack: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif;}
+  --cell-size: clamp(26px, 6vw, 34px);
+  --font-stack: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif;
+}
 
 *,
 *::before,
@@ -68,9 +69,10 @@ body {
 
 .lcd-counter {
   background-color: var(--border-black);
-  padding: 2px 5px;
+  padding: 2px 6px;
   display: flex;
-  gap: 2px;
+  align-items: center;
+  justify-content: center;
   border-radius: 2px;
 }
 
@@ -80,6 +82,7 @@ body {
   font-weight: 900;
   color: #f00;
   line-height: 1;
+  letter-spacing: 2px;
   text-shadow: 0 0 4px rgb(255 0 0 / 80%);
 }
 
@@ -105,12 +108,11 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(8, var(--cell-size));
-  grid-template-rows: repeat(8, var(--cell-size));
+  grid-template-columns: repeat(var(--grid-cols, 10), var(--cell-size));
+  grid-template-rows: repeat(var(--grid-rows, 10), var(--cell-size));
   background-color: var(--border-dark);
 }
 
-/* Базовий .cell розміщено перед псевдокласом focus-visible для дотримання специфічності */
 .cell {
   width: var(--cell-size);
   height: var(--cell-size);
@@ -162,8 +164,7 @@ body {
 .cell-num-7 { color: #000; }
 .cell-num-8 { color: #808080; }
 
-.cell-flagged,
-.cell-question {
+.cell-flagged {
   cursor: pointer;
 }
 
@@ -173,10 +174,6 @@ body {
 
 .cell-mine-exploded {
   background-color: #ff2525;
-}
-
-.cell-flagged-correct {
-  background-color: #b4e3b4;
 }
 
 .cell-flagged-wrong {
