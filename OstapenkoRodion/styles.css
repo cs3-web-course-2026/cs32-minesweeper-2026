@@ -129,6 +129,8 @@ body {
 
 /* Дефолтна закрита клітинка */
 .cell {
+    width: 35px;
+    height: 35px;
     background-color: #bdbdbd;
     border-top: 3px solid #fff;
     border-left: 3px solid #fff;
