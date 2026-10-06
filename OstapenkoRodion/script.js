@@ -8,7 +8,7 @@ let gameState = {
     rows: GAME_CONFIG.rows,
     cols: GAME_CONFIG.cols,
     minesCount: GAME_CONFIG.minesCount,
-    status: 'process', // 'process', 'win', 'lose'
+    status: 'process',
     gameTime: 0,
     timerId: null,
     flagsPlaced: 0,
@@ -16,7 +16,6 @@ let gameState = {
 };
 
 let board = []; 
-
 
 function generateField(rows, cols, minesCount) {
     board = [];
@@ -47,7 +46,6 @@ function generateField(rows, cols, minesCount) {
     
     countNeighbourMines();
 }
-
 
 function countNeighbourMines() {
     const rows = board.length;
@@ -119,7 +117,6 @@ function openCell(r, c) {
     checkWin();
 }
 
-
 function toggleFlag(r, c) {
     if (gameState.status !== 'process') return;
     
@@ -142,11 +139,18 @@ function startTimer() {
     }, 1000);
 }
 
-
 const boardEl = document.querySelector('.game-board');
 const statusMessageEl = document.querySelector('.status-message');
 
 function renderBoard() {
+    let focusR = null;
+    let focusC = null;
+    
+    if (document.activeElement && document.activeElement.classList.contains('cell')) {
+        focusR = document.activeElement.dataset.r;
+        focusC = document.activeElement.dataset.c;
+    }
+
     boardEl.innerHTML = ''; 
     const rows = board.length;
     const cols = board[0].length;
@@ -162,6 +166,8 @@ function renderBoard() {
             const cellEl = document.createElement('button');
             cellEl.setAttribute('type', 'button');
             cellEl.classList.add('cell');
+            cellEl.dataset.r = r;
+            cellEl.dataset.c = c;
 
             if (cellData.state === 'opened') {
                 cellEl.classList.add('open');
@@ -200,8 +206,12 @@ function renderBoard() {
             boardEl.appendChild(cellEl);
         }
     }
-}
 
+    if (focusR !== null && focusC !== null) {
+        const cellToFocus = boardEl.querySelector(`.cell[data-r="${focusR}"][data-c="${focusC}"]`);
+        if (cellToFocus) cellToFocus.focus();
+    }
+}
 
 const timerEl = document.querySelector('.timer');
 const flagsEl = document.querySelector('.flags-count');
