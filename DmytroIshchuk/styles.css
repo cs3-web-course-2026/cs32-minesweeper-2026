@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -10,17 +8,13 @@ body {
   font: 16px Arial, sans-serif;
 }
 
-.game {
-  width: min(100%, 360px);
-  margin: auto;
-}
+.game { width: min(100%, 420px); margin: auto; }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 12px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -34,51 +28,31 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #eee;
-}
+button:hover { background: #eee; }
+button:focus-visible { outline: 2px solid #245cad; outline-offset: 2px; }
 
-button:focus-visible {
-  outline: 2px solid #245cad;
-  outline-offset: 2px;
-}
+#message { height: 20px; margin: 12px 0; text-align: center; font-weight: bold; }
 
-.board {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 3px;
-}
+.board { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 3px; }
 
 .cell {
-  display: grid;
   aspect-ratio: 1;
-  place-items: center;
+  padding: 0;
   border: 1px solid #aaa;
+  border-radius: 0;
   background: #d4d4d4;
-  font-size: 20px;
+  color: #222;
+  font-size: clamp(14px, 5vw, 20px);
   font-weight: bold;
 }
 
-.cell-open {
-  border-color: #ddd;
-  background: #fafafa;
-}
-
-.cell-one { color: #245cad; }
-.cell-two { color: #28733c; }
-.cell-flag { color: #28733c; }
-
-.cell-wrong {
-  background: #f7d7cc;
-  color: #a32620;
-  text-decoration: line-through;
-}
-
-.cell-mine {
-  background: #bbb;
-}
-
-.cell-hit {
-  background: #b52d26;
-  color: white;
-}
+.cell:hover { background: #c4c4c4; }
+.cell.open { border-color: #ddd; background: #fafafa; }
+.cell.open:hover { background: #fafafa; }
+.cell.flag { color: #28733c; }
+.cell.mine { background: #bbb; }
+.cell.hit { background: #b52d26; color: white; }
+.cell.n1 { color: #245cad; }
+.cell.n2 { color: #28733c; }
+.cell.n3 { color: #b52d26; }
+.cell.n4 { color: #633a91; }
