@@ -171,7 +171,6 @@ function renderBoard() {
                 cellElement.classList.add('open');
                 if (cell.type === 'mine') {
                     cellElement.classList.add('mine');
-                    // Додаємо клас clicked тільки для тієї міни, на яку реально натиснули
                     if (gameState.status === 'lose' && clickedMine && clickedMine.r === r && clickedMine.c === c) {
                         cellElement.classList.add('clicked');
                     }
@@ -247,12 +246,23 @@ function checkWinCondition() {
 }
 
 /**
- * Завершує гру, відкриває міни та відображає сповіщення.
+ * Завершує гру, відкриває міни та оновлює статус у DOM.
  * @param {string} status - Статус завершення гри ('win' або 'lose').
  */
 function endGame(status) {
     gameState.status = status;
     stopTimer();
+    
+    // Знаходимо або створюємо статусний елемент для DOM з role="status" та aria-live="polite"
+    let statusEl = document.getElementById('game-status-message');
+    if (!statusEl) {
+        statusEl = document.createElement('div');
+        statusEl.id = 'game-status-message';
+        statusEl.setAttribute('role', 'status');
+        statusEl.setAttribute('aria-live', 'polite');
+        const container = document.querySelector('.game-container') || document.body;
+        container.appendChild(statusEl);
+    }
     
     if (status === 'lose') {
         for (let r = 0; r < gameState.rows; r++) {
@@ -262,9 +272,9 @@ function endGame(status) {
                 }
             }
         }
-        setTimeout(() => alert('💥 Ви підірвались! Гра закінчена.'), 100);
+        statusEl.textContent = '💥 Ви підірвались! Гра закінчена.';
     } else if (status === 'win') {
-        setTimeout(() => alert(`🎉 Перемога! Ваш час: ${gameState.gameTime} сек.`), 100);
+        statusEl.textContent = `🎉 Перемога! Ваш час: ${gameState.gameTime} сек.`;
     }
     
     renderBoard();
@@ -277,6 +287,11 @@ function initGame() {
     gameState.status = 'process';
     gameState.flagsCount = gameState.minesCount;
     clickedMine = null;
+    
+    const statusEl = document.getElementById('game-status-message');
+    if (statusEl) {
+        statusEl.textContent = '';
+    }
     
     generateField(gameState.rows, gameState.cols, gameState.minesCount);
     startTimer();
