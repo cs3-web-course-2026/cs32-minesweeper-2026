@@ -6,14 +6,12 @@ const gameState = {
     flagsCount: 15,
     status: 'process', // 'process' | 'win' | 'lose'
     gameTime: 0,
-    timerId: null
+    timerId: null,
+    clickedMine: null // Зберігаємо координати міни всередині gameState відповідно до вимог
 };
 
 // Окремий 2D-масив для ігрового поля
 let board = [];
-
-// Змінна для збереження координат міни, на якій підірвались
-let clickedMine = null;
 
 // Напрямки для пошуку сусідів (8 клітинок навколо)
 const directions = [
@@ -86,7 +84,7 @@ function openCell(r, c) {
     cell.state = 'opened';
 
     if (cell.type === 'mine') {
-        clickedMine = { r, c };
+        gameState.clickedMine = { r, c };
         endGame('lose');
         return;
     }
@@ -171,7 +169,7 @@ function renderBoard() {
                 cellElement.classList.add('open');
                 if (cell.type === 'mine') {
                     cellElement.classList.add('mine');
-                    if (gameState.status === 'lose' && clickedMine && clickedMine.r === r && clickedMine.c === c) {
+                    if (gameState.status === 'lose' && gameState.clickedMine && gameState.clickedMine.r === r && gameState.clickedMine.c === c) {
                         cellElement.classList.add('clicked');
                     }
                     cellElement.textContent = '💣';
@@ -253,7 +251,6 @@ function endGame(status) {
     gameState.status = status;
     stopTimer();
     
-    // Знаходимо або створюємо статусний елемент для DOM з role="status" та aria-live="polite"
     let statusEl = document.getElementById('game-status-message');
     if (!statusEl) {
         statusEl = document.createElement('div');
@@ -286,7 +283,7 @@ function endGame(status) {
 function initGame() {
     gameState.status = 'process';
     gameState.flagsCount = gameState.minesCount;
-    clickedMine = null;
+    gameState.clickedMine = null;
     
     const statusEl = document.getElementById('game-status-message');
     if (statusEl) {
