@@ -17,9 +17,13 @@ const directions = [
     [1, -1],  [1, 0],  [1, 1]
 ];
 
-// Крок 2. Генерація поля та мін
+/**
+ * Генерує ігрове поле та випадковим чином розставляє міни.
+ * @param {number} rows - Кількість рядків на полі.
+ * @param {number} cols - Кількість колонок на полі.
+ * @param {number} minesCount - Кількість мін, які потрібно розставити.
+ */
 function generateField(rows, cols, minesCount) {
-    // 1. Ініціалізація порожнього поля
     gameState.board = Array.from({ length: rows }, () =>
         Array.from({ length: cols }, () => ({
             type: 'empty',
@@ -28,7 +32,6 @@ function generateField(rows, cols, minesCount) {
         }))
     );
 
-    // 2. Розстановка мін випадковим чином
     let minesPlaced = 0;
     while (minesPlaced < minesCount) {
         const r = Math.floor(Math.random() * rows);
@@ -43,7 +46,9 @@ function generateField(rows, cols, minesCount) {
     countNeighbourMines();
 }
 
-// Крок 3. Алгоритмічна частина (Business Logic)
+/**
+ * Підраховує кількість мін навколо кожної порожньої клітинки.
+ */
 function countNeighbourMines() {
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
@@ -62,6 +67,11 @@ function countNeighbourMines() {
     }
 }
 
+/**
+ * Відкриває вибрану клітинку та рекурсивно відкриває сусідні порожні клітинки.
+ * @param {number} r - Індекс рядка клітинки.
+ * @param {number} c - Індекс колонки клітинки.
+ */
 function openCell(r, c) {
     if (gameState.status !== 'process') return;
     
@@ -70,13 +80,11 @@ function openCell(r, c) {
 
     cell.state = 'opened';
 
-    // Поразка
     if (cell.type === 'mine') {
         endGame('lose');
         return;
     }
 
-    // Рекурсія для порожніх клітинок
     if (cell.neighborMines === 0) {
         for (const [dx, dy] of directions) {
             const nr = r + dx;
@@ -93,7 +101,11 @@ function openCell(r, c) {
     renderBoard();
 }
 
-// Крок 4. Таймер та прапорці
+/**
+ * Встановлює або знімає прапорець на вибраній клітинці.
+ * @param {number} r - Індекс рядка клітинки.
+ * @param {number} c - Індекс колонки клітинки.
+ */
 function toggleFlag(r, c) {
     if (gameState.status !== 'process') return;
     
@@ -111,6 +123,9 @@ function toggleFlag(r, c) {
     renderBoard();
 }
 
+/**
+ * Запускає ігровий таймер, який оновлюється щосекунди.
+ */
 function startTimer() {
     stopTimer();
     gameState.gameTime = 0;
@@ -120,18 +135,21 @@ function startTimer() {
     }, 1000);
 }
 
+/**
+ * Зупиняє поточний ігровий таймер.
+ */
 function stopTimer() {
     if (gameState.timerId) clearInterval(gameState.timerId);
 }
 
-// Крок 5 & 7. Рендеринг ігрового поля (DOM) та Обробка подій
+/**
+ * Рендерить ігрове поле у DOM на основі масиву даних.
+ */
 function renderBoard() {
     const boardElement = document.querySelector('.game-board');
     if (!boardElement) return;
     
     boardElement.innerHTML = '';
-    
-    // Встановлюємо правильну кількість колонок у CSS
     document.documentElement.style.setProperty('--board-columns', gameState.cols);
 
     for (let r = 0; r < gameState.rows; r++) {
@@ -144,7 +162,6 @@ function renderBoard() {
                 cellElement.classList.add('open');
                 if (cell.type === 'mine') {
                     cellElement.classList.add('mine');
-                    // Додаємо клас кліку для тієї міни, на яку натиснули, і просто міну для інших
                     if (gameState.status === 'lose') cellElement.classList.add('clicked');
                     cellElement.textContent = '💣';
                 } else if (cell.neighborMines > 0) {
@@ -155,7 +172,6 @@ function renderBoard() {
                 }
             } else if (cell.state === 'flagged') {
                 cellElement.classList.add('flag');
-                // Визначення правильності прапорця в кінці гри (опціонально для візуалу)
                 if (gameState.status === 'lose' && cell.type !== 'mine') {
                     cellElement.classList.add('flagged-safe');
                     cellElement.textContent = '❌';
@@ -164,10 +180,9 @@ function renderBoard() {
                 }
             }
 
-            // Обробка подій (Крок 7)
             cellElement.addEventListener('click', () => openCell(r, c));
             cellElement.addEventListener('contextmenu', (e) => {
-                e.preventDefault(); // Блокування контекстного меню
+                e.preventDefault();
                 toggleFlag(r, c);
             });
 
@@ -176,7 +191,9 @@ function renderBoard() {
     }
 }
 
-// Крок 6. Динамічні елементи інтерфейсу
+/**
+ * Оновлює динамічні елементи інтерфейсу (таймер та лічильник прапорців).
+ */
 function updateUI() {
     const timerEl = document.getElementById('timer');
     const flagEl = document.getElementById('flag-count');
@@ -189,7 +206,9 @@ function updateUI() {
     }
 }
 
-// Крок 8. Завершення гри
+/**
+ * Перевіряє умову перемоги (чи відкриті всі безпечні клітинки).
+ */
 function checkWinCondition() {
     let closedSafeCells = 0;
     for (let r = 0; r < gameState.rows; r++) {
@@ -206,12 +225,15 @@ function checkWinCondition() {
     }
 }
 
+/**
+ * Завершує гру, відкриває міни та відображає сповіщення.
+ * @param {string} status - Статус завершення гри ('win' або 'lose').
+ */
 function endGame(status) {
     gameState.status = status;
     stopTimer();
     
     if (status === 'lose') {
-        // Відкриваємо всі міни
         for (let r = 0; r < gameState.rows; r++) {
             for (let c = 0; c < gameState.cols; c++) {
                 if (gameState.board[r][c].type === 'mine' && gameState.board[r][c].state !== 'flagged') {
@@ -227,7 +249,9 @@ function endGame(status) {
     renderBoard();
 }
 
-// Ініціалізація нової гри
+/**
+ * Ініціалізує нові параметри стану та генерує нове ігрове поле.
+ */
 function initGame() {
     gameState.status = 'process';
     gameState.flagsCount = gameState.minesCount;
@@ -238,8 +262,5 @@ function initGame() {
     renderBoard();
 }
 
-// Прив'язка події до кнопки рестарту (емодзі)
 document.querySelector('.reset-btn').addEventListener('click', initGame);
-
-// Запуск першої гри при завантаженні сторінки
 window.addEventListener('DOMContentLoaded', initGame);
