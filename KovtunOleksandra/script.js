@@ -6,9 +6,11 @@ const gameState = {
     flagsCount: 15,
     status: 'process', // 'process' | 'win' | 'lose'
     gameTime: 0,
-    timerId: null,
-    board: []
+    timerId: null
 };
+
+// Окремий 2D-масив для ігрового поля
+let board = [];
 
 // Напрямки для пошуку сусідів (8 клітинок навколо)
 const directions = [
@@ -24,7 +26,7 @@ const directions = [
  * @param {number} minesCount - Кількість мін, які потрібно розставити.
  */
 function generateField(rows, cols, minesCount) {
-    gameState.board = Array.from({ length: rows }, () =>
+    board = Array.from({ length: rows }, () =>
         Array.from({ length: cols }, () => ({
             type: 'empty',
             state: 'closed',
@@ -37,8 +39,8 @@ function generateField(rows, cols, minesCount) {
         const r = Math.floor(Math.random() * rows);
         const c = Math.floor(Math.random() * cols);
         
-        if (gameState.board[r][c].type !== 'mine') {
-            gameState.board[r][c].type = 'mine';
+        if (board[r][c].type !== 'mine') {
+            board[r][c].type = 'mine';
             minesPlaced++;
         }
     }
@@ -52,17 +54,17 @@ function generateField(rows, cols, minesCount) {
 function countNeighbourMines() {
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
-            if (gameState.board[r][c].type === 'mine') continue;
+            if (board[r][c].type === 'mine') continue;
             
             let mines = 0;
             for (const [dx, dy] of directions) {
                 const nr = r + dx;
                 const nc = c + dy;
                 if (nr >= 0 && nr < gameState.rows && nc >= 0 && nc < gameState.cols) {
-                    if (gameState.board[nr][nc].type === 'mine') mines++;
+                    if (board[nr][nc].type === 'mine') mines++;
                 }
             }
-            gameState.board[r][c].neighborMines = mines;
+            board[r][c].neighborMines = mines;
         }
     }
 }
@@ -75,7 +77,7 @@ function countNeighbourMines() {
 function openCell(r, c) {
     if (gameState.status !== 'process') return;
     
-    const cell = gameState.board[r][c];
+    const cell = board[r][c];
     if (cell.state === 'opened' || cell.state === 'flagged') return;
 
     cell.state = 'opened';
@@ -90,7 +92,7 @@ function openCell(r, c) {
             const nr = r + dx;
             const nc = c + dy;
             if (nr >= 0 && nr < gameState.rows && nc >= 0 && nc < gameState.cols) {
-                if (gameState.board[nr][nc].state === 'closed') {
+                if (board[nr][nc].state === 'closed') {
                     openCell(nr, nc);
                 }
             }
@@ -109,7 +111,7 @@ function openCell(r, c) {
 function toggleFlag(r, c) {
     if (gameState.status !== 'process') return;
     
-    const cell = gameState.board[r][c];
+    const cell = board[r][c];
     
     if (cell.state === 'closed' && gameState.flagsCount > 0) {
         cell.state = 'flagged';
@@ -154,7 +156,7 @@ function renderBoard() {
 
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
-            const cell = gameState.board[r][c];
+            const cell = board[r][c];
             const cellElement = document.createElement('div');
             cellElement.classList.add('cell');
             
@@ -213,7 +215,7 @@ function checkWinCondition() {
     let closedSafeCells = 0;
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
-            const cell = gameState.board[r][c];
+            const cell = board[r][c];
             if (cell.type !== 'mine' && cell.state !== 'opened') {
                 closedSafeCells++;
             }
@@ -236,8 +238,8 @@ function endGame(status) {
     if (status === 'lose') {
         for (let r = 0; r < gameState.rows; r++) {
             for (let c = 0; c < gameState.cols; c++) {
-                if (gameState.board[r][c].type === 'mine' && gameState.board[r][c].state !== 'flagged') {
-                    gameState.board[r][c].state = 'opened';
+                if (board[r][c].type === 'mine' && board[r][c].state !== 'flagged') {
+                    board[r][c].state = 'opened';
                 }
             }
         }
