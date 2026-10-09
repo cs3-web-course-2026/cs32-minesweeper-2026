@@ -1,6 +1,6 @@
 const gameState = { rows: 10, cols: 10, minesCount: 15, status: 'process', gameTime: 0, timerId: null };
-let field = [];
-const board = document.querySelector('#board');
+let board = [];
+const boardElement = document.querySelector('#board');
 const flags = document.querySelector('#flags');
 const timer = document.querySelector('#timer');
 const message = document.querySelector('#message');
@@ -28,33 +28,33 @@ function countNeighbourMines(cells) {
 
 function neighbours(row, col) {
   const result = [];
-  for (let r = row - 1; r <= row + 1; r += 1) for (let c = col - 1; c <= col + 1; c += 1) if ((r !== row || c !== col) && field[r]?.[c]) result.push([r, c]);
+  for (let r = row - 1; r <= row + 1; r += 1) for (let c = col - 1; c <= col + 1; c += 1) if ((r !== row || c !== col) && board[r]?.[c]) result.push([r, c]);
   return result;
 }
 
 function openCell(row, col) {
-  const cell = field[row][col];
+  const cell = board[row][col];
   if (gameState.status !== 'process' || cell.state !== 'closed') return;
   cell.state = 'opened';
   if (cell.type === 'mine') {
     gameState.status = 'lose';
-    field.flat().filter(({ type }) => type === 'mine').forEach((mine) => { mine.state = 'opened'; });
+    board.flat().filter(({ type }) => type === 'mine').forEach((mine) => { mine.state = 'opened'; });
     stopTimer();
   } else if (!cell.neighborMines) neighbours(row, col).forEach(([r, c]) => openCell(r, c));
   checkWin();
 }
 
 function toggleFlag(row, col) {
-  const cell = field[row][col];
+  const cell = board[row][col];
   if (gameState.status !== 'process' || cell.state === 'opened') return;
   if (cell.state === 'closed' && flaggedCount() === gameState.minesCount) return;
   cell.state = cell.state === 'flagged' ? 'closed' : 'flagged';
 }
 
-function flaggedCount() { return field.flat().filter(({ state }) => state === 'flagged').length; }
+function flaggedCount() { return board.flat().filter(({ state }) => state === 'flagged').length; }
 
 function checkWin() {
-  if (gameState.status === 'process' && field.flat().every(({ type, state }) => type === 'mine' || state === 'opened')) {
+  if (gameState.status === 'process' && board.flat().every(({ type, state }) => type === 'mine' || state === 'opened')) {
     gameState.status = 'win';
     stopTimer();
   }
@@ -69,8 +69,8 @@ function updateInfo() {
 }
 
 function render() {
-  board.style.setProperty('--cols', gameState.cols);
-  board.replaceChildren(...field.flatMap((row, r) => row.map((cell, c) => {
+  boardElement.style.setProperty('--cols', gameState.cols);
+  boardElement.replaceChildren(...board.flatMap((row, r) => row.map((cell, c) => {
     const button = document.createElement('button');
     const opened = cell.state === 'opened';
     button.className = `cell ${opened ? 'open' : ''} ${cell.state === 'flagged' ? 'flag' : ''} ${opened && cell.type === 'mine' ? 'mine' : ''} ${opened && cell.neighborMines ? `n${cell.neighborMines}` : ''}`;
@@ -86,7 +86,7 @@ function render() {
 function startGame() {
   stopTimer();
   Object.assign(gameState, { status: 'process', gameTime: 0 });
-  field = generateField(gameState.rows, gameState.cols, gameState.minesCount);
+  board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
   gameState.timerId = setInterval(() => { gameState.gameTime += 1; updateInfo(); }, 1000);
   render();
 }
