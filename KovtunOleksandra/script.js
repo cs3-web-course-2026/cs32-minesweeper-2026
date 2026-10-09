@@ -12,6 +12,9 @@ const gameState = {
 // Окремий 2D-масив для ігрового поля
 let board = [];
 
+// Змінна для збереження координат міни, на якій підірвались
+let clickedMine = null;
+
 // Напрямки для пошуку сусідів (8 клітинок навколо)
 const directions = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -83,6 +86,7 @@ function openCell(r, c) {
     cell.state = 'opened';
 
     if (cell.type === 'mine') {
+        clickedMine = { r, c };
         endGame('lose');
         return;
     }
@@ -167,7 +171,10 @@ function renderBoard() {
                 cellElement.classList.add('open');
                 if (cell.type === 'mine') {
                     cellElement.classList.add('mine');
-                    if (gameState.status === 'lose') cellElement.classList.add('clicked');
+                    // Додаємо клас clicked тільки для тієї міни, на яку реально натиснули
+                    if (gameState.status === 'lose' && clickedMine && clickedMine.r === r && clickedMine.c === c) {
+                        cellElement.classList.add('clicked');
+                    }
                     cellElement.textContent = '💣';
                     ariaLabelText += 'Міна';
                 } else if (cell.neighborMines > 0) {
@@ -269,6 +276,7 @@ function endGame(status) {
 function initGame() {
     gameState.status = 'process';
     gameState.flagsCount = gameState.minesCount;
+    clickedMine = null;
     
     generateField(gameState.rows, gameState.cols, gameState.minesCount);
     startTimer();
