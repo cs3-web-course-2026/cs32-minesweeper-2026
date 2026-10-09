@@ -16,6 +16,7 @@ const boardElement = document.querySelector('.game-board');
 const timerElement = document.querySelector('.timer');
 const flagCounterElement = document.querySelector('.flag-counter');
 const startBtn = document.querySelector('.start-btn');
+const statusElement = document.querySelector('.game-status');
 
 // КРОК 2: Генерація поля та мін
 function generateField(rows, cols, minesCount) {
@@ -139,6 +140,7 @@ function toggleFlag(r, c) {
     if (cell.state === 'opened') return;
 
     if (cell.state === 'closed') {
+        if (gameState.flagsUsed >= gameState.minesCount) return;
         cell.state = 'flagged';
         gameState.flagsUsed++;
     } else if (cell.state === 'flagged') {
@@ -193,8 +195,17 @@ function renderBoard(clickedMineR = null, clickedMineC = null) {
             const cell = gameState.board[r][c];
             
             // Створюємо HTML елемент
-            const div = document.createElement('div');
+            const div = document.createElement('button');
+            div.type = 'button'; // Щоб кнопка не відправляла форму
             div.classList.add('cell');
+
+            div.setAttribute('aria-label', cell.state === 'flagged' 
+                ? `Row ${r + 1}, Column ${c + 1}, flagged`
+                : cell.state === 'opened'
+                    ? cell.type === 'mine' 
+                        ? `Row ${r + 1}, Column ${c + 1}, mine`
+                        : `Row ${r + 1}, Column ${c + 1}, ${cell.neighborMines} neighboring mines`
+                    : `Row ${r + 1}, Column ${c + 1}, closed`);
 
             // Задаємо класи відповідно до стану
             if (cell.state === 'opened') {
@@ -273,11 +284,12 @@ function gameOver(status, clickedMineR = null, clickedMineC = null) {
     updateUI();
     renderBoard(clickedMineR, clickedMineC);
 
-    // Сповіщення після невеликої затримки, щоб гра встигла відрендерити поле
-    setTimeout(() => {
-        if (status === 'win') alert('Ви перемогли! 😎');
-        else alert('Гру закінчено. Ви натрапили на міну! 💥');
-    }, 100);
+    // Відображаємо повідомлення про результат гри
+    if (status === 'win') {
+        statusElement.textContent = 'Ви перемогли! 😎';
+    } else {
+        statusElement.textContent = 'Гру закінчено. Ви натрапили на міну! 💥';
+    }
 }
 
 // ІНІЦІАЛІЗАЦІЯ ГРИ
@@ -288,6 +300,8 @@ function initGame() {
     gameState.status = 'idle'; // Гра готова, але ще не почалась
     gameState.flagsUsed = 0;
     gameState.gameTime = 0;
+
+    statusElement.textContent = ''; // Очищаємо повідомлення про статус гри
     
     generateField(gameState.rows, gameState.cols, gameState.minesCount);
     countNeighbourMines();
