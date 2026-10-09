@@ -145,7 +145,7 @@ function stopTimer() {
 }
 
 /**
- * Рендерить ігрове поле у DOM на основі масиву даних.
+ * Рендерить ігрове поле у DOM на основі масиву даних з урахуванням доступності.
  */
 function renderBoard() {
     const boardElement = document.querySelector('.game-board');
@@ -157,30 +157,42 @@ function renderBoard() {
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
             const cell = board[r][c];
-            const cellElement = document.createElement('div');
+            const cellElement = document.createElement('button');
+            cellElement.type = 'button';
             cellElement.classList.add('cell');
             
+            let ariaLabelText = `Клітинка ${r + 1}, ${c + 1}: `;
+
             if (cell.state === 'opened') {
                 cellElement.classList.add('open');
                 if (cell.type === 'mine') {
                     cellElement.classList.add('mine');
                     if (gameState.status === 'lose') cellElement.classList.add('clicked');
                     cellElement.textContent = '💣';
+                    ariaLabelText += 'Міна';
                 } else if (cell.neighborMines > 0) {
                     cellElement.textContent = cell.neighborMines;
                     cellElement.classList.add(`num-${cell.neighborMines}`);
+                    ariaLabelText += `Сусідніх мін: ${cell.neighborMines}`;
                 } else {
                     cellElement.classList.add('empty');
+                    ariaLabelText += 'Порожня відкрита клітинка';
                 }
             } else if (cell.state === 'flagged') {
                 cellElement.classList.add('flag');
                 if (gameState.status === 'lose' && cell.type !== 'mine') {
                     cellElement.classList.add('flagged-safe');
                     cellElement.textContent = '❌';
+                    ariaLabelText += 'Помилковий прапорець';
                 } else {
                     cellElement.textContent = '🚩';
+                    ariaLabelText += 'Прапорець';
                 }
+            } else {
+                ariaLabelText += 'Закрита клітинка';
             }
+
+            cellElement.setAttribute('aria-label', ariaLabelText);
 
             cellElement.addEventListener('click', () => openCell(r, c));
             cellElement.addEventListener('contextmenu', (e) => {
