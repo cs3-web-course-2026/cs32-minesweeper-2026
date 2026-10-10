@@ -13,6 +13,9 @@ const gameState = {
 // Окремий 2D-масив для ігрового поля
 let board = [];
 
+// Зберігаємо координати останньої активної кнопки для збереження фокусу
+let activeCellCoords = null;
+
 // Напрямки для пошуку сусідів (8 клітинок навколо) з описовими назвами
 const directions = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -27,6 +30,9 @@ const directions = [
  * @param {number} minesCount - Кількість мін, які потрібно розставити.
  */
 function generateField(totalRows, totalCols, minesCount) {
+    gameState.rows = totalRows;
+    gameState.cols = totalCols;
+    
     board = Array.from({ length: totalRows }, () =>
         Array.from({ length: totalCols }, () => ({
             type: 'empty',
@@ -46,22 +52,24 @@ function generateField(totalRows, totalCols, minesCount) {
         }
     }
     
-    countNeighbourMines();
+    countNeighbourMines(totalRows, totalCols);
 }
 
 /**
  * Підраховує кількість мін навколо кожної порожньої клітинки.
+ * @param {number} totalRows - Кількість рядків на полі.
+ * @param {number} totalCols - Кількість колонок на полі.
  */
-function countNeighbourMines() {
-    for (let row = 0; row < gameState.rows; row++) {
-        for (let col = 0; col < gameState.cols; col++) {
+function countNeighbourMines(totalRows, totalCols) {
+    for (let row = 0; row < totalRows; row++) {
+        for (let col = 0; col < totalCols; col++) {
             if (board[row][col].type === 'mine') continue;
             
             let mines = 0;
             for (const [deltaRow, deltaCol] of directions) {
                 const neighborRow = row + deltaRow;
                 const neighborCol = col + deltaCol;
-                if (neighborRow >= 0 && neighborRow < gameState.rows && neighborCol >= 0 && neighborCol < gameState.cols) {
+                if (neighborRow >= 0 && neighborRow < totalRows && neighborCol >= 0 && neighborCol < totalCols) {
                     if (board[neighborRow][neighborCol].type === 'mine') mines++;
                 }
             }
@@ -78,6 +86,7 @@ function countNeighbourMines() {
 function openCell(row, col) {
     if (gameState.status !== 'process') return;
     
+    activeCellCoords = { row, col };
     const cell = board[row][col];
     if (cell.state === 'opened' || cell.state === 'flagged') return;
 
@@ -113,6 +122,7 @@ function openCell(row, col) {
 function toggleFlag(row, col) {
     if (gameState.status !== 'process') return;
     
+    activeCellCoords = { row, col };
     const cell = board[row][col];
     
     if (cell.state === 'closed' && gameState.flagsCount > 0) {
@@ -147,7 +157,7 @@ function stopTimer() {
 }
 
 /**
- * Рендерить ігрове поле у DOM на основі масиву даних з урахуванням доступності.
+ * Рендерить ігрове поле у DOM на основі масиву даних з урахуванням доступності та збереження фокусу.
  */
 function renderBoard() {
     const boardElement = document.querySelector('.game-board');
@@ -155,6 +165,8 @@ function renderBoard() {
     
     boardElement.innerHTML = '';
     document.documentElement.style.setProperty('--board-columns', gameState.cols);
+
+    let elementToFocus = null;
 
     for (let row = 0; row < gameState.rows; row++) {
         for (let col = 0; col < gameState.cols; col++) {
@@ -205,7 +217,16 @@ function renderBoard() {
             });
 
             boardElement.appendChild(cellElement);
+
+            // Запам'ятовуємо елемент, на якому був фокус, щоб відновити його
+            if (activeCellCoords && activeCellCoords.row === row && activeCellCoords.col === col) {
+                elementToFocus = cellElement;
+            }
         }
+    }
+
+    if (elementToFocus) {
+        elementToFocus.focus();
     }
 }
 
@@ -284,6 +305,7 @@ function initGame() {
     gameState.status = 'process';
     gameState.flagsCount = gameState.minesCount;
     gameState.clickedMine = null;
+    activeCellCoords = null;
     
     const statusElement = document.getElementById('game-status-message');
     if (statusElement) {
