@@ -8,7 +8,7 @@ const gameState = {
     gameTime: 0,
     timerId: null,
     clickedMine: null,
-    activeCellCoords: null // Зберігаємо координати останньої активної кнопки всередині gameState
+    activeCellCoords: null
 };
 
 // Окремий 2D-масив для ігрового поля
@@ -219,7 +219,6 @@ function renderBoard() {
                 event.preventDefault();
                 toggleFlag(row, col);
             });
-            // Додаємо клавіатурне скорочення (клавіша 'f' або 'F') для встановлення прапорця без відкриття клітинки
             cellElement.addEventListener('keydown', (event) => {
                 if (event.key === 'f' || event.key === 'F') {
                     event.preventDefault();
@@ -313,7 +312,6 @@ function endGame(status) {
  */
 function initGame() {
     gameState.status = 'process';
-    gameState.minesCount = 15;
     gameState.flagsCount = gameState.minesCount;
     gameState.clickedMine = null;
     gameState.activeCellCoords = null;
