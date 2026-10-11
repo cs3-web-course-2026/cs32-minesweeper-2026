@@ -184,6 +184,14 @@ function updateUI() {
 
 // КРОК 5 та 7: Рендеринг і події (DOM)
 function renderBoard(clickedMineR = null, clickedMineC = null) {
+    // Запам'ятовуємо, де був фокус до оновлення
+    let focusedRow = null;
+    let focusedCol = null;
+    if (document.activeElement && document.activeElement.classList.contains('cell')) {
+        focusedRow = document.activeElement.dataset.row;
+        focusedCol = document.activeElement.dataset.col;
+    }
+
     boardElement.innerHTML = '';
     
     // Динамічно задаємо розмір сітки в CSS, замість hardcode 5x4
@@ -198,6 +206,10 @@ function renderBoard(clickedMineR = null, clickedMineC = null) {
             const div = document.createElement('button');
             div.type = 'button'; // Щоб кнопка не відправляла форму
             div.classList.add('cell');
+
+            // Додаємо дата-атрибути для пошуку кнопки
+            div.dataset.row = r;
+            div.dataset.col = c;
 
             div.setAttribute('aria-label', cell.state === 'flagged' 
                 ? `Row ${r + 1}, Column ${c + 1}, flagged`
@@ -242,6 +254,14 @@ function renderBoard(clickedMineR = null, clickedMineC = null) {
             });
 
             boardElement.appendChild(div);
+        }
+    }
+
+    // Повертаємо фокус на клітинку, якщо він там був
+    if (focusedRow !== null && focusedCol !== null) {
+        const buttonToFocus = boardElement.querySelector(`button[data-row="${focusedRow}"][data-col="${focusedCol}"]`);
+        if (buttonToFocus) {
+            buttonToFocus.focus();
         }
     }
 }
