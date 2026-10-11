@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sasha's Sweeper</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="minesweeper-container">
@@ -15,36 +16,11 @@
             <div class="flag-counter"> 🚩 010</div>
         </header>
 
+        <!-- Елемент для відображення статусу гри -->
+        <div class="game-status" role="status" aria-live="polite" style="text-align: center; color: #333; margin-bottom: 10px; font-weight: bold; min-height: 24px;"></div>
+
         <!-- Ігрове поле -->
-        <main class="game-board">
-            <!-- Закриті клітинки -->
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-
-            <!-- Відкриті клітинки -->
-            <div class="cell open" data-number="1">1</div>
-            <div class="cell open" data-number="2">2</div>
-            <div class="cell open" data-number="3">3</div>
-            <div class="cell open"></div>
-            <div class="cell"></div>
-
-            <!-- Клітинки з прапорцями -->
-            <div class="cell flag">🚩</div>
-            <div class="cell flag wrong-flag">🚩</div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-
-            <!-- Клітинки з мінами -->
-            <div class="cell mine">💣</div>
-            <div class="cell mine clicked">💣</div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-        </main>
+        <main class="game-board"></main>
     </div>
 </body>
 </html>
