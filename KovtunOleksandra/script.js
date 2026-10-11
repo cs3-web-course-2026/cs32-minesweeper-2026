@@ -114,8 +114,10 @@ function openCell(row, col, isOriginal = true) {
         }
     }
     
-    checkWinCondition();
-    renderBoard();
+    if (isOriginal) {
+        checkWinCondition();
+        renderBoard();
+    }
 }
 
 /**
