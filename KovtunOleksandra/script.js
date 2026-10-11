@@ -242,7 +242,7 @@ function renderBoard() {
 }
 
 /**
- * Оновлює динамічні елементи інтерфейсу (таймер та лічильник прапорців).
+ * Оновлює динамічні елементи інтерфейсу (таймер та лічильник прапорців окремо).
  */
 function updateUI() {
     const timerElement = document.getElementById('timer');
