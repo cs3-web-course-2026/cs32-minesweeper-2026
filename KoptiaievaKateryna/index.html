@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game">
+      <h1 class="game-title">Minesweeper</h1>
+
+      <header class="game-header">
+        <p class="counter counter-flags">
+          <span class="counter-label">Flags</span>
+          <span class="counter-value" id="flag-counter">7</span>
+        </p>
+        <button
+          type="button"
+          class="start-button"
+          id="start-button"
+          aria-label="Start new game"
+        >
+          😈
+        </button>
+        <p class="counter counter-timer">
+          <span class="counter-label">Time</span>
+          <time class="counter-value" id="timer" datetime="PT42S">0:42</time>
+        </p>
+      </header>
+
+      <section class="board" id="board" aria-label="Minefield">
+        <button type="button" class="cell cell-opened" aria-label="Row 1, column 1, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 1, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell" aria-label="Row 1, column 3, closed"></button>
+        <button type="button" class="cell" aria-label="Row 1, column 4, closed"></button>
+        <button type="button" class="cell" aria-label="Row 1, column 5, closed"></button>
+        <button type="button" class="cell" aria-label="Row 1, column 6, closed"></button>
+        <button type="button" class="cell cell-mine" aria-label="Row 1, column 7, mine"></button>
+        <button type="button" class="cell" aria-label="Row 1, column 8, closed"></button>
+        <button type="button" class="cell" aria-label="Row 1, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" aria-label="Row 2, column 1, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 2, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-flagged" aria-label="Row 2, column 3, flagged"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 4, closed"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 5, closed"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 6, closed"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 7, closed"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 8, closed"></button>
+        <button type="button" class="cell" aria-label="Row 2, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 3, column 1, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-flagged cell-wrong-flag" aria-label="Row 3, column 2, wrong flag"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 3, closed"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 4, closed"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 5, closed"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 6, closed"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 7, closed"></button>
+        <button type="button" class="cell cell-mine" aria-label="Row 3, column 8, mine"></button>
+        <button type="button" class="cell" aria-label="Row 3, column 9, closed"></button>
+        <button type="button" class="cell cell-mine" aria-label="Row 4, column 1, mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 4, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" aria-label="Row 4, column 3, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 4, column 4, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 4, column 5, 1 adjacent mine">1</button>
+        <button type="button" class="cell" aria-label="Row 4, column 6, closed"></button>
+        <button type="button" class="cell" aria-label="Row 4, column 7, closed"></button>
+        <button type="button" class="cell" aria-label="Row 4, column 8, closed"></button>
+        <button type="button" class="cell" aria-label="Row 4, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 5, column 1, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 5, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" aria-label="Row 5, column 3, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 5, column 4, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-mine cell-exploded" aria-label="Row 5, column 5, exploded mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 5, column 6, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" aria-label="Row 5, column 7, empty"></button>
+        <button type="button" class="cell" aria-label="Row 5, column 8, closed"></button>
+        <button type="button" class="cell" aria-label="Row 5, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 6, column 1, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 6, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 6, column 3, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 6, column 4, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 6, column 5, 2 adjacent mines">2</button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 6, column 6, 2 adjacent mines">2</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 6, column 7, 1 adjacent mine">1</button>
+        <button type="button" class="cell" aria-label="Row 6, column 8, closed"></button>
+        <button type="button" class="cell cell-mine" aria-label="Row 6, column 9, mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 7, column 1, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-mine" aria-label="Row 7, column 2, mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 7, column 3, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" aria-label="Row 7, column 4, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 7, column 5, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-mine" aria-label="Row 7, column 6, mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 7, column 7, 2 adjacent mines">2</button>
+        <button type="button" class="cell" aria-label="Row 7, column 8, closed"></button>
+        <button type="button" class="cell" aria-label="Row 7, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 8, column 1, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 8, column 2, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 8, column 3, 2 adjacent mines">2</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 8, column 4, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 8, column 5, 2 adjacent mines">2</button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 8, column 6, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" data-mines="2" aria-label="Row 8, column 7, 2 adjacent mines">2</button>
+        <button type="button" class="cell cell-flagged" aria-label="Row 8, column 8, flagged"></button>
+        <button type="button" class="cell" aria-label="Row 8, column 9, closed"></button>
+        <button type="button" class="cell cell-opened" aria-label="Row 9, column 1, empty"></button>
+        <button type="button" class="cell cell-opened" aria-label="Row 9, column 2, empty"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 9, column 3, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-mine" aria-label="Row 9, column 4, mine"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 9, column 5, 1 adjacent mine">1</button>
+        <button type="button" class="cell cell-opened" aria-label="Row 9, column 6, empty"></button>
+        <button type="button" class="cell" aria-label="Row 9, column 7, closed"></button>
+        <button type="button" class="cell" aria-label="Row 9, column 8, closed"></button>
+        <button type="button" class="cell cell-opened" data-mines="1" aria-label="Row 9, column 9, 1 adjacent mine">1</button>
+      </section>
+
+      <p class="game-message" id="game-message" role="status" aria-live="polite">
+        Game over — you hit a mine.
+      </p>
+    </main>
+  </body>
+</html>
