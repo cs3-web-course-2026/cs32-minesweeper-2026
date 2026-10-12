@@ -1,6 +1,8 @@
 :root {
   --board-columns: 9;
-  --cell-size: clamp(1.75rem, 8.5vw, 2.75rem);
+
+  /* 7rem = page padding + panel padding and border + gaps between 9 cells */
+  --cell-size: clamp(1.5rem, (100vw - 7rem) / var(--board-columns), 2.75rem);
   --cell-gap: 0.25rem;
   --cell-radius: 0.75rem;
   --cell-font-size: calc(var(--cell-size) * 0.5);
