@@ -79,7 +79,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: none;
 }
 
 .start-btn:active {
