@@ -1,50 +1,311 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper</title>
+    <title>Minesweeper 16x16</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="minesweeper-container">
+    <div class="minesweeper-container" role="application" aria-label="Гра Сапер 16х16">
         <!-- Хедер гри -->
         <header class="game-header">
-            <div class="counter flags-counter">010</div>
-            <button class="start-btn" aria-label="Нова гра">🙂</button>
-            <div class="counter timer">000</div>
+            <div class="counter flags-counter" aria-label="Кількість мін">040</div>
+            <button type="button" class="start-btn" aria-label="Нова гра">🙂</button>
+            <div class="counter timer" aria-label="Час">000</div>
         </header>
 
-        <!-- Ігрове поле -->
-        <main class="game-board">
-            <!-- Закрита клітинка -->
-            <div class="cell"></div>
+        <!-- Ігрове поле: сітка 16х16 (256 клітинок) з усіма можливими станами -->
+        <main class="game-board" role="grid" aria-label="Ігрове поле 16х16">
+            <!-- Рядок 1 -->
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Відкриті клітинки з цифрами -->
-            <div class="cell open text-blue">1</div>
-            <div class="cell open text-green">2</div>
-            <div class="cell open text-red">3</div>
+            <!-- Рядок 2 -->
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Відкрита порожня клітинка -->
-            <div class="cell open"></div>
+            <!-- Рядок 3 -->
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open mine" role="gridcell" aria-label="Міна">💣</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Клітинка з прапорцем -->
-            <div class="cell flag">🚩</div>
+            <!-- Рядок 4 -->
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Помилковий прапорець (якщо гравець поставив прапорець, а там немає міни - стан для кінця гри) -->
-            <div class="cell flag false-flag">❌</div>
+            <!-- Рядок 5 -->
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open mine clicked" role="gridcell" aria-label="Підірвана міна (на яку натиснули)">💣</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Клітинка з міною (звичайна, показується в кінці гри) -->
-            <div class="cell open mine">💣</div>
+            <!-- Рядок 6 -->
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-3" role="gridcell" aria-label="3 міни">3</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Клітинка з міною, на яку натиснув користувач -->
-            <div class="cell open mine clicked">💣</div>
+            <!-- Рядок 7 -->
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
 
-            <!-- Додаткові клітинки для візуалізації сітки (наприклад, поле 3х4 для демо) -->
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
+            <!-- Рядок 8 -->
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 9 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 10 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell question" role="gridcell" aria-label="Знак питання">?</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag false-flag no-mine" role="gridcell" aria-label="Прапорець без міни (помилковий)">❌</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 11 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 12 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell pressed" role="gridcell" aria-label="Натиснута клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 13 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-4" role="gridcell" aria-label="4 міни">4</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell open num-3" role="gridcell" aria-label="3 міни">3</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 14 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-3" role="gridcell" aria-label="3 міни">3</div>
+            <div class="cell open num-5" role="gridcell" aria-label="5 мін">5</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell open num-4" role="gridcell" aria-label="4 міни">4</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open" role="gridcell" aria-label="Порожня відкрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 15 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-3" role="gridcell" aria-label="3 міни">3</div>
+            <div class="cell open num-6" role="gridcell" aria-label="6 мін">6</div>
+            <div class="cell open num-7" role="gridcell" aria-label="7 мін">7</div>
+            <div class="cell open num-8" role="gridcell" aria-label="8 мін">8</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+
+            <!-- Рядок 16 -->
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-1" role="gridcell" aria-label="1 міна">1</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell open mine" role="gridcell" aria-label="Звичайна відкрита міна">💣</div>
+            <div class="cell flag on-mine" role="gridcell" aria-label="Прапорець на міні">🚩</div>
+            <div class="cell open num-2" role="gridcell" aria-label="2 міни">2</div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
+            <div class="cell" role="gridcell" aria-label="Закрита клітинка"></div>
         </main>
     </div>
 </body>
+</html>
 </html>

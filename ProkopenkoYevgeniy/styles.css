@@ -1,4 +1,9 @@
-﻿/* Базові налаштування */
+/* Змінні розмірів для гнучкої адаптивності */
+:root {
+    --cell-size: 26px;
+}
+
+/* Базові налаштування */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,6 +17,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #2c3e50;
+    padding: 16px;
 }
 
 /* Контейнер гри */
@@ -22,11 +28,17 @@ body {
     border-left: 4px solid #ffffff;
     border-right: 4px solid #7b7b7b;
     border-bottom: 4px solid #7b7b7b;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    overflow-x: auto;
+    user-select: none;
 }
 
-/* Хедер */
+/* Хедер гри */
 .game-header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,6 +51,7 @@ body {
     border-bottom: 3px solid #ffffff;
 }
 
+/* Лічильники (таймер та прапорці) */
 .counter {
     background-color: #000;
     color: #ff0000;
@@ -52,6 +65,7 @@ body {
     letter-spacing: 2px;
 }
 
+/* Кнопка нової гри */
 .start-btn {
     font-size: 24px;
     width: 40px;
@@ -65,31 +79,34 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: none;
 }
 
-    .start-btn:active {
-        border-top: 3px solid #7b7b7b;
-        border-left: 3px solid #7b7b7b;
-        border-right: 3px solid #ffffff;
-        border-bottom: 3px solid #ffffff;
-    }
+.start-btn:active {
+    border-top: 3px solid #7b7b7b;
+    border-left: 3px solid #7b7b7b;
+    border-right: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+}
 
-/* Ігрове поле */
+/* Ігрове поле 16х16 */
 .game-board {
     display: grid;
-    /* Для прикладу сітка 3 колонки, в реальній грі можна змінювати через JS */
-    grid-template-columns: repeat(3, 30px);
+    /* Сітка 16 стовпців по розміру клітинки */
+    grid-template-columns: repeat(16, var(--cell-size));
+    grid-template-rows: repeat(16, var(--cell-size));
     gap: 0;
     border-top: 4px solid #7b7b7b;
     border-left: 4px solid #7b7b7b;
     border-right: 4px solid #ffffff;
     border-bottom: 4px solid #ffffff;
+    background-color: #7b7b7b;
 }
 
-/* Стан: Закрита клітинка */
+/* Базовий стан: Закрита клітинка */
 .cell {
-    width: 30px;
-    height: 30px;
+    width: var(--cell-size);
+    height: var(--cell-size);
     background-color: #bdbdbd;
     border-top: 3px solid #ffffff;
     border-left: 3px solid #ffffff;
@@ -98,48 +115,134 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: calc(var(--cell-size) * 0.58);
     font-weight: bold;
     cursor: pointer;
-    user-select: none;
+    line-height: 1;
 }
 
-    /* Стан: Відкрита клітинка */
-    .cell.open {
-        border: 1px solid #7b7b7b;
-        border-top: none;
-        border-left: none;
-        background-color: #bdbdbd;
-        cursor: default;
+/* Стан: Натискання на закриту клітинку */
+.cell:not(.open):active,
+.cell.pressed {
+    border: 1px solid #7b7b7b;
+    border-top: none;
+    border-left: none;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+/* Стан: Відкрита порожня клітинка */
+.cell.open {
+    border: 1px solid #7b7b7b;
+    border-top: none;
+    border-left: none;
+    background-color: #bdbdbd;
+    cursor: default;
+}
+
+/* Стан: Клітинка з прапорцем (на міні) */
+.cell.flag {
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+/* Стан: Клітинка з прапорцем без міни (помилковий прапорець) */
+.cell.false-flag,
+.cell.flag.no-mine {
+    font-size: calc(var(--cell-size) * 0.52);
+    color: #ff0000;
+}
+
+/* Стан: Клітинка зі знаком питання */
+.cell.question {
+    color: #000000;
+}
+
+/* Стан: Звичайна відкрита міна при кінці гри */
+.cell.open.mine {
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+/* Стан: Міна, на яку натиснув користувач (підрив) */
+.cell.open.mine.clicked {
+    background-color: #ff0000;
+}
+
+/* Кольори цифр (класична колірна гама Сапера 1–8) */
+.cell.num-1 { color: #0000ff; }
+.cell.num-2 { color: #008000; }
+.cell.num-3 { color: #ff0000; }
+.cell.num-4 { color: #000080; }
+.cell.num-5 { color: #800000; }
+.cell.num-6 { color: #008080; }
+.cell.num-7 { color: #000000; }
+.cell.num-8 { color: #808080; }
+
+/* Адаптивність для планшетів та середніх екранів */
+@media (max-width: 540px) {
+    :root {
+        --cell-size: 22px;
     }
 
-/* Кольори цифр */
-.text-blue {
-    color: blue;
+    .minesweeper-container {
+        padding: 12px;
+    }
+
+    .counter {
+        font-size: 24px;
+        letter-spacing: 1.5px;
+    }
 }
 
-.text-green {
-    color: green;
-}
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 440px) {
+    :root {
+        --cell-size: 19px;
+    }
 
-.text-red {
-    color: red;
-}
-
-/* Стан: Міна, на яку натиснули */
-.cell.mine.clicked {
-    background-color: red;
-}
-
-/* Адаптивність для менших екранів */
-@media (max-width: 400px) {
     .cell {
-        width: 25px;
-        height: 25px;
-        font-size: 14px;
+        border-width: 2px;
     }
 
     .game-board {
-        grid-template-columns: repeat(3, 25px);
+        border-width: 3px;
+    }
+
+    .minesweeper-container {
+        padding: 8px;
+    }
+
+    .game-header {
+        padding: 6px;
+        margin-bottom: 10px;
+    }
+
+    .counter {
+        font-size: 20px;
+        letter-spacing: 1px;
+        padding: 1px 4px;
+    }
+
+    .start-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
     }
 }
+
+/* Адаптивність для дуже вузьких екранів (до 360px) */
+@media (max-width: 360px) {
+    :root {
+        --cell-size: 16.5px;
+    }
+
+    .minesweeper-container {
+        padding: 6px;
+    }
+
+    .counter {
+        font-size: 17px;
+        letter-spacing: 0.5px;
+        padding: 1px 3px;
+    }
+}
+
