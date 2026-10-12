@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="minesweeper-container">
+        <!-- Хедер гри -->
+        <header class="game-header">
+            <div class="counter flags-counter">010</div>
+            <button class="start-btn" aria-label="Нова гра">🙂</button>
+            <div class="counter timer">000</div>
+        </header>
+
+        <!-- Ігрове поле -->
+        <main class="game-board">
+            <!-- Закрита клітинка -->
+            <div class="cell"></div>
+
+            <!-- Відкриті клітинки з цифрами -->
+            <div class="cell open text-blue">1</div>
+            <div class="cell open text-green">2</div>
+            <div class="cell open text-red">3</div>
+
+            <!-- Відкрита порожня клітинка -->
+            <div class="cell open"></div>
+
+            <!-- Клітинка з прапорцем -->
+            <div class="cell flag">🚩</div>
+
+            <!-- Помилковий прапорець (якщо гравець поставив прапорець, а там немає міни - стан для кінця гри) -->
+            <div class="cell flag false-flag">❌</div>
+
+            <!-- Клітинка з міною (звичайна, показується в кінці гри) -->
+            <div class="cell open mine">💣</div>
+
+            <!-- Клітинка з міною, на яку натиснув користувач -->
+            <div class="cell open mine clicked">💣</div>
+
+            <!-- Додаткові клітинки для візуалізації сітки (наприклад, поле 3х4 для демо) -->
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </main>
+    </div>
+</body>
+</html>
