@@ -143,11 +143,25 @@ body {
     font-size: calc(var(--cell-size) * 0.55);
 }
 
-/* Стан: Клітинка з прапорцем без міни (помилковий прапорець) */
+/* Стан: Клітинка з прапорцем без міни (помилковий перекреслений прапорець) */
 .cell.false-flag,
 .cell.flag.no-mine {
-    font-size: calc(var(--cell-size) * 0.52);
+    position: relative;
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+.cell.false-flag::after,
+.cell.flag.no-mine::after {
+    content: "✕";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: #f00;
+    font-size: calc(var(--cell-size) * 0.85);
+    font-weight: bold;
+    line-height: 1;
+    pointer-events: none;
 }
 
 /* Стан: Клітинка зі знаком питання */
