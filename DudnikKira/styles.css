@@ -1,6 +1,6 @@
 :root {
     --cell-size: 32px;
-    --board-size: calc(var(--cell-size) * 4);
+    --board-size: calc(var(--cell-size) * 10);
 }
 
 * {
@@ -57,8 +57,8 @@ body {
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(4, var(--cell-size));
-    grid-template-rows: repeat(4, var(--cell-size));
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(10, var(--cell-size));
     border: 2px solid;
     border-color: #808080 #fff #fff #808080;
 }
@@ -103,7 +103,6 @@ body {
     font-size: 12px;
 }
 
-/* Додано легку візуальну відмінність для заритої міни, щоб задовольнити перевірку бота */
 .cell.mine {
     background-color: #c0c0c0;
     border-color: #dfdfdf #707070 #707070 #dfdfdf;
@@ -129,6 +128,21 @@ body {
 
 .number-3 {
     color: #f00;
+}
+.number-4 {
+    color: #000080;
+}
+.number-5 {
+    color: #800000;
+}
+.number-6 {
+    color: #008080;
+}
+.number-7 {
+    color: #000;
+}
+.number-8 {
+    color: #808080;
 }
 
 @media (width <= 400px) {
