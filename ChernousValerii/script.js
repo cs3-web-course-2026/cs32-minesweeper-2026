@@ -237,6 +237,15 @@ function renderBoard(explodedCell = null) {
   const boardElement = document.querySelector('.board');
   if (!boardElement) return;
 
+  // Зберігаємо координати поточно сфокусованої кнопки перед оновленням
+  const activeEl = document.activeElement;
+  let focusedRow = null;
+  let focusedCol = null;
+  if (activeEl && activeEl.classList.contains('cell') && activeEl.dataset.row !== undefined) {
+    focusedRow = activeEl.dataset.row;
+    focusedCol = activeEl.dataset.col;
+  }
+
   // Очищаємо вміст сітки
   boardElement.innerHTML = '';
 
@@ -300,6 +309,16 @@ function renderBoard(explodedCell = null) {
       }
 
       boardElement.appendChild(cellElement);
+    }
+  }
+
+  // Відновлюємо фокус на новій кнопці для збереження фокусу при навігації з клавіатури
+  if (focusedRow !== null && focusedCol !== null) {
+    const newFocusedBtn = boardElement.querySelector(
+      `.cell[data-row="${focusedRow}"][data-col="${focusedCol}"]`
+    );
+    if (newFocusedBtn) {
+      newFocusedBtn.focus();
     }
   }
 }
@@ -408,18 +427,40 @@ function setupEventListeners() {
       }
     });
 
-    // Клавіша Space (Пробіл) — встановлення або зняття прапорця з клавіатури
+    // Клавіатурне керування: Space (прапорець) та стрілки (переміщення)
     boardElement.addEventListener('keydown', (event) => {
+      const cellTarget = event.target.closest('.cell');
+      if (!cellTarget) return;
+
+      const row = parseInt(cellTarget.dataset.row, 10);
+      const col = parseInt(cellTarget.dataset.col, 10);
+
+      // Пробіл — встановлення або зняття прапорця
       if (event.code === 'Space' || event.key === ' ') {
-        const cellTarget = event.target.closest('.cell');
-        if (!cellTarget) return;
-
         event.preventDefault(); // Запобігаємо стандартній активації кнопки (кліку)
-        const row = parseInt(cellTarget.dataset.row, 10);
-        const col = parseInt(cellTarget.dataset.col, 10);
-
         if (!isNaN(row) && !isNaN(col)) {
           toggleFlag(row, col);
+        }
+      }
+
+      // Стрілки — навігація між сусідніми клітинками
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        let nextRow = row;
+        let nextCol = col;
+
+        if (event.key === 'ArrowUp') nextRow--;
+        if (event.key === 'ArrowDown') nextRow++;
+        if (event.key === 'ArrowLeft') nextCol--;
+        if (event.key === 'ArrowRight') nextCol++;
+
+        if (isValidCoordinate(nextRow, nextCol)) {
+          event.preventDefault();
+          const nextBtn = boardElement.querySelector(
+            `.cell[data-row="${nextRow}"][data-col="${nextCol}"]`
+          );
+          if (nextBtn) {
+            nextBtn.focus();
+          }
         }
       }
     });
