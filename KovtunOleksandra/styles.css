@@ -34,7 +34,7 @@
     --mine-red: #b8324a;
 
     /* Налаштування логіки */
-    --board-columns: 4;
+    --board-columns: 4; /* Скрипт сам замінить це значення на 10 */
     --mine-shake-duration: 0.3s;
 }
 
@@ -59,7 +59,7 @@ body {
 
 .game-container {
     width: 100%;
-    max-width: 340px;
+    max-width: 500px; /* ЗМІНЕНО: розширено для 10 колонок */
     padding: 20px;
     background: var(--container);
     border: 1px solid rgb(255 255 255 / 6%);
@@ -151,7 +151,7 @@ body {
 .game-board {
     display: grid;
     grid-template-columns: repeat(var(--board-columns), 1fr);
-    gap: 5px;
+    gap: 2px; /* ЗМІНЕНО: зменшено відступи, щоб вмістити 100 клітинок */
     padding: 8px;
     background: var(--board);
     border: 1px solid rgb(255 255 255 / 5%);
@@ -171,7 +171,7 @@ body {
     border-radius: 8px;
     background: var(--cell-closed);
     color: var(--text);
-    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    font-size: 1rem; /* ЗМІНЕНО: фіксований розмір шрифту для акуратності */
     font-weight: 800;
     cursor: pointer;
     user-select: none;
@@ -232,7 +232,7 @@ body {
    ========================= */
 
 .cell.flag {
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* ЗМІНЕНО: трохи менше для поля 10х10 */
     box-shadow: inset 0 2px 0 rgb(255 255 255 / 7%), 0 3px 5px rgb(0 0 0 / 25%);
 }
 
@@ -250,7 +250,7 @@ body {
    ========================= */
 
 .cell.mine {
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* ЗМІНЕНО: трохи менше для поля 10х10 */
 }
 
 /* Міна, на яку натиснув користувач */
@@ -318,8 +318,7 @@ body {
     }
 
     .game-board {
-        gap: 4px;
+        gap: 2px;
         padding: 7px;
     }
-
 }
