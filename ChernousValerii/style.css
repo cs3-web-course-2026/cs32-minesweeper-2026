@@ -1,4 +1,4 @@
-﻿/* КОНСТАНТИ */
+/* КОНСТАНТИ */
 :root {
   --cell-size: 40px;
   --board-columns: 9;
@@ -164,6 +164,24 @@ body {
     user-select: none;
 }
 
+/* Текстовий статус гри для доступності */
+.game-status {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    min-height: 1.4rem;
+    margin-bottom: 10px;
+    color: #eceff4;
+}
+
+.game-status.win {
+    color: #4ade80;
+}
+
+.game-status.lose {
+    color: #f87171;
+}
+
 /* Базовий вигляд однієї клітинки */
 .cell {
     width: var(--cell-size);
@@ -171,10 +189,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: inherit;
     font-size: 1.25rem;
     font-weight: 800;
     border-radius: 4px;
     cursor: pointer;
+    padding: 0;
+    border: none;
     transition: background-color var(--animation-duration) ease;
 }
 
