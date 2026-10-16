@@ -1,0 +1,149 @@
+:root {
+    --bg-body: #0d0f12;
+    --bg-wrapper: #17191f;
+    --bg-cell: #2a2d36;
+    --bg-cell-open: #1a1c23;
+    --text-main: #fff;
+    --board-size: 8;
+    --cell-size: 42px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(rgb(13 15 18 / 85%), rgb(13 15 18 / 85%)), url('images.jpeg');
+    background-repeat: no-repeat; /* Убираем плитку */
+    background-size: cover; /* Растягиваем на весь экран */
+    background-position: center;
+    background-attachment: fixed; /* Фон стоит на месте при прокрутке */
+}
+
+.minesweeper-wrapper {
+    background-color: var(--bg-wrapper);
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 0 50px rgb(138 43 226 / 8%), inset 0 1px 0 rgb(255 255 255 / 5%);
+    border: 1px solid #2a2d36;
+}
+
+/* --- Хедер --- */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #0d0f12;
+    border-radius: 12px;
+    border: 1px solid #2a2d36;
+}
+
+.counter {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #a0a5b1;
+}
+
+.action-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #2a2d36;
+    border: 1px solid #3a3d46;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: #353945;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+/* --- Ігрове поле --- */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-size), var(--cell-size));
+    grid-template-rows: repeat(var(--board-size), var(--cell-size));
+    gap: 4px; /* Відстань між клітинками, як на референсі */
+}
+
+/* --- Стани клітинок --- */
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: var(--bg-cell);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: inset 0 2px 0 rgb(255 255 255 / 8%);
+    transition: background-color 0.2s ease;
+}
+
+.cell:hover:not(.open) {
+    background-color: #353945;
+}
+
+.cell.open {
+    background-color: var(--bg-cell-open);
+    box-shadow: inset 0 2px 6px rgb(0 0 0 / 40%);
+    cursor: default;
+}
+
+/* Неонові кольори цифр */
+.cell[data-num="1"] { color: #5dade2; }
+.cell[data-num="2"] { color: #58d68d; }
+.cell[data-num="3"] { color: #ec7063; }
+.cell[data-num="4"] { color: #af7ac5; }
+.cell[data-num="5"] { color: #f5b041; }
+.cell[data-num="6"] { color: #45b39d; }
+.cell[data-num="7"] { color: #d0d3d4; }
+.cell[data-num="8"] { color: #7f8c8d; }
+
+/* Іконки та їх візуальні ефекти */
+.cell.flag::after {
+    content: '🚩';
+    filter: drop-shadow(0 0 4px rgb(255 0 0 / 40%));
+}
+
+.cell.flag.false::after {
+    content: '❌';
+}
+
+.cell.open.mine::after {
+    content: '💣';
+    filter: drop-shadow(0 0 6px rgb(138 43 226 / 80%)); /* Фіолетове світіння міни */
+}
+
+.cell.open.mine.exploded {
+    background-color: #6d1b33;
+    box-shadow: inset 0 0 12px rgb(255 0 0 / 40%);
+}
