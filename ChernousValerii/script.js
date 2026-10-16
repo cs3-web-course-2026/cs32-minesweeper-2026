@@ -238,12 +238,12 @@ function renderBoard(explodedCell = null) {
   if (!boardElement) return;
 
   // Зберігаємо координати поточно сфокусованої кнопки перед оновленням
-  const activeEl = document.activeElement;
+  const activeElement = document.activeElement;
   let focusedRow = null;
   let focusedCol = null;
-  if (activeEl && activeEl.classList.contains('cell') && activeEl.dataset.row !== undefined) {
-    focusedRow = activeEl.dataset.row;
-    focusedCol = activeEl.dataset.col;
+  if (activeElement && activeElement.classList.contains('cell') && activeElement.dataset.row !== undefined) {
+    focusedRow = activeElement.dataset.row;
+    focusedCol = activeElement.dataset.col;
   }
 
   // Очищаємо вміст сітки
@@ -314,11 +314,11 @@ function renderBoard(explodedCell = null) {
 
   // Відновлюємо фокус на новій кнопці для збереження фокусу при навігації з клавіатури
   if (focusedRow !== null && focusedCol !== null) {
-    const newFocusedBtn = boardElement.querySelector(
+    const newFocusedButtonElement = boardElement.querySelector(
       `.cell[data-row="${focusedRow}"][data-col="${focusedCol}"]`
     );
-    if (newFocusedBtn) {
-      newFocusedBtn.focus();
+    if (newFocusedButtonElement) {
+      newFocusedButtonElement.focus();
     }
   }
 }
@@ -455,11 +455,11 @@ function setupEventListeners() {
 
         if (isValidCoordinate(nextRow, nextCol)) {
           event.preventDefault();
-          const nextBtn = boardElement.querySelector(
+          const nextButtonElement = boardElement.querySelector(
             `.cell[data-row="${nextRow}"][data-col="${nextCol}"]`
           );
-          if (nextBtn) {
-            nextBtn.focus();
+          if (nextButtonElement) {
+            nextButtonElement.focus();
           }
         }
       }
