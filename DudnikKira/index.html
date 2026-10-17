@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper - Dudnik Kira</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<div class="minesweeper-container">
+
+  <header class="game-header">
+    <div class="counter" id="mines-count" role="status" aria-live="polite">003</div>
+    <button type="button" class="smile-btn" id="reset-btn" aria-label="Нова гра"></button>
+    <div class="counter" id="timer" role="status" aria-live="polite">000</div>
+  </header>
+
+  <main class="game-board">
+    <div class="cell"></div>
+    <div class="cell mine"></div>
+    <div class="cell flag-safe"></div>
+    <div class="cell flag-mine"></div>
+    <div class="cell mine exploded"></div>
+  </main>
+
+</div>
+</body>
+</html>
