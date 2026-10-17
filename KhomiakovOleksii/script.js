@@ -165,6 +165,8 @@ function renderBoard() {
             const cellButton = document.createElement('button');
             cellButton.className = 'cell';
             cellButton.type = 'button';
+            
+            let ariaLabelText = 'Закрита клітинка';
 
             if (cellData.state === CELL_STATE.OPENED) {
                 cellButton.classList.add('open');
@@ -172,14 +174,23 @@ function renderBoard() {
                 if (cellData.type === CELL_TYPE.MINE) {
                     cellButton.classList.add('mine');
                     cellButton.textContent = '💣';
-                    if (cellData.exploded) cellButton.classList.add('exploded');
+                    if (cellData.exploded) {
+                        cellButton.classList.add('exploded');
+                        ariaLabelText = 'Міна, на яку натиснули';
+                    } else {
+                        ariaLabelText = 'Клітинка з міною';
+                    }
                 } else if (cellData.neighborMines > 0) {
                     cellButton.classList.add(`number-${cellData.neighborMines}`);
                     cellButton.textContent = cellData.neighborMines;
+                    ariaLabelText = `Відкрита клітинка, ${cellData.neighborMines}`;
+                } else {
+                    ariaLabelText = 'Порожня відкрита клітинка';
                 }
             } 
             else if (cellData.state === CELL_STATE.FLAGGED) {
                 cellButton.classList.add('flagged');
+                ariaLabelText = 'Клітинка з прапорцем';
                 if (gameState.status === GAME_STATUS.LOSE && cellData.type === CELL_TYPE.MINE) {
                     cellButton.classList.add('mine');
                 }
@@ -187,10 +198,12 @@ function renderBoard() {
             else if (gameState.status === GAME_STATUS.LOSE && cellData.type === CELL_TYPE.MINE) {
                 cellButton.classList.add('open', 'mine');
                 cellButton.textContent = '💣';
+                ariaLabelText = 'Клітинка з міною';
             }
 
+            cellButton.setAttribute('aria-label', ariaLabelText);
+
             cellButton.addEventListener('click', () => {
-                // Раннє повернення, якщо гра вже закінчилася
                 if (gameState.status !== GAME_STATUS.PROCESS) return;
                 
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
@@ -202,7 +215,6 @@ function renderBoard() {
             cellButton.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
                 
-                // Раннє повернення, якщо гра вже закінчилася
                 if (gameState.status !== GAME_STATUS.PROCESS) return;
                 
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
