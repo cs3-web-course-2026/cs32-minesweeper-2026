@@ -190,6 +190,9 @@ function renderBoard() {
             }
 
             cellButton.addEventListener('click', () => {
+                // Раннє повернення, якщо гра вже закінчилася
+                if (gameState.status !== GAME_STATUS.PROCESS) return;
+                
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
                 openCell(rowIndex, colIndex);
                 renderBoard();
@@ -198,6 +201,10 @@ function renderBoard() {
 
             cellButton.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
+                
+                // Раннє повернення, якщо гра вже закінчилася
+                if (gameState.status !== GAME_STATUS.PROCESS) return;
+                
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
                 toggleFlag(rowIndex, colIndex);
                 renderBoard();
@@ -247,7 +254,6 @@ function handleGameOver() {
     stopTimer();
     updateUI();
     
-    // Вивід статусу у виділений HTML елемент
     if (gameState.status === GAME_STATUS.WIN) {
         statusMessageElement.textContent = 'Вітаємо! Ви розмінували поле!';
     } else if (gameState.status === GAME_STATUS.LOSE) {
@@ -261,7 +267,6 @@ function initGame() {
     gameState.gameTime = 0;
     stopTimer();
     
-    // Очищення тексту результату при новій грі
     if (statusMessageElement) {
         statusMessageElement.textContent = '';
     }
