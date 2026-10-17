@@ -210,26 +210,26 @@ function renderField(explodedCell = null) {
         explodedCell[0] === rowIndex && explodedCell[1] === colIndex;
 
       if (cell.state === 'opened') {
-        button.classList.add('cell--opened');
+        button.classList.add('cell-opened');
 
         if (cell.type === 'mine') {
-          button.classList.add('cell--mine');
+          button.classList.add('cell-mine');
           button.textContent = '💣';
         } else if (cell.neighborMines > 0) {
           button.textContent = String(cell.neighborMines);
-          button.classList.add(`cell--n${cell.neighborMines}`);
+          button.classList.add(`cell-number-${cell.neighborMines}`);
         } else {
           button.textContent = '';
         }
       } else if (gameState.status !== 'process' && cell.type === 'mine') {
-        button.classList.add('cell--opened', 'cell--mine');
+        button.classList.add('cell-opened', 'cell-mine');
         button.textContent = '💣';
       } else if (cell.state === 'flagged') {
-        button.classList.add('cell--flagged');
+        button.classList.add('cell-flagged');
         button.textContent = '🚩';
       }
 
-      if (isExploded) button.classList.add('cell--exploded');
+      if (isExploded) button.classList.add('cell-exploded');
 
       if (gameState.status !== 'process') {
         button.disabled = true;
