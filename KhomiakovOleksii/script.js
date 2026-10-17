@@ -156,8 +156,9 @@ function stopTimer() {
     }
 }
 
-function renderBoard() {
+function renderBoard(focusedRow = null, focusedCol = null) {
     boardElement.innerHTML = '';
+    let cellToFocus = null;
 
     for (let rowIndex = 0; rowIndex < gameState.rows; rowIndex++) {
         for (let colIndex = 0; colIndex < gameState.cols; colIndex++) {
@@ -166,7 +167,8 @@ function renderBoard() {
             cellButton.className = 'cell';
             cellButton.type = 'button';
             
-            let ariaLabelText = 'Закрита клітинка';
+            const coordText = `рядок ${rowIndex + 1}, стовпець ${colIndex + 1}`;
+            let ariaLabelText = `Закрита клітинка, ${coordText}`;
 
             if (cellData.state === CELL_STATE.OPENED) {
                 cellButton.classList.add('open');
@@ -176,21 +178,21 @@ function renderBoard() {
                     cellButton.textContent = '💣';
                     if (cellData.exploded) {
                         cellButton.classList.add('exploded');
-                        ariaLabelText = 'Міна, на яку натиснули';
+                        ariaLabelText = `Міна, на яку натиснули, ${coordText}`;
                     } else {
-                        ariaLabelText = 'Клітинка з міною';
+                        ariaLabelText = `Клітинка з міною, ${coordText}`;
                     }
                 } else if (cellData.neighborMines > 0) {
                     cellButton.classList.add(`number-${cellData.neighborMines}`);
                     cellButton.textContent = cellData.neighborMines;
-                    ariaLabelText = `Відкрита клітинка, ${cellData.neighborMines}`;
+                    ariaLabelText = `Відкрита клітинка, ${cellData.neighborMines}, ${coordText}`;
                 } else {
-                    ariaLabelText = 'Порожня відкрита клітинка';
+                    ariaLabelText = `Порожня відкрита клітинка, ${coordText}`;
                 }
             } 
             else if (cellData.state === CELL_STATE.FLAGGED) {
                 cellButton.classList.add('flagged');
-                ariaLabelText = 'Клітинка з прапорцем';
+                ariaLabelText = `Клітинка з прапорцем, ${coordText}`;
                 if (gameState.status === GAME_STATUS.LOSE && cellData.type === CELL_TYPE.MINE) {
                     cellButton.classList.add('mine');
                 }
@@ -198,7 +200,7 @@ function renderBoard() {
             else if (gameState.status === GAME_STATUS.LOSE && cellData.type === CELL_TYPE.MINE) {
                 cellButton.classList.add('open', 'mine');
                 cellButton.textContent = '💣';
-                ariaLabelText = 'Клітинка з міною';
+                ariaLabelText = `Клітинка з міною, ${coordText}`;
             }
 
             cellButton.setAttribute('aria-label', ariaLabelText);
@@ -208,7 +210,8 @@ function renderBoard() {
                 
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
                 openCell(rowIndex, colIndex);
-                renderBoard();
+
+                renderBoard(rowIndex, colIndex);
                 updateUI();
             });
 
@@ -219,11 +222,19 @@ function renderBoard() {
                 
                 if (gameState.gameTime === 0 && !gameState.timerId) startTimer();
                 toggleFlag(rowIndex, colIndex);
-                renderBoard();
+                renderBoard(rowIndex, colIndex);
             });
 
             boardElement.appendChild(cellButton);
+
+            if (rowIndex === focusedRow && colIndex === focusedCol) {
+                cellToFocus = cellButton;
+            }
         }
+    }
+    
+    if (cellToFocus) {
+        cellToFocus.focus();
     }
 }
 
