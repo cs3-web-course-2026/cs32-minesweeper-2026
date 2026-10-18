@@ -14,7 +14,7 @@ body {
     background: #1e0f3c;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
     text-align: center;
 }
 
