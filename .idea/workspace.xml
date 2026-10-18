@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2dee4aa6-92ea-4f92-9c75-7570eef83fc4" name="Changes" comment="" />
+    <list default="true" id="2dee4aa6-92ea-4f92-9c75-7570eef83fc4" name="Changes" comment="feat: complete Minesweeper game for lab2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "dasqiee"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/cs3-web-course-2026/cs32-minesweeper-2026.git",
+    "accountId": "0309c212-9c9b-4449-b8d8-3feba7d6ba26"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 5
 }]]></component>
@@ -67,8 +81,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1792316529664</updated>
-      <workItem from="1792316531556" duration="1469000" />
+      <workItem from="1792316531556" duration="2570000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: complete Minesweeper game for lab2">
+      <option name="closed" value="true" />
+      <created>1792318273651</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1792318273651</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,5 +107,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: complete Minesweeper game for lab2" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: complete Minesweeper game for lab2" />
   </component>
 </project>
