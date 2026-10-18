@@ -7,11 +7,11 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #ffffff;
+    color: #fff;
 }
 
 .game-container {
-    background: rgba(30, 15, 60, 0.85);
+    background: #1e0f3c;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -30,13 +30,12 @@ body {
 #restart-btn {
     background: linear-gradient(135deg, #7b2cbf, #9d4edd);
     border: none;
-    color: #ffffff;
+    color: #fff;
     padding: 8px 16px;
     font-size: 16px;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 #restart-btn:hover {
@@ -65,7 +64,6 @@ body {
     cursor: pointer;
     user-select: none;
     border-radius: 3px;
-    transition: background-color 0.1s;
 }
 
 .cell:hover {
