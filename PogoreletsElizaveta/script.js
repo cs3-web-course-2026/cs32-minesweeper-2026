@@ -109,7 +109,7 @@ function stopTimer() {
   }
 }
 
-// Логіка відкриття клітинок (Reveal & Рекурсія)
+// Логіка відкриття клітинок
 function openCell(r, c) {
   if (gameState.status !== 'process') return;
 
@@ -122,7 +122,7 @@ function openCell(r, c) {
   const cell = board[r][c];
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
-  // Поразка (потрапили на міну)
+  // Поразка 
   if (cell.type === 'mine') {
     cell.state = 'opened';
     cell.exploded = true;
