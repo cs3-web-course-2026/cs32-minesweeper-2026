@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <button type="button" id="restart-btn" aria-label="New Game">
+        <b>Start a new game 🌸</b>
+      </button>
+      <span id="mine-counter">Mines: <span id="flags-count">15</span></span>
+      <span id="timer-box">Time: <span id="timer">00:00</span></span>
+    </header>
+
+    <main>
+      <div id="board"></div>
+      <p id="game-message" class="status-message" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

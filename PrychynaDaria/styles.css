@@ -1,0 +1,204 @@
+:root {
+  --ui-bg: #c0c0c0;
+  --border-light: #fff;
+  --border-dark: #808080;
+  --border-black: #000;
+  --cell-size: clamp(30px, 7vw, 38px);
+  --font-stack: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, sans-serif;}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a252f;
+  font-family: var(--font-stack);
+  padding: 1rem;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.minesweeper {
+  background-color: var(--ui-bg);
+  padding: 10px;
+  user-select: none;
+}
+
+.bevel-outer {
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-black);
+  border-bottom: 3px solid var(--border-black);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 45%);
+}
+
+.bevel-inset {
+  border-top: 3px solid var(--border-dark);
+  border-left: 3px solid var(--border-dark);
+  border-right: 3px solid var(--border-light);
+  border-bottom: 3px solid var(--border-light);
+}
+
+.bevel-btn {
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-dark);
+  border-bottom: 3px solid var(--border-dark);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+
+.lcd-counter {
+  background-color: var(--border-black);
+  padding: 2px 5px;
+  display: flex;
+  gap: 2px;
+  border-radius: 2px;
+}
+
+.lcd-digit {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #f00;
+  line-height: 1;
+  text-shadow: 0 0 4px rgb(255 0 0 / 80%);
+}
+
+.btn-face {
+  width: 40px;
+  height: 40px;
+  background-color: var(--ui-bg);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  transition: transform 0.05s ease;
+}
+
+.btn-face:active {
+  border-top: 3px solid var(--border-dark);
+  border-left: 3px solid var(--border-dark);
+  border-right: 3px solid var(--border-light);
+  border-bottom: 3px solid var(--border-light);
+  transform: scale(0.97);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, var(--cell-size));
+  grid-template-rows: repeat(8, var(--cell-size));
+  background-color: var(--border-dark);
+}
+
+/* Базовий .cell розміщено перед псевдокласом focus-visible для дотримання специфічності */
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-size: calc(var(--cell-size) * 0.55);
+  font-weight: 900;
+  border: none;
+  background: none;
+}
+
+.btn-face:focus-visible,
+.cell:focus-visible {
+  outline: 3px solid #ffbf00;
+  outline-offset: 1px;
+}
+
+.cell-closed {
+  background-color: var(--ui-bg);
+  border-top: 3px solid var(--border-light);
+  border-left: 3px solid var(--border-light);
+  border-right: 3px solid var(--border-dark);
+  border-bottom: 3px solid var(--border-dark);
+  cursor: pointer;
+}
+
+.cell-closed:hover {
+  filter: brightness(1.06);
+}
+
+.cell-closed:active {
+  border: 1px solid var(--border-dark);
+  filter: none;
+}
+
+.cell-open {
+  background-color: var(--ui-bg);
+  border: 1px solid #7d7d7d;
+}
+
+.cell-num-1 { color: #00f; }
+.cell-num-2 { color: #017e00; }
+.cell-num-3 { color: #f00; }
+.cell-num-4 { color: #010080; }
+.cell-num-5 { color: #7f0300; }
+.cell-num-6 { color: #008080; }
+.cell-num-7 { color: #000; }
+.cell-num-8 { color: #808080; }
+
+.cell-flagged,
+.cell-question {
+  cursor: pointer;
+}
+
+.cell-mine {
+  background-color: var(--ui-bg);
+}
+
+.cell-mine-exploded {
+  background-color: #ff2525;
+}
+
+.cell-flagged-correct {
+  background-color: #b4e3b4;
+}
+
+.cell-flagged-wrong {
+  background-color: #f7c0c0;
+}
+
+@media (width <= 360px) {
+  .minesweeper {
+    padding: 6px;
+  }
+
+  .game-header {
+    padding: 4px 6px;
+  }
+
+  .btn-face {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .lcd-digit {
+    font-size: 1.25rem;
+  }
+}

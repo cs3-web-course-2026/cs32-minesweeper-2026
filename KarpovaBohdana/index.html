@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сапер</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="game">
+      <h1 class="visually-hidden">Сапер</h1>
+
+      <!-- Шапка гри: лічильник прапорців, кнопка нової гри, таймер -->
+      <header class="game-header">
+        <div
+          class="counter counter-flags"
+          role="status"
+          aria-live="polite"
+          aria-label="Залишилось прапорців"
+        >
+          <span class="counter-icon" aria-hidden="true">🚩</span>
+          <span class="counter-value">000</span>
+        </div>
+
+        <button type="button" class="restart" aria-label="Почати нову гру">
+          <span class="restart-face" aria-hidden="true">🙂</span>
+        </button>
+
+        <div
+          class="counter counter-timer"
+          role="timer"
+          aria-label="Час гри, секунд"
+        >
+          <span class="counter-icon" aria-hidden="true">⏱️</span>
+          <span class="counter-value">000</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- Ігрове поле: наповнюється динамічно з script.js -->
+        <div class="board" role="group" aria-label="Ігрове поле"></div>
+
+        <!-- Сповіщення про перемогу або поразку -->
+        <p class="game-status" role="status" aria-live="polite"></p>
+      </main>
+    </div>
+  </body>
+</html>

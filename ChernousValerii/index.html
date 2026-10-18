@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Web game Minesweeper</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+
+    <body>
+        <div class="game-container">
+            <!-- Хедер гри -->
+            <header class="game-header">
+                <div class="container header-container">
+                    <h1 class="header-name">
+                        <span>Mine</span>sweeper
+                    </h1>
+
+                    <div class="header-stats">
+                        <div class="stat-box header-timer" title="Час гри">
+                            <span class="stat-icon">⏱️</span>
+                            <span class="stat-value">00:00</span>
+                        </div>
+
+                        <button class="btn-start" type="button" title="Почати нову гру">
+                            <span class="btn-icon">🙂</span>
+                            <span class="btn-text">Старт</span>
+                        </button>
+
+                        <div class="stat-box header-flag" title="Залишилось прапорців" role="status" aria-live="polite">
+                            <span class="stat-icon">🚩</span>
+                            <span class="stat-value">10</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="game-main">
+                <div class="board-frame">
+                    <div class="game-status" role="status" aria-live="polite"></div>
+                    <div class="board">
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </body>
+</html>

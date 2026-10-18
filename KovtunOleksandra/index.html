@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <!-- Хедер гри -->
+        <header class="game-header">
+
+            <div class="game-info" role="status" aria-live="polite" aria-label="Статус гри">
+
+                <div class="counter" aria-label="Кількість прапорців">
+                    <span class="counter-icon">🚩</span>
+                    <span id="flag-count">015</span>
+                </div>
+
+                <div class="counter" aria-label="Час гри">
+                    <span class="counter-icon">⏱️</span>
+                    <span id="timer">000</span>
+                </div>
+
+            </div>
+
+            <button
+                class="reset-btn"
+                type="button"
+                aria-label="Почати нову гру"
+            >
+                😃
+            </button>
+
+        </header>
+
+        <!-- Ігрове поле -->
+        <main>
+            <!-- Контейнер залишається порожнім, JS сам згенерує клітинки -->
+            <section
+                class="game-board"
+                aria-label="Ігрове поле Minesweeper"
+            >
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Підключення логіки гри -->
+    <script src="script.js"></script>
+</body>
+</html>
