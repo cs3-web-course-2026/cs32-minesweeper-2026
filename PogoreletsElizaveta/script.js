@@ -9,6 +9,7 @@ const gameState = {
   isFirstClick: true // Прапорець для захисту від першого кліку
 };
 
+// Ігрове поле винесено окремо від gameState
 let board = [];
 
 // Елементи DOM
@@ -32,7 +33,7 @@ function countNeighbourMines(boardGrid, rows, cols) {
       let count = 0;
       for (let dr = -1; dr <= 1; dr++) {
         for (let dc = -1; dc <= 1; dc++) {
-          if (dr === 0 && dr === 0) continue;
+          if (dr === 0 && dc === 0) continue;
           const nr = r + dr;
           const nc = c + dc;
 
@@ -75,7 +76,6 @@ function generateField(rows, cols, minesCount, safeR, safeC) {
     const r = Math.floor(Math.random() * rows);
     const c = Math.floor(Math.random() * cols);
 
-    // Перевіряємо, чи не є ця клітинка зоною першого кліку
     const isNearSafeSpot = Math.abs(r - safeR) <= 1 && Math.abs(c - safeC) <= 1;
 
     if (!isNearSafeSpot && newBoard[r][c].type !== 'mine') {
@@ -122,7 +122,7 @@ function openCell(r, c) {
   const cell = board[r][c];
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
-  // Поразка 
+  // Поразка (потрапили на міну)
   if (cell.type === 'mine') {
     cell.state = 'opened';
     cell.exploded = true;
@@ -133,11 +133,11 @@ function openCell(r, c) {
   // Відкриття безпечної клітинки
   cell.state = 'opened';
 
-  // Рекурсивне відкриття сусідніх порожніх клітинок 
+  // Рекурсивне відкриття сусідніх порожніх клітинок
   if (cell.neighborMines === 0) {
     for (let dr = -1; dr <= 1; dr++) {
       for (let dc = -1; dc <= 1; dc++) {
-        if (dr === 0 && dr === 0) continue;
+        if (dr === 0 && dc === 0) continue;
         const nr = r + dr;
         const nc = c + dc;
 
@@ -155,7 +155,6 @@ function openCell(r, c) {
     }
   }
 
-  // Захист перевірки перемоги
   if (gameState.status === 'process') {
     checkWinCondition();
   }
@@ -166,6 +165,7 @@ function openCell(r, c) {
 // Логіка прапорців
 function toggleFlag(r, c) {
   if (gameState.status !== 'process') return;
+  if (gameState.isFirstClick) return; // Заборона ставити прапорці до першого кліку
 
   const cell = board[r][c];
   if (cell.state === 'opened') return;
@@ -308,7 +308,7 @@ function resetGame() {
   gameState.status = 'process';
   gameState.gameTime = 0;
   gameState.flagsCount = gameState.minesCount;
-  gameState.isFirstClick = true; // Скидаємо прапорець першого кліку
+  gameState.isFirstClick = true;
 
   timerElement.textContent = formatNumber(0);
   flagsElement.textContent = formatNumber(gameState.flagsCount);
@@ -318,7 +318,6 @@ function resetGame() {
     gameStatusElement.textContent = '';
   }
 
-  // Спочатку створюємо пусте поле, міни з'являться тільки після першого кліку гравця
   board = initEmptyBoard(gameState.rows, gameState.cols);
   renderBoard();
 }
