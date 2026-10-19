@@ -127,7 +127,7 @@ function openCell(row, col) {
   if (gameState.status !== GAME_STATUS.PROCESS) return;
 
   const targetCell = board[row][col];
-  if (targetCell.state === CELL_STATE.FLAGGED) return;
+  if (targetCell.state === CELL_STATE.FLAGGED || targetCell.state === CELL_STATE.OPENED) return;
 
   if (gameState.isFirstClick) {
     gameState.isFirstClick = false;
@@ -136,7 +136,6 @@ function openCell(row, col) {
   }
 
   const cell = board[row][col];
-  if (cell.state === CELL_STATE.OPENED) return;
 
   if (cell.type === CELL_TYPE.MINE) {
     cell.state = CELL_STATE.OPENED;
