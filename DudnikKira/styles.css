@@ -55,6 +55,15 @@ body {
     cursor: pointer;
 }
 
+.game-status {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #fff;
+    min-height: 20px;
+}
+
 .game-board {
     display: grid;
     grid-template-columns: repeat(10, var(--cell-size));
@@ -76,6 +85,7 @@ body {
     font-size: 14px;
     cursor: pointer;
     user-select: none;
+    padding: 0;
 }
 
 .cell.open {
@@ -92,13 +102,11 @@ body {
     font-size: 12px;
 }
 
-.cell.flag-mine,
-.cell.flagged {
+.cell.flag-mine {
     background-color: #c0c0c0;
 }
 
-.cell.flag-mine::after,
-.cell.flagged::after {
+.cell.flag-mine::after {
     content: "🚩";
     font-size: 12px;
 }
@@ -106,6 +114,11 @@ body {
 .cell.mine {
     background-color: #c0c0c0;
     border-color: #dfdfdf #707070 #707070 #dfdfdf;
+}
+
+.cell.mine::after {
+    content: "💣";
+    font-size: 12px;
 }
 
 .cell.mine.exploded {
