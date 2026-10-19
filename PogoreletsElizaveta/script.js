@@ -126,6 +126,9 @@ function stopTimer() {
 function openCell(row, col) {
   if (gameState.status !== GAME_STATUS.PROCESS) return;
 
+  const targetCell = board[row][col];
+  if (targetCell.state === CELL_STATE.FLAGGED) return;
+
   if (gameState.isFirstClick) {
     gameState.isFirstClick = false;
     board = generateField(gameState.rows, gameState.cols, gameState.minesCount, row, col);
@@ -133,7 +136,7 @@ function openCell(row, col) {
   }
 
   const cell = board[row][col];
-  if (cell.state === CELL_STATE.OPENED || cell.state === CELL_STATE.FLAGGED) return;
+  if (cell.state === CELL_STATE.OPENED) return;
 
   if (cell.type === CELL_TYPE.MINE) {
     cell.state = CELL_STATE.OPENED;
@@ -303,7 +306,6 @@ function initEmptyBoard(rows, cols) {
   }
   return emptyBoard;
 }
-
 
 function resetGame() {
   stopTimer();
