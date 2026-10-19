@@ -425,7 +425,13 @@ function handleBoardContextMenu(event) {
 
 
 function handleBoardKeydown(event) {
-  if (event.key.toLowerCase() !== FLAG_KEY) {
+  if (
+    event.key.toLowerCase() !== FLAG_KEY ||
+    event.repeat ||
+    event.ctrlKey ||
+    event.metaKey ||
+    event.altKey
+  ) {
     return;
   }
 
