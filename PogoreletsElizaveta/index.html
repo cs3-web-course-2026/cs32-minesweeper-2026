@@ -13,7 +13,7 @@
 
     <!-- Хедер гри -->
     <header class="game-header">
-      <div class="stat-box">
+      <div class="stat-box" role="status" aria-live="polite">
         <span class="stat-label">🚩</span>
         <span id="flags-count">006</span>
       </div>
@@ -25,6 +25,9 @@
         <span id="timer">000</span>
       </div>
     </header>
+
+    <!-- Живий статус-елемент для повідомлень гри -->
+    <div id="game-status" role="status" aria-live="polite" style="margin-bottom: 10px; font-weight: bold; min-height: 24px; text-align: center;"></div>
 
     <!-- Динамічне ігрове поле 6x6 -->
     <main class="game-board" id="game-board"></main>

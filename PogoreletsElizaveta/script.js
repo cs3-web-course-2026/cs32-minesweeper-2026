@@ -190,6 +190,8 @@ function toggleFlag(row, col) {
     }
   }
 
+  flagsElement.setAttribute('role', 'status');
+  flagsElement.setAttribute('aria-live', 'polite');
   flagsElement.textContent = formatNumber(gameState.flagsCount);
   renderBoard();
 }
@@ -314,6 +316,8 @@ function resetGame() {
   gameState.isFirstClick = true;
 
   timerElement.textContent = formatNumber(0);
+  flagsElement.setAttribute('role', 'status');
+  flagsElement.setAttribute('aria-live', 'polite');
   flagsElement.textContent = formatNumber(gameState.flagsCount);
   startBtnElement.textContent = '🤓';
 
