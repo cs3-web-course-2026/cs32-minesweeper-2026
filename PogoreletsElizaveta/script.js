@@ -2,29 +2,25 @@ const gameState = {
   rows: 6,
   cols: 6,
   minesCount: 6,
-  status: 'process', // 'process' | 'win' | 'lose'
+  status: 'process',
   gameTime: 0,
   timerId: null,
   flagsCount: 6,
-  isFirstClick: true // Прапорець для захисту від першого кліку
+  isFirstClick: true
 };
 
-// Ігрове поле винесено окремо від gameState
 let board = [];
 
-// Елементи DOM
 const boardElement = document.querySelector('.game-board');
 const timerElement = document.getElementById('timer');
 const flagsElement = document.getElementById('flags-count');
 const startBtnElement = document.getElementById('start-btn');
 const gameStatusElement = document.getElementById('game-status');
 
-// Форматування чисел для відображення
 function formatNumber(num) {
   return String(Math.max(0, num)).padStart(3, '0');
 }
 
-// Функція підрахунку сусідніх мін
 function countNeighbourMines(boardGrid, rows, cols) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -53,24 +49,21 @@ function countNeighbourMines(boardGrid, rows, cols) {
   }
 }
 
-// Функція генерації поля
 function generateField(rows, cols, minesCount, safeR, safeC) {
   const newBoard = [];
 
-  // 1. Створення порожнього поля
   for (let r = 0; r < rows; r++) {
     const row = [];
     for (let c = 0; c < cols; c++) {
       row.push({
-        type: 'empty', // 'empty' | 'mine'
+        type: 'empty',
         neighborMines: 0,
-        state: 'closed' // 'closed' | 'opened' | 'flagged'
+        state: 'closed'
       });
     }
     newBoard.push(row);
   }
 
-  // 2. Випадкова розстановка мін
   let placedMines = 0;
   while (placedMines < minesCount) {
     const r = Math.floor(Math.random() * rows);
@@ -84,13 +77,11 @@ function generateField(rows, cols, minesCount, safeR, safeC) {
     }
   }
 
-  // 3. Підрахунок сусідніх мін
   countNeighbourMines(newBoard, rows, cols);
 
   return newBoard;
 }
 
-// Керування таймером
 function startTimer() {
   stopTimer();
   gameState.gameTime = 0;
@@ -109,7 +100,6 @@ function stopTimer() {
   }
 }
 
-// Логіка відкриття клітинок
 function openCell(r, c) {
   if (gameState.status !== 'process') return;
 
@@ -122,7 +112,6 @@ function openCell(r, c) {
   const cell = board[r][c];
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
-  // Поразка (потрапили на міну)
   if (cell.type === 'mine') {
     cell.state = 'opened';
     cell.exploded = true;
@@ -130,10 +119,8 @@ function openCell(r, c) {
     return;
   }
 
-  // Відкриття безпечної клітинки
   cell.state = 'opened';
 
-  // Рекурсивне відкриття сусідніх порожніх клітинок
   if (cell.neighborMines === 0) {
     for (let dr = -1; dr <= 1; dr++) {
       for (let dc = -1; dc <= 1; dc++) {
@@ -162,10 +149,9 @@ function openCell(r, c) {
   renderBoard();
 }
 
-// Логіка прапорців
 function toggleFlag(r, c) {
   if (gameState.status !== 'process') return;
-  if (gameState.isFirstClick) return; // Заборона ставити прапорці до першого кліку
+  if (gameState.isFirstClick) return;
 
   const cell = board[r][c];
   if (cell.state === 'opened') return;
@@ -184,7 +170,6 @@ function toggleFlag(r, c) {
   renderBoard();
 }
 
-// Перевірка перемоги / поразки
 function checkWinCondition() {
   if (gameState.status !== 'process') return;
 
@@ -210,7 +195,6 @@ function handleGameOver(isWin) {
   stopTimer();
   gameState.status = isWin ? 'win' : 'lose';
 
-  // Відкриття всіх мін після завершення гри
   for (let r = 0; r < gameState.rows; r++) {
     for (let c = 0; c < gameState.cols; c++) {
       const cell = board[r][c];
@@ -233,7 +217,6 @@ function handleGameOver(isWin) {
   renderBoard();
 }
 
-// Рендеринг ігрового поля у DOM та обробка подій
 function renderBoard() {
   boardElement.innerHTML = '';
 
@@ -269,12 +252,10 @@ function renderBoard() {
         button.setAttribute('aria-label', 'Closed cell');
       }
 
-      // Лівий клік (Open)
       button.addEventListener('click', () => {
         openCell(r, c);
       });
 
-      // Правий клік (Flag)
       button.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         toggleFlag(r, c);
@@ -285,7 +266,6 @@ function renderBoard() {
   }
 }
 
-// Створення порожньої сітки для початкового відображення до першого кліку
 function initEmptyBoard(rows, cols) {
   const emptyBoard = [];
   for (let r = 0; r < rows; r++) {
@@ -302,7 +282,6 @@ function initEmptyBoard(rows, cols) {
   return emptyBoard;
 }
 
-// Запуск нової гри
 function resetGame() {
   stopTimer();
   gameState.status = 'process';
@@ -322,6 +301,5 @@ function resetGame() {
   renderBoard();
 }
 
-// Прив'язка подій
 startBtnElement.addEventListener('click', resetGame);
 window.addEventListener('DOMContentLoaded', resetGame);
