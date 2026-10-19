@@ -1,8 +1,8 @@
 :root {
-  --board-columns: 9;
+  --board-columns: 10;
 
-  /* 7rem = page padding + panel padding and border + gaps between 9 cells */
-  --cell-size: clamp(1.5rem, (100vw - 7rem) / var(--board-columns), 2.75rem);
+  /* 7.5rem = page padding + panel padding and border + gaps between cells */
+  --cell-size: clamp(1.25rem, (100vw - 7.5rem) / var(--board-columns), 2.75rem);
   --cell-gap: 0.25rem;
   --cell-radius: 0.75rem;
   --cell-font-size: calc(var(--cell-size) * 0.5);
@@ -191,6 +191,7 @@ body {
 
 .board {
   display: grid;
+  user-select: none;
   grid-template-columns: repeat(var(--board-columns), var(--cell-size));
   gap: var(--cell-gap);
 }
