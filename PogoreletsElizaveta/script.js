@@ -304,6 +304,7 @@ function initEmptyBoard(rows, cols) {
   return emptyBoard;
 }
 
+
 function resetGame() {
   stopTimer();
   gameState.status = GAME_STATUS.PROCESS;
