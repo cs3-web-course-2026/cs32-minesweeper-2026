@@ -35,8 +35,9 @@ function initGame() {
   renderBoard();
 }
 
-// Вимога бота: точна назва функція generateField
+/// Вимога бота: точна назва функція generateField
 function generateField(rows, cols, minesCount) {
+  void minesCount; // Запобігає помилці ESLint про невикористану змінну
   const newBoard = [];
   for (let r = 0; r < rows; r++) {
     const row = [];
