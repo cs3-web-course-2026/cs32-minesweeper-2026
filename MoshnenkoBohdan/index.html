@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сапер — Старт</title>
+    <title>Minesweeper — Start</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -11,8 +11,8 @@
 </head>
 <body>
 
-
-<div class="menu-card hidden" id="menu-card">
+<!-- Start Menu -->
+<div class="menu-card" id="menu-card">
     <div class="card-header">
         <h1>Minesweeper</h1>
     </div>
@@ -29,15 +29,15 @@
     </div>
 </div>
 
-<div class="game-container" id="game-container">
-
+<!-- Game Container -->
+<div class="game-container hidden" id="game-container">
     <header class="game-header">
         <div class="info-box">
             <span class="info-label">💣 Mines:</span>
             <span id="mines-count">5</span>
         </div>
         <div class="info-box">
-            <span class="info-label">⏱️ Time:</span>
+            <span class="info-label">Time:</span>
             <span id="timer">00:01</span>
         </div>
         <div class="info-box">
@@ -49,39 +49,10 @@
     </header>
 
     <main class="board-wrapper">
-        <div class="board" id="board">
-            <div class="cell revealed number-2">2</div>
-            <div class="cell revealed number-2">2</div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-
-            <div class="cell revealed">💣</div>
-            <div class="cell revealed">💣</div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell revealed">💣</div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell revealed">💣</div>
-            <div class="cell revealed">💣</div>
-            <div class="cell"></div>
-
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-        </div>
+        <div class="board" id="board"></div>
     </main>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
