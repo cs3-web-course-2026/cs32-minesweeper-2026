@@ -22,8 +22,9 @@ const gameState = {
   status: GAME_STATUS.PROCESS,
   gameTime: 0,
   timerId: null,
-  field: [],
 };
+
+let board = [];
 
 const boardElement = document.getElementById('game-board');
 const timerElement = document.getElementById('timer');
@@ -124,7 +125,7 @@ function countNeighbourMines(field) {
 function revealAllMines() {
   for (let r = 0; r < gameState.rows; r += 1) {
     for (let c = 0; c < gameState.cols; c += 1) {
-      const cell = gameState.field[r][c];
+      const cell = board[r][c];
       if (cell.type === CELL_TYPE.MINE && cell.state !== CELL_STATE.FLAGGED) {
         cell.state = CELL_STATE.OPENED;
       }
@@ -143,7 +144,7 @@ function checkWinCondition() {
 
   for (let r = 0; r < gameState.rows; r += 1) {
     for (let c = 0; c < gameState.cols; c += 1) {
-      const cell = gameState.field[r][c];
+      const cell = board[r][c];
       if (
         cell.type === CELL_TYPE.EMPTY &&
         cell.state === CELL_STATE.OPENED
@@ -167,7 +168,7 @@ function openCell(row, col) {
     return;
   }
 
-  const cell = gameState.field[row][col];
+  const cell = board[row][col];
 
   if (
     cell.state === CELL_STATE.OPENED ||
@@ -203,7 +204,7 @@ function countFlags() {
   let flags = 0;
   for (let r = 0; r < gameState.rows; r += 1) {
     for (let c = 0; c < gameState.cols; c += 1) {
-      if (gameState.field[r][c].state === CELL_STATE.FLAGGED) {
+      if (board[r][c].state === CELL_STATE.FLAGGED) {
         flags += 1;
       }
     }
@@ -219,7 +220,7 @@ function toggleFlag(row, col) {
     return;
   }
 
-  const cell = gameState.field[row][col];
+  const cell = board[row][col];
 
   if (cell.state === CELL_STATE.OPENED) {
     return;
@@ -283,7 +284,7 @@ function renderBoard() {
 
   for (let r = 0; r < gameState.rows; r += 1) {
     for (let c = 0; c < gameState.cols; c += 1) {
-      const cell = gameState.field[r][c];
+      const cell = board[r][c];
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'cell';
@@ -324,12 +325,12 @@ function initGame() {
   stopTimer();
   gameState.status = GAME_STATUS.PROCESS;
   gameState.gameTime = 0;
-  gameState.field = generateField(
+  board = generateField(
     gameState.rows,
     gameState.cols,
     gameState.minesCount,
   );
-  countNeighbourMines(gameState.field);
+  countNeighbourMines(board);
   renderBoard();
   startTimer();
 }
