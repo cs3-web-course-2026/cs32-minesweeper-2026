@@ -64,7 +64,7 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 15px;
     width: 100%;
 }
 
@@ -105,6 +105,13 @@ body::before {
 .multiply {
     font-weight: 700;
     color: rgb(255 255 255 / 70%);
+}
+
+.error-message {
+    color: #f87171;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 20px;
 }
 
 .btn-start {
@@ -198,6 +205,8 @@ body::before {
     font-size: 16px;
     font-weight: bold;
     user-select: none;
+    font: inherit;
+    color: inherit;
     transition: background var(--transition-speed);
 }
 
@@ -206,7 +215,7 @@ body::before {
 }
 
 .cell.revealed {
-    background: rgb(255 255 255 / 15%) !important;
+    background: rgb(255 255 255 / 15%);
     border-color: rgb(255 255 255 / 10%);
     cursor: default;
 }

@@ -26,6 +26,7 @@
         </div>
 
         <button type="button" class="btn-start" id="start-btn">Start</button>
+        <div id="menu-error" role="status" aria-live="polite" class="error-message"></div>
     </div>
 </div>
 
@@ -38,7 +39,7 @@
         </div>
         <div class="info-box">
             <span class="info-label">⏱️ Time:</span>
-            <span id="timer">00:01</span>
+            <span id="timer">00:00</span>
         </div>
         <div class="info-box">
             <span class="info-label">Cells left:</span>
@@ -49,13 +50,13 @@
     </header>
 
     <main class="board-wrapper">
-        <div class="board" id="board"></div>
+        <div class="board" id="board-element"></div>
     </main>
 </div>
 
 <!-- Game Over / Victory Modal Popup -->
-<div class="modal-overlay hidden" id="game-modal">
-    <div class="modal-card">
+<div class="modal-overlay hidden" id="game-modal" role="presentation">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <h2 id="modal-title">Game Over</h2>
         <p id="modal-message">You lost the game!</p>
         <button type="button" class="btn-start" id="modal-restart-btn">Play Again</button>
