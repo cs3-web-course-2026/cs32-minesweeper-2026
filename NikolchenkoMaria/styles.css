@@ -1,6 +1,5 @@
 :root {
     --board-columns: 9;
-    --state-cell-size: 32px;
     --mine-animation-duration: 0.3s;
 }
 
@@ -216,42 +215,34 @@ h1 {
 .number-8 {
     color: #868e96;
 }
+/* Інтерактивні клітинки */
 
-/* Стани клітинок */
-
-.cell-states {
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #303640;
+.board .cell {
+    appearance: none;
+    min-width: 0;
+    font-family: inherit;
+    cursor: pointer;
 }
 
-.cell-states h2 {
-    margin: 0 0 14px;
-    font-size: 17px;
-    color: #e8eaed;
+.board .cell:focus-visible {
+    outline: 2px solid #f5c147;
+    outline-offset: -2px;
+    z-index: 1;
 }
 
-.states-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+.board .cell:disabled {
+    cursor: default;
+    opacity: 1;
 }
 
-.state {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13px;
+/* Повідомлення про стан гри */
+
+#game-status {
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 14px;
     color: #adb5bd;
 }
-
-.state .cell {
-    width: var(--state-cell-size);
-    height: var(--state-cell-size);
-    flex: 0 0 var(--state-cell-size);
-    font-size: 16px;
-}
-
 /* Адаптивність */
 
 @media (width <= 520px) {
