@@ -2,10 +2,10 @@
   --bg-body: #222;
   --bg-board: #c55c00;
   --cell-closed: #676666;
-  --cell-open: #723b00;
+  --cell-open: #e5c158;
   --cell-hover: #ff6a00;
   --danger: #ff0404;
-  --success: #f7f9f9;
+  --success: #2ecc71;
   --accent: #ff1500;
   --cols: 10;
   --cell-size: 32px;
@@ -55,7 +55,7 @@ body {
 .start-btn {
   font-size: 14px;
   font-weight: bold;
-  color: #1a1a1a;
+  color: #fff;
   background-color: var(--accent);
   border: none;
   border-radius: 6px;
@@ -65,7 +65,7 @@ body {
 }
 
 .start-btn:hover {
-  background-color: #232323;
+  background-color: #c0392b;
 }
 
 .game-status {
@@ -81,12 +81,12 @@ body {
 
 .game-status.status-win {
   background-color: var(--success);
-  color: #333;
+  color: #fff;
 }
 
 .game-status.status-lose {
   background-color: var(--danger);
-  color: #332;
+  color: #fff;
 }
 
 .game-board {
@@ -183,12 +183,12 @@ body {
 
 .num-1 { color: #0984e3; }
 .num-2 { color: #00b894; }
-.num-3 { color: #d63031; }
-.num-4 { color: #6c5ce7; }
-.num-5 { color: #e17055; }
-.num-6 { color: #00cec9; }
-.num-7 { color: #2d3436; }
-.num-8 { color: #636e72; }
+.num-3 { color: #8b0000; }
+.num-4 { color: #3f136e; }
+.num-5 { color: #b73812; }
+.num-6 { color: #005f60; }
+.num-7 { color: #000000; }
+.num-8 { color: #2d3436; }
 
 @media (width <= 400px) {
   :root {
