@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper — Start</title>
+    <title>Minesweeper — Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
             <span id="mines-count">5</span>
         </div>
         <div class="info-box">
-            <span class="info-label">Time:</span>
+            <span class="info-label">⏱️ Time:</span>
             <span id="timer">00:01</span>
         </div>
         <div class="info-box">
@@ -51,6 +51,15 @@
     <main class="board-wrapper">
         <div class="board" id="board"></div>
     </main>
+</div>
+
+<!-- Game Over / Victory Modal Popup -->
+<div class="modal-overlay hidden" id="game-modal">
+    <div class="modal-card">
+        <h2 id="modal-title">Game Over</h2>
+        <p id="modal-message">You lost the game!</p>
+        <button type="button" class="btn-start" id="modal-restart-btn">Play Again</button>
+    </div>
 </div>
 
 <script src="script.js"></script>

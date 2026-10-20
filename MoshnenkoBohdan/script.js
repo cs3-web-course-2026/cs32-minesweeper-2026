@@ -11,6 +11,12 @@ const timerEl = document.getElementById('timer');
 const closedCountEl = document.getElementById('closed-count');
 const gameStatusEl = document.getElementById('game-status');
 
+// Modal elements
+const gameModal = document.getElementById('game-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalMessage = document.getElementById('modal-message');
+const modalRestartBtn = document.getElementById('modal-restart-btn');
+
 let isGameOver = false;
 let timerInterval = null;
 let secondsPassed = 0;
@@ -28,6 +34,7 @@ function startGame() {
 
     menuCard.classList.add('hidden');
     gameContainer.classList.remove('hidden');
+    gameModal.classList.add('hidden');
 
     createBoard(rows, cols);
 }
@@ -35,6 +42,9 @@ function startGame() {
 startBtn.addEventListener('click', startGame);
 if (restartBtn) {
     restartBtn.addEventListener('click', startGame);
+}
+if (modalRestartBtn) {
+    modalRestartBtn.addEventListener('click', startGame);
 }
 
 function createBoard(rows, cols) {
@@ -211,10 +221,18 @@ function gameOver(cellsGrid, rows, cols, clickedCell) {
     }
 
     updateStatus('Game over. You lost!');
+    showModal('Game Over', 'You hit a mine and lost the game!');
 }
 
 function gameWin() {
     isGameOver = true;
     clearInterval(timerInterval);
     updateStatus('Congratulations, you won!');
+    showModal('Victory!', 'Congratulations, you successfully cleared all safe cells!');
+}
+
+function showModal(title, message) {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    gameModal.classList.remove('hidden');
 }
