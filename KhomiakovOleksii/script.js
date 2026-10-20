@@ -125,6 +125,8 @@ function toggleFlag(rowIndex, colIndex) {
     if (cell.state === CELL_STATE.OPENED) return;
 
     if (cell.state === CELL_STATE.CLOSED) {
+        if (gameState.flagsCount >= gameState.minesCount) return;
+        
         cell.state = CELL_STATE.FLAGGED;
         gameState.flagsCount++;
     } else if (cell.state === CELL_STATE.FLAGGED) {
@@ -242,7 +244,7 @@ function updateUI() {
     timerElement.textContent = String(gameState.gameTime).padStart(3, '0');
     
     const leftMines = gameState.minesCount - gameState.flagsCount;
-    minesCounterElement.textContent = String(leftMines >= 0 ? leftMines : 0).padStart(3, '0');
+    minesCounterElement.textContent = String(leftMines).padStart(3, '0');
 
     if (gameState.status === GAME_STATUS.WIN) {
         resetButton.textContent = '😎';
