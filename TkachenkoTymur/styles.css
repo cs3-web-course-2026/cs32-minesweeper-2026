@@ -81,12 +81,12 @@ body {
 
 .game-status.status-win {
   background-color: var(--success);
-  color: #fff;
+  color: #333;
 }
 
 .game-status.status-lose {
   background-color: var(--danger);
-  color: #fff;
+  color: #332;
 }
 
 .game-board {
