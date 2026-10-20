@@ -244,7 +244,11 @@ function updateUI() {
     timerElement.textContent = String(gameState.gameTime).padStart(3, '0');
     
     const leftMines = gameState.minesCount - gameState.flagsCount;
-    minesCounterElement.textContent = String(leftMines).padStart(3, '0');
+    const formattedMines = String(leftMines).padStart(3, '0');
+    
+    if (minesCounterElement.textContent !== formattedMines) {
+        minesCounterElement.textContent = formattedMines;
+    }
 
     if (gameState.status === GAME_STATUS.WIN) {
         resetButton.textContent = '😎';
