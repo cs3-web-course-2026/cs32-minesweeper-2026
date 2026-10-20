@@ -7,7 +7,7 @@ const gameState = {
   timerId: null,
 };
 
-let gameGrid = [];
+let board = [];
 
 const gridElement = document.getElementById('grid');
 const flagCountElement = document.getElementById('flag-count');
@@ -23,12 +23,12 @@ function generateField(rows, cols, minesCount) {
   if (minesCount >= rows * cols) {
     throw new Error('number of mines on the field is too high!');
   }
-  gameGrid = [];
+  board = [];
 
   for (let i = 0; i < rows; i++) {
-    gameGrid.push([]);
+    board.push([]);
     for (let j = 0; j < cols; j++) {
-      gameGrid[i].push({
+      board[i].push({
         type: 'empty',
         state: 'closed',
         neighborMines: 0,
@@ -42,25 +42,24 @@ function generateField(rows, cols, minesCount) {
     while (!found_empty) {
       const rand_row = getRndInteger(0, rows);
       const rand_col = getRndInteger(0, cols);
-      const current_cell = gameGrid[rand_row][rand_col];
+      const current_cell = board[rand_row][rand_col];
       if (current_cell.type === 'empty') {
         found_empty = true;
         current_cell.type = 'mine';
       }
     }
   }
-  console.log(gameGrid);
 }
 
 function cellCoordinatesInBounds(row, col) {
   return (
-    row >= 0 && row < gameGrid.length && col >= 0 && col < gameGrid[row].length
+    row >= 0 && row < board.length && col >= 0 && col < board[row].length
   );
 }
 
 function countNeighbourMines() {
-  for (let row = 0; row < gameGrid.length; row++) {
-    for (let col = 0; col < gameGrid[row].length; col++) {
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
       let mineCount = 0;
 
       for (let directionalRow = -1; directionalRow <= 1; directionalRow++) {
@@ -74,14 +73,14 @@ function countNeighbourMines() {
 
           if (
             cellCoordinatesInBounds(neighbourRow, neighbourCol) &&
-            gameGrid[neighbourRow][neighbourCol].type === 'mine'
+            board[neighbourRow][neighbourCol].type === 'mine'
           ) {
             mineCount++;
           }
         }
       }
 
-      gameGrid[row][col].neighborMines = mineCount;
+      board[row][col].neighborMines = mineCount;
     }
   }
 }
@@ -95,7 +94,7 @@ function openCell(row, col) {
     return;
   }
 
-  const clickedCell = gameGrid[row][col];
+  const clickedCell = board[row][col];
 
   if (clickedCell.state !== 'closed') {
     return;
@@ -131,7 +130,7 @@ function toggleFlag(row, col) {
     return;
   }
 
-  const clickedCell = gameGrid[row][col];
+  const clickedCell = board[row][col];
 
   if (clickedCell.state === 'opened') {
     return;
@@ -194,11 +193,11 @@ function startNewGame() {
 function checkWinCondition() {
   let openedSafeCells = 0;
 
-  for (let row = 0; row < gameGrid.length; row++) {
-    for (let col = 0; col < gameGrid[row].length; col++) {
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
       if (
-        gameGrid[row][col].type === 'empty' &&
-        gameGrid[row][col].state === 'opened'
+        board[row][col].type === 'empty' &&
+        board[row][col].state === 'opened'
       ) {
         openedSafeCells++;
       }
@@ -213,15 +212,22 @@ function checkWinCondition() {
   }
 }
 
+function focusCell(row, col) {
+  const rowElement = gridElement.children[row];
+  const cellElement = rowElement.children[col];
+
+  cellElement.focus();
+}
+
 function renderGrid() {
   gridElement.replaceChildren();
 
-  for (let row = 0; row < gameGrid.length; row++) {
+  for (let row = 0; row < board.length; row++) {
     const rowElement = document.createElement('div');
     rowElement.setAttribute('role', 'row');
 
-    for (let col = 0; col < gameGrid[row].length; col++) {
-      const cell = gameGrid[row][col];
+    for (let col = 0; col < board[row].length; col++) {
+      const cell = board[row][col];
       const cellButton = document.createElement('button');
       cellButton.type = 'button';
       cellButton.classList.add('v-cell');
@@ -287,12 +293,14 @@ function renderGrid() {
         openCell(row, col);
         checkWinCondition();
         renderGrid();
+        focusCell(row, col);
       });
 
       cellButton.addEventListener('contextmenu', function (event) {
         event.preventDefault();
         toggleFlag(row, col);
         renderGrid();
+        focusCell(row, col);
       });
 
       rowElement.appendChild(cellButton);
@@ -301,11 +309,13 @@ function renderGrid() {
     gridElement.appendChild(rowElement);
   }
 
-  const flagsPlaced = gameGrid.flat().filter(function (cell) {
+  const flagsPlaced = board.flat().filter(function (cell) {
     return cell.state === 'flagged';
   }).length;
   const remainingFlags = gameState.minesCount - flagsPlaced;
-  flagCountElement.textContent = String(remainingFlags).padStart(3, '0');
+  const flagCountSign = remainingFlags < 0 ? '-' : '';
+  const absoluteFlagCount = String(Math.abs(remainingFlags)).padStart(3, '0');
+  flagCountElement.textContent = `${flagCountSign}${absoluteFlagCount}`;
   flagCountElement.setAttribute(
     'aria-label',
     `Залишилось пасток: ${remainingFlags}`,
