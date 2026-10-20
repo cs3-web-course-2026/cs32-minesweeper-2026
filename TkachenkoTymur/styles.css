@@ -187,7 +187,7 @@ body {
 .num-4 { color: #3f136e; }
 .num-5 { color: #b73812; }
 .num-6 { color: #005f60; }
-.num-7 { color: #000000; }
+.num-7 { color: #000; }
 .num-8 { color: #2d3436; }
 
 @media (width <= 400px) {
