@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сапер</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="game-container">
+        <header class="game-header">
+            <div class="display" role="status" aria-live="polite" aria-label="Кількість прапорців" title="Прапорці">
+                <span class="icon-flag">🏴‍☠️</span> <span id="flags-count">010</span>
+            </div>
+
+            <button type="button" class="start-btn" id="start-btn" aria-label="Почати нову гру">
+                🧭
+            </button>
+
+            <div class="display" aria-label="Час гри" title="Час">
+                ⏳ <span id="timer">000</span>
+            </div>
+        </header>
+
+        <section class="game-board" aria-label="Ігрове поле">
+            <!-- Рядок 1 -->
+            <button type="button" class="cell flagged" aria-label="Клітинка з прапорцем, рядок 1, стовпець 1">🏴‍☠️</button>
+            <button type="button" class="cell flagged mine" aria-label="Прапорець на міні, рядок 1, стовпець 2">🏴‍☠️</button>
+            <button type="button" class="cell flagged false-flag" aria-label="Хибний прапорець, рядок 1, стовпець 3">🏴‍☠️</button>
+            <button type="button" class="cell open mine" aria-label="Міна, рядок 1, стовпець 4">💣</button>
+            <button type="button" class="cell open mine exploded" aria-label="Вибухнула міна, рядок 1, стовпець 5">🐙</button>
+            <button type="button" class="cell open" data-number="1" aria-label="1 міна поруч, рядок 1, стовпець 6">1</button>
+            <button type="button" class="cell open" data-number="2" aria-label="2 міни поруч, рядок 1, стовпець 7">2</button>
+            <button type="button" class="cell open" data-number="3" aria-label="3 міни поруч, рядок 1, стовпець 8">3</button>
+
+            <!-- Рядок 2 -->
+            <button type="button" class="cell open" aria-label="Порожня відкрита клітинка, рядок 2, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 2, стовпець 8"></button>
+
+            <!-- Рядок 3 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 3, стовпець 8"></button>
+            
+            <!-- Рядок 4 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 4, стовпець 8"></button>
+            
+            <!-- Рядок 5 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 5, стовпець 8"></button>
+            
+            <!-- Рядок 6 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 6, стовпець 8"></button>
+            
+            <!-- Рядок 7 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 7, стовпець 8"></button>
+
+            <!-- Рядок 8 -->
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 1"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 2"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 3"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 4"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 5"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 6"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 7"></button>
+            <button type="button" class="cell" aria-label="Закрита клітинка, рядок 8, стовпець 8"></button>
+        </section>
+    </main>
+
+</body>
+</html>
