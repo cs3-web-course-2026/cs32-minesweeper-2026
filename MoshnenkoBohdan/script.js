@@ -33,6 +33,7 @@ let gameState = {
 
 let board = []; // 2D array containing cell objects: { type, state, neighbourMines }
 let safeCellsRemaining = 0;
+let flaggedCount = 0; // Separate variable to track placed flags without mutating total mines
 
 function startGame() {
     const rows = parseInt(rowsInput.value, 10);
@@ -48,6 +49,9 @@ function startGame() {
     gameContainer.classList.remove('hidden');
     gameModal.classList.add('hidden');
 
+    // Stop active timer before re-creating gameState to prevent multiple timers running
+    stopTimer();
+
     const totalCells = rows * cols;
     const minesCount = Math.round(totalCells * MINE_DENSITY);
 
@@ -61,7 +65,9 @@ function startGame() {
     };
 
     safeCellsRemaining = totalCells - minesCount;
-    minesCountEl.textContent = minesCount;
+    flaggedCount = 0;
+
+    minesCountEl.textContent = gameState.minesCount - flaggedCount;
     closedCountEl.textContent = safeCellsRemaining;
 
     generateField(rows, cols, minesCount);
@@ -225,14 +231,16 @@ function toggleFlag(row, col) {
 
     if (cellData.state === 'flagged') {
         cellData.state = 'closed';
-        gameState.minesCount++;
+        flaggedCount--;
     } else {
         cellData.state = 'flagged';
-        gameState.minesCount--;
+        flaggedCount++;
     }
 
-    minesCountEl.textContent = gameState.minesCount;
+    const currentMinesLeft = gameState.minesCount - flaggedCount;
+    minesCountEl.textContent = currentMinesLeft;
     renderBoard();
+    updateStatus(`Mines count: ${currentMinesLeft}`);
 }
 
 function revealAllMines() {
@@ -255,7 +263,10 @@ function startTimer() {
 }
 
 function stopTimer() {
-    clearInterval(gameState.timerId);
+    if (gameState && gameState.timerId) {
+        clearInterval(gameState.timerId);
+        gameState.timerId = null;
+    }
 }
 
 function resetTimer() {
