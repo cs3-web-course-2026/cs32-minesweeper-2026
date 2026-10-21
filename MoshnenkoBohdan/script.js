@@ -31,7 +31,7 @@ let gameState = {
     timerId: null
 };
 
-let board = []; // 2D array containing cell objects: { type, state, neighbourMines }
+let board = []; // 2D array containing cell objects: { type, state, neighborMines }
 let safeCellsRemaining = 0;
 let flaggedCount = 0; // Separate variable to track placed flags without mutating total mines
 
@@ -91,7 +91,7 @@ function generateField(rows, cols, minesCount) {
             board[row][col] = {
                 type: 'empty',
                 state: 'closed', // 'closed', 'opened', 'flagged'
-                neighbourMines: 0
+                neighborMines: 0
             };
         }
     }
@@ -129,7 +129,7 @@ function countNeighbourMines() {
                     }
                 }
             }
-            board[row][col].neighbourMines = counter;
+            board[row][col].neighborMines = counter;
         }
     }
 }
@@ -151,9 +151,9 @@ function renderBoard() {
                 cellButton.classList.add('revealed');
                 if (cellData.type === 'mine') {
                     cellButton.textContent = '💣';
-                } else if (cellData.neighbourMines > 0) {
-                    cellButton.textContent = cellData.neighbourMines;
-                    cellButton.classList.add(`number-${cellData.neighbourMines}`);
+                } else if (cellData.neighborMines > 0) {
+                    cellButton.textContent = cellData.neighborMines;
+                    cellButton.classList.add(`number-${cellData.neighborMines}`);
                 }
             } else if (cellData.state === 'flagged') {
                 cellButton.classList.add('flagged');
@@ -163,12 +163,16 @@ function renderBoard() {
             cellButton.addEventListener('click', () => {
                 if (gameState.status !== 'process') return;
                 openCell(row, col);
+                renderBoard();
+                focusCell(row, col);
             });
 
             cellButton.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
                 if (gameState.status !== 'process') return;
                 toggleFlag(row, col);
+                renderBoard();
+                focusCell(row, col);
             });
 
             boardElement.appendChild(cellButton);
@@ -186,7 +190,6 @@ function openCell(row, col) {
         cellData.state = 'opened';
         gameState.status = 'lose';
         revealAllMines();
-        renderBoard();
         stopTimer();
         updateStatus('Game over. You lost!');
         showModal('Game Over', 'You hit a mine and lost the game!');
@@ -197,8 +200,8 @@ function openCell(row, col) {
     safeCellsRemaining--;
     closedCountEl.textContent = safeCellsRemaining;
 
-    // Flood fill algorithm if neighbourMines === 0
-    if (cellData.neighbourMines === 0) {
+    // Flood fill algorithm if neighborMines === 0 (without render calls inside recursion)
+    if (cellData.neighborMines === 0) {
         const left = Math.max(0, col - 1);
         const right = Math.min(gameState.cols - 1, col + 1);
         const high = Math.max(0, row - 1);
@@ -212,8 +215,6 @@ function openCell(row, col) {
             }
         }
     }
-
-    renderBoard();
 
     if (safeCellsRemaining === 0) {
         gameState.status = 'win';
@@ -239,7 +240,6 @@ function toggleFlag(row, col) {
 
     const currentMinesLeft = gameState.minesCount - flaggedCount;
     minesCountEl.textContent = currentMinesLeft;
-    renderBoard();
     updateStatus(`Mines count: ${currentMinesLeft}`);
 }
 
@@ -250,6 +250,14 @@ function revealAllMines() {
                 board[row][col].state = 'opened';
             }
         }
+    }
+}
+
+function focusCell(row, col) {
+    if (gameState.status !== 'process') return; // Modal owns focus after win or loss
+    const target = boardElement.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+    if (target) {
+        target.focus();
     }
 }
 
