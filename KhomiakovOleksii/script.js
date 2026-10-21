@@ -21,6 +21,9 @@ const NEIGHBOR_OFFSETS = [
     [1, -1],  [1, 0],  [1, 1]
 ];
 
+const TIMER_INTERVAL_MS = 1000;
+const DISPLAY_DIGITS = 3;
+
 const gameState = {
     rows: 9,
     cols: 9,
@@ -148,7 +151,7 @@ function startTimer() {
         } else {
             clearInterval(gameState.timerId);
         }
-    }, 1000);
+    }, TIMER_INTERVAL_MS);
 }
 
 function stopTimer() {
@@ -241,10 +244,10 @@ function renderBoard(focusedRow = null, focusedCol = null) {
 }
 
 function updateUI() {
-    timerElement.textContent = String(gameState.gameTime).padStart(3, '0');
+    timerElement.textContent = String(gameState.gameTime).padStart(DISPLAY_DIGITS, '0');
     
     const leftMines = gameState.minesCount - gameState.flagsCount;
-    const formattedMines = String(leftMines).padStart(3, '0');
+    const formattedMines = String(leftMines).padStart(DISPLAY_DIGITS, '0');
     
     if (minesCounterElement.textContent !== formattedMines) {
         minesCounterElement.textContent = formattedMines;
