@@ -22,7 +22,7 @@ const MAX_SIZE = 15;
 const MINE_DENSITY = 0.20;
 const INITIAL_MINES = Math.round(MIN_SIZE * MIN_SIZE * MINE_DENSITY);
 
-
+// Enum-style constants to replace raw strings
 const GAME_STATUS = {
     PROCESS: 'process',
     WIN: 'win',
@@ -40,6 +40,7 @@ const CELL_STATE = {
     FLAGGED: 'flagged'
 };
 
+
 let gameState = {
     rows: MIN_SIZE,
     cols: MIN_SIZE,
@@ -50,8 +51,30 @@ let gameState = {
 };
 
 let board = [];
-let safeCellsRemaining = 0;
-let flaggedCount = 0;
+
+function getFlaggedCount() {
+    let count = 0;
+    for (let row = 0; row < gameState.rows; row++) {
+        for (let col = 0; col < gameState.cols; col++) {
+            if (board[row][col].state === CELL_STATE.FLAGGED) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+function getSafeCellsRemaining() {
+    let count = 0;
+    for (let row = 0; row < gameState.rows; row++) {
+        for (let col = 0; col < gameState.cols; col++) {
+            if (board[row][col].type === CELL_TYPE.EMPTY && board[row][col].state !== CELL_STATE.OPENED) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
 
 function startGame() {
     const rows = parseInt(rowsInput.value, 10);
@@ -67,6 +90,7 @@ function startGame() {
     gameContainer.classList.remove('hidden');
     gameModal.classList.add('hidden');
 
+    // Stop active timer before re-creating gameState to prevent multiple timers running
     stopTimer();
 
     const totalCells = rows * cols;
@@ -81,15 +105,17 @@ function startGame() {
         timerId: null
     };
 
-    safeCellsRemaining = totalCells - minesCount;
-    flaggedCount = 0;
-
-    minesCountElement.textContent = gameState.minesCount - flaggedCount;
-    closedCountElement.textContent = safeCellsRemaining;
-
     generateField(rows, cols, minesCount);
     countNeighbourMines();
     renderBoard();
+
+
+    focusCell(0, 0);
+
+    const safeCellsRemaining = getSafeCellsRemaining();
+    const flaggedCount = getFlaggedCount();
+    minesCountElement.textContent = gameState.minesCount - flaggedCount;
+    closedCountElement.textContent = safeCellsRemaining;
 
     resetTimer();
     startTimer();
@@ -195,6 +221,11 @@ function renderBoard() {
             boardElement.appendChild(cellButton);
         }
     }
+
+    // Update info UI dynamically based on board data
+    closedCountElement.textContent = getSafeCellsRemaining();
+    const currentMinesLeft = gameState.minesCount - getFlaggedCount();
+    minesCountElement.textContent = currentMinesLeft;
 }
 
 function openCell(row, col) {
@@ -214,8 +245,6 @@ function openCell(row, col) {
     }
 
     cellData.state = CELL_STATE.OPENED;
-    safeCellsRemaining--;
-    closedCountElement.textContent = safeCellsRemaining;
 
     // Flood fill algorithm if neighborMines === 0
     if (cellData.neighborMines === 0) {
@@ -233,7 +262,7 @@ function openCell(row, col) {
         }
     }
 
-    if (safeCellsRemaining === 0) {
+    if (getSafeCellsRemaining() === 0) {
         gameState.status = GAME_STATUS.WIN;
         stopTimer();
         updateStatus('Congratulations, you won!');
@@ -249,14 +278,11 @@ function toggleFlag(row, col) {
 
     if (cellData.state === CELL_STATE.FLAGGED) {
         cellData.state = CELL_STATE.CLOSED;
-        flaggedCount--;
     } else {
         cellData.state = CELL_STATE.FLAGGED;
-        flaggedCount++;
     }
 
-    const currentMinesLeft = gameState.minesCount - flaggedCount;
-    minesCountElement.textContent = currentMinesLeft;
+    const currentMinesLeft = gameState.minesCount - getFlaggedCount();
     updateStatus(`Mines count: ${currentMinesLeft}`);
 }
 
