@@ -14,6 +14,44 @@ const gameState = {
 
 let board = [];
 
+function forEachNeighbour(r, c, fn) {
+    for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            const nr = r + dr;
+            const nc = c + dc;
+            if (nr >= 0 && nr < gameState.rows && nc >= 0 && nc < gameState.cols) {
+                fn(nr, nc);
+            }
+        }
+    }
+}
+
+function countNeighbourMines(grid) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (grid[r][c].type === 'mine') {
+                grid[r][c].neighborMines = 0;
+                continue;
+            }
+            let count = 0;
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const nr = r + dr;
+                    const nc = c + dc;
+                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                        if (grid[nr][nc].type === 'mine') count++;
+                    }
+                }
+            }
+            grid[r][c].neighborMines = count;
+        }
+    }
+}
+
 function generateField(rows, cols, minesCount) {
     const grid = [];
     for (let r = 0; r < rows; r++) {
@@ -29,8 +67,8 @@ function generateField(rows, cols, minesCount) {
         for (let c = 0; c < cols; c++) {
             candidates.push([r, c]);
         }
-    
-    
+    }
+
     for (let i = candidates.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
@@ -42,51 +80,40 @@ function generateField(rows, cols, minesCount) {
         grid[r][c].type = 'mine';
     }
 
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            if (grid[r][c].type === 'mine') continue;
-            let neighborCount = 0;
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) continue;
-                    const nr = r + dr;
-                    const nc = c + dc;
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                        if (grid[nr][nc].type === 'mine') neighborCount++;
-                    }
-                }
-            }
-            grid[r][c].neighborMines = neighborCount;
-        }
-    }
-
+    countNeighbourMines(grid);
     return grid;
 }
 
-function forEachNeighbour(r, c, fn) {
-    for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-            if (dr === 0 && dc === 0) continue;
-            const nr = r + dr;
-            const nc = c + dc;
-            if (nr >= 0 && nr < gameState.rows && nc >= 0 && nc < gameState.cols) {
-                fn(nr, nc);
+function ensureSafeFirstMove(clickR, clickC) {
+    const minesToMove = [];
+    const safeCandidates = [];
+
+    for (let r = 0; r < gameState.rows; r++) {
+        for (let c = 0; c < gameState.cols; c++) {
+            const isNearClick = Math.abs(r - clickR) <= 1 && Math.abs(c - clickC) <= 1;
+            if (isNearClick && board[r][c].type === 'mine') {
+                minesToMove.push([r, c]);
+            } else if (!isNearClick && board[r][c].type !== 'mine') {
+                safeCandidates.push([r, c]);
             }
         }
     }
-}
 
-function countNeighbourMines(grid) {
-    for (let r = 0; r < gameState.rows; r++) {
-        for (let c = 0; c < gameState.cols; c++) {
-            if (grid[r][c].type === 'mine') continue;
-            let count = 0;
-            forEachNeighbour(r, c, (nr, nc) => {
-                if (grid[nr][nc].type === 'mine') count++;
-            });
-            grid[r][c].neighborMines = count;
-        }
+    if (minesToMove.length === 0) return;
+
+    for (let i = safeCandidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [safeCandidates[i], safeCandidates[j]] = [safeCandidates[j], safeCandidates[i]];
     }
+
+    for (let i = 0; i < minesToMove.length && i < safeCandidates.length; i++) {
+        const [mr, mc] = minesToMove[i];
+        const [sr, sc] = safeCandidates[i];
+        board[mr][mc].type = 'empty';
+        board[sr][sc].type = 'mine';
+    }
+
+    countNeighbourMines(board);
 }
 
 function openCell(r, c) {
@@ -97,6 +124,7 @@ function openCell(r, c) {
 
     if (gameState.firstMove) {
         gameState.firstMove = false;
+        ensureSafeFirstMove(r, c);
         startTimer();
     }
 
@@ -223,17 +251,21 @@ function renderCell(r, c) {
     const classes = ['cell'];
     let flagIcon = false;
     let text = '';
+    let accessibleState = 'closed'; // Track a11y state for screen readers
 
     if (data.state === 'flagged') {
         if (gameState.status === 'lose' && data.type !== 'mine') {
             classes.push('open', 'wrong-flag');
             text = '❌';
+            accessibleState = 'wrong flag';
         } else {
             classes.push('closed', 'flagged-mine');
             flagIcon = true;
+            accessibleState = 'flagged';
         }
     } else if (data.state === 'closed') {
         classes.push('closed');
+        accessibleState = 'closed';
     } else {
         classes.push('open');
         if (data.type === 'mine') {
@@ -242,15 +274,24 @@ function renderCell(r, c) {
             const ex = gameState.explodedCell;
             if (ex && ex[0] === r && ex[1] === c) {
                 classes.push('exploded-mine');
+                accessibleState = 'exploded mine';
+            } else {
+                accessibleState = 'mine';
             }
         } else if (data.neighborMines > 0) {
             classes.push(`num-${data.neighborMines}`);
             text = String(data.neighborMines);
+            accessibleState = `${data.neighborMines} neighboring mines`;
+        } else {
+            accessibleState = 'empty';
         }
     }
 
     el.className = classes.join(' ');
     el.textContent = text;
+    // Set dynamic accessible name based on cell state
+    el.setAttribute('aria-label', `Row ${r + 1}, column ${c + 1}, ${accessibleState}`);
+
     if (flagIcon) {
         const span = document.createElement('span');
         span.className = 'flag';
@@ -282,6 +323,8 @@ function buildGrid() {
             el.className = 'cell closed';
             el.dataset.r = r;
             el.dataset.c = c;
+            // Set initial accessible name identifying row/col and state
+            el.setAttribute('aria-label', `Row ${r + 1}, column ${c + 1}, closed`);
             gameState.dom.grid.appendChild(el);
             board[r][c].el = el;
         }
@@ -307,7 +350,8 @@ function setupGridEvents() {
     });
 
     gameState.dom.grid.addEventListener('keydown', (e) => {
-        if (e.key === 'f' || e.key === 'F') {
+        // Stop execution if key event is auto-repeating to fix the toggle bug
+        if ((e.key === 'f' || e.key === 'F') && !e.repeat) {
             e.preventDefault();
             const pos = getCellPos(e.target);
             if (pos) toggleFlag(pos.r, pos.c);
