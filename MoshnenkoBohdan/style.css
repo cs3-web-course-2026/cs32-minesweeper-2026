@@ -49,6 +49,7 @@ body::before {
     overflow: hidden;
     background: rgb(255 255 255 / 5%);
     backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgb(0 0 0 / 50%);
 }
 
 .card-header {
@@ -56,7 +57,7 @@ body::before {
     text-align: center;
     border-bottom: 2px solid rgb(255 255 255 / 20%);
     width: 100%;
-    padding: 10px 40px;
+    padding: 15px 40px;
 }
 
 .card-body {
@@ -73,13 +74,22 @@ body::before {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    padding: 20px;
+    padding: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
 }
 
 .size-selector input {
-    width: 45px;
+    width: 50px;
     height: 45px;
     background: rgb(0 0 0 / 30%);
     border: 2px solid rgb(255 255 255 / 30%);
@@ -105,17 +115,21 @@ body::before {
 .multiply {
     font-weight: 700;
     color: rgb(255 255 255 / 70%);
+    font-size: 20px;
+    margin-top: 20px;
 }
 
-.error-message {
+.error-text {
     color: #f87171;
     font-size: 14px;
     font-weight: 600;
     min-height: 20px;
+    text-align: center;
 }
 
 .btn-start {
-    width: 25%;
+    width: 100%;
+    max-width: 200px;
     padding: 12px;
     background: transparent;
     border: 1px solid rgb(255 255 255 / 40%);
