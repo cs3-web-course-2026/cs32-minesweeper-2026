@@ -118,7 +118,6 @@ body {
 /* Ячейка (кнопка) */
 .cell {
   appearance: none;
-  -webkit-appearance: none;
   display: flex;
   justify-content: center;
   align-items: center;
