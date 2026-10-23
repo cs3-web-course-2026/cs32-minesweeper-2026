@@ -23,6 +23,43 @@ function generateField(rows, cols, minesCount) {
         }
         grid.push(row);
     }
+
+    const candidates = [];
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            candidates.push([r, c]);
+        }
+    
+    
+    for (let i = candidates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+
+    const count = Math.min(minesCount, candidates.length);
+    for (let i = 0; i < count; i++) {
+        const [r, c] = candidates[i];
+        grid[r][c].type = 'mine';
+    }
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (grid[r][c].type === 'mine') continue;
+            let neighborCount = 0;
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const nr = r + dr;
+                    const nc = c + dc;
+                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+                        if (grid[nr][nc].type === 'mine') neighborCount++;
+                    }
+                }
+            }
+            grid[r][c].neighborMines = neighborCount;
+        }
+    }
+
     return grid;
 }
 
@@ -36,27 +73,6 @@ function forEachNeighbour(r, c, fn) {
                 fn(nr, nc);
             }
         }
-    }
-}
-
-function placeMines(grid, minesCount, excludeR, excludeC) {
-    const candidates = [];
-    for (let r = 0; r < grid.length; r++) {
-        for (let c = 0; c < grid[r].length; c++) {
-            if (Math.abs(r - excludeR) <= 1 && Math.abs(c - excludeC) <= 1) continue;
-            candidates.push([r, c]);
-        }
-    }
-
-    for (let i = candidates.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
-    }
-
-    const count = Math.min(minesCount, candidates.length);
-    for (let i = 0; i < count; i++) {
-        const [r, c] = candidates[i];
-        grid[r][c].type = 'mine';
     }
 }
 
@@ -81,8 +97,6 @@ function openCell(r, c) {
 
     if (gameState.firstMove) {
         gameState.firstMove = false;
-        placeMines(board, gameState.minesCount, r, c);
-        countNeighbourMines(board);
         startTimer();
     }
 
