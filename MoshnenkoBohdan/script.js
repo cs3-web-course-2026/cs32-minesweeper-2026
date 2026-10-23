@@ -22,7 +22,7 @@ const MAX_SIZE = 15;
 const MINE_DENSITY = 0.20;
 const INITIAL_MINES = Math.round(MIN_SIZE * MIN_SIZE * MINE_DENSITY);
 
-
+// Enum-style constants to replace raw strings
 const GAME_STATUS = {
     PROCESS: 'process',
     WIN: 'win',
@@ -40,7 +40,7 @@ const CELL_STATE = {
     FLAGGED: 'flagged'
 };
 
-
+// Required contract structures: ONLY gameState and board allowed at top level
 let gameState = {
     rows: MIN_SIZE,
     cols: MIN_SIZE,
@@ -50,9 +50,9 @@ let gameState = {
     timerId: null
 };
 
-let board = [];
+let board = []; // 2D array containing cell objects: { type, state, neighborMines }
 
-
+// Helper functions to derive counts dynamically from board instead of separate variables
 function getFlaggedCount() {
     let count = 0;
     for (let row = 0; row < gameState.rows; row++) {
@@ -78,11 +78,20 @@ function getSafeCellsRemaining() {
 }
 
 function startGame() {
-    const rows = parseInt(rowsInput.value, 10);
-    const cols = parseInt(colsInput.value, 10);
+    const rowsRaw = rowsInput.value.trim();
+    const colsRaw = colsInput.value.trim();
 
-    if (isNaN(rows) || isNaN(cols) || rows < MIN_SIZE || rows > MAX_SIZE || cols < MIN_SIZE || cols > MAX_SIZE) {
-        menuErrorElement.textContent = `Please enter valid field dimensions between ${MIN_SIZE} and ${MAX_SIZE}.`;
+    const rows = Number(rowsRaw);
+    const cols = Number(colsRaw);
+
+    // Reject fractional or non-integer dimensions
+    if (
+        isNaN(rows) || isNaN(cols) ||
+        !Number.isInteger(rows) || !Number.isInteger(cols) ||
+        rows < MIN_SIZE || rows > MAX_SIZE ||
+        cols < MIN_SIZE || cols > MAX_SIZE
+    ) {
+        menuErrorElement.textContent = `Please enter valid integer field dimensions between ${MIN_SIZE} and ${MAX_SIZE}.`;
         return;
     }
 
@@ -91,7 +100,7 @@ function startGame() {
     gameContainer.classList.remove('hidden');
     gameModal.classList.add('hidden');
 
-
+    // Stop active timer before re-creating gameState to prevent multiple timers running
     stopTimer();
 
     const totalCells = rows * cols;
@@ -110,7 +119,7 @@ function startGame() {
     countNeighbourMines();
     renderBoard();
 
-
+    // Focus the first playable cell after renderBoard completes
     focusCell(0, 0);
 
     const safeCellsRemaining = getSafeCellsRemaining();
@@ -236,7 +245,7 @@ function renderBoard() {
         }
     }
 
-
+    // Update info UI dynamically based on board data
     closedCountElement.textContent = getSafeCellsRemaining();
     const currentMinesLeft = gameState.minesCount - getFlaggedCount();
     minesCountElement.textContent = currentMinesLeft;
@@ -325,32 +334,3 @@ function startTimer() {
         const seconds = String(gameState.gameTime % 60).padStart(2, '0');
         timerElement.textContent = `${minutes}:${seconds}`;
     }, 1000);
-}
-
-function stopTimer() {
-    if (gameState && gameState.timerId) {
-        clearInterval(gameState.timerId);
-        gameState.timerId = null;
-    }
-}
-
-function resetTimer() {
-    stopTimer();
-    gameState.gameTime = 0;
-    timerElement.textContent = '00:00';
-}
-
-function updateStatus(message) {
-    if (gameStatusElement) {
-        gameStatusElement.textContent = message;
-    }
-}
-
-function showModal(title, message) {
-    modalTitle.textContent = title;
-    modalMessage.textContent = message;
-    gameModal.classList.remove('hidden');
-    if (modalRestartButton) {
-        modalRestartButton.focus();
-    }
-}
