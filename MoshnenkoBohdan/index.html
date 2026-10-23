@@ -12,22 +12,21 @@
 <body>
 
 <!-- Start Menu -->
-<div class="menu-card" id="menu-card">
-    <div class="card-header">
-        <h1>Minesweeper</h1>
+<div id="menu-card" class="card">
+    <h2>Minesweeper Settings</h2>
+
+    <div class="input-group">
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" value="8" min="5" max="15">
     </div>
 
-    <div class="card-body">
-        <div class="size-selector">
-            <span>Choose size of the field:</span>
-            <input type="number" id="rows" min="5" max="15" value="5">
-            <span class="multiply">X</span>
-            <input type="number" id="columns" min="5" max="15" value="5">
-        </div>
-
-        <button type="button" class="btn-start" id="start-btn">Start</button>
-        <div id="menu-error" role="status" aria-live="polite" class="error-message"></div>
+    <div class="input-group">
+        <label for="columns">Columns:</label>
+        <input type="number" id="columns" value="8" min="5" max="15">
     </div>
+
+    <p id="menu-error" class="error-text"></p>
+    <button type="button" id="start-btn">Start Game</button>
 </div>
 
 <!-- Game Container -->
