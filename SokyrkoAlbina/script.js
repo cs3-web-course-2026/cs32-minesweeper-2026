@@ -1,19 +1,28 @@
+/** @type {Object} */
 const config = { rows: 8, cols: 8, minesCount: 10 };
 
+/** @type {number} */
 const MAX_TIME = 999;
+/** @type {number} */
 const MODAL_DELAY_MS = 300;
 
+/** @enum {string} */
 const STATUS = { PROCESS: 'process', WIN: 'win', LOSE: 'lose' };
+/** @enum {string} */
 const CELL_STATE = { CLOSED: 'closed', OPENED: 'opened', FLAGGED: 'flagged', EXPLODED: 'exploded' };
 
+/** @enum {string} */
 const ICONS = { MINE: '💣', FLAG: '🏴‍☠️' };
+/** @enum {string} */
 const START_BTN_ICONS = {
     [STATUS.PROCESS]: '🧭',
     [STATUS.WIN]: '😎',
     [STATUS.LOSE]: '😵'
 };
 
+/** @type {number[][]} */
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+
 const boardEl = document.querySelector('.game-board');
 const timerEl = document.getElementById('timer');
 const flagsCountEl = document.getElementById('flags-count');
@@ -22,11 +31,15 @@ const modalEl = document.getElementById('game-modal');
 const modalTitleEl = document.getElementById('modal-title');
 const modalTextEl = document.getElementById('modal-text');
 const modalBtnEl = document.getElementById('modal-btn');
+const modalAnnounceEl = document.getElementById('modal-announce');
 
 let gameState = createInitialState();
 let board = [];
-let modalTimeoutId = null;
 
+/**
+ * Creates and returns the initial game state object.
+ * @returns {Object} Initial state configuration
+ */
 function createInitialState() {
     return {
         ...config,
@@ -34,99 +47,147 @@ function createInitialState() {
         gameTime: 0,
         timerId: null,
         flagsCount: 0,
-        isFirstClick: true
+        isFirstClick: true,
+        excludeRow: -1,
+        excludeCol: -1,
+        modalTimeoutId: null,
+        previousActiveElement: null
     };
 }
 
+/**
+ * Creates a new cell object conforming to the lab requirements.
+ * @returns {Object} Cell representation
+ */
 function createCell() {
-    return { isMine: false, state: CELL_STATE.CLOSED, neighbourMines: 0 };
+    return { type: 'empty', state: CELL_STATE.CLOSED, neighborMines: 0 };
 }
 
-function isInside(r, c) {
-    return r >= 0 && r < gameState.rows && c >= 0 && c < gameState.cols;
+/**
+ * Checks if given coordinates are within the board boundaries.
+ * @param {number} row The row index
+ * @param {number} col The column index
+ * @returns {boolean} True if coordinates are inside the grid
+ */
+function isInside(row, col) {
+    return row >= 0 && row < gameState.rows && col >= 0 && col < gameState.cols;
 }
 
-function forEachNeighbour(r, c, callback) {
-    DIRECTIONS.forEach(([dr, dc]) => {
-        const nr = r + dr;
-        const nc = c + dc;
-        if (isInside(nr, nc)) callback(nr, nc);
+/**
+ * Iterates over all valid neighboring cells of a given coordinate.
+ * @param {number} row The target row
+ * @param {number} col The target column
+ * @param {Function} callback Function to execute for each valid neighbor
+ */
+function forEachNeighbour(row, col, callback) {
+    DIRECTIONS.forEach(([dRow, dCol]) => {
+        const nRow = row + dRow;
+        const nCol = col + dCol;
+        if (isInside(nRow, nCol)) callback(nRow, nCol);
     });
 }
 
-function generateEmptyField(rows, cols) {
+/**
+ * Initializes the board and places mines, explicitly using the required lab signature.
+ * @param {number} rows Number of rows
+ * @param {number} cols Number of columns
+ * @param {number} minesCount Number of mines to place
+ */
+function generateField(rows, cols, minesCount) {
+    if (minesCount > rows * cols - 1) {
+        throw new RangeError('Кількість мін перевищує доступну кількість клітинок');
+    }
+
     board = Array.from({ length: rows }, () => Array.from({ length: cols }, createCell));
-}
 
-function placeMinesAndCount(excludeR, excludeC) {
     let minesPlaced = 0;
-    while (minesPlaced < gameState.minesCount) {
-        const r = Math.floor(Math.random() * gameState.rows);
-        const c = Math.floor(Math.random() * gameState.cols);
+    while (minesPlaced < minesCount) {
+        const row = Math.floor(Math.random() * rows);
+        const col = Math.floor(Math.random() * cols);
 
-        if (r === excludeR && c === excludeC) continue;
+        if (row === gameState.excludeRow && col === gameState.excludeCol) continue;
 
-        if (!board[r][c].isMine) {
-            board[r][c].isMine = true;
+        if (board[row][col].type !== 'mine') {
+            board[row][col].type = 'mine';
             minesPlaced++;
         }
     }
+
     countNeighbourMines();
 }
 
+/**
+ * Calculates the number of adjacent mines for each empty cell.
+ */
 function countNeighbourMines() {
-    for (let r = 0; r < gameState.rows; r++) {
-        for (let c = 0; c < gameState.cols; c++) {
-            if (board[r][c].isMine) continue;
+    for (let row = 0; row < gameState.rows; row++) {
+        for (let col = 0; col < gameState.cols; col++) {
+            if (board[row][col].type === 'mine') continue;
 
             let count = 0;
-            forEachNeighbour(r, c, (nr, nc) => {
-                if (board[nr][nc].isMine) count++;
+            forEachNeighbour(row, col, (nRow, nCol) => {
+                if (board[nRow][nCol].type === 'mine') count++;
             });
-            board[r][c].neighbourMines = count;
+            board[row][col].neighborMines = count;
         }
     }
 }
 
-function revealCell(r, c) {
-    if (!isInside(r, c)) return;
+/**
+ * Recursively reveals empty cells and their neighbors.
+ * @param {number} row The cell row index
+ * @param {number} col The cell column index
+ */
+function revealCell(row, col) {
+    if (!isInside(row, col)) return;
 
-    const cell = board[r][c];
+    const cell = board[row][col];
     if (cell.state !== CELL_STATE.CLOSED) return;
 
     cell.state = CELL_STATE.OPENED;
 
-    if (cell.neighbourMines === 0) {
-        forEachNeighbour(r, c, revealCell);
+    if (cell.neighborMines === 0) {
+        forEachNeighbour(row, col, revealCell);
     }
 }
 
+/**
+ * Checks if the win condition has been met.
+ * @returns {boolean} True if player won
+ */
 function isWin() {
     const totalSafeCells = gameState.rows * gameState.cols - gameState.minesCount;
     const openedCells = board.flat().filter((cell) => cell.state === CELL_STATE.OPENED).length;
     return openedCells === totalSafeCells;
 }
 
-function openCell(r, c) {
-    if (gameState.status !== STATUS.PROCESS || !isInside(r, c)) return;
-
-    const cell = board[r][c];
-    if (cell.state !== CELL_STATE.CLOSED) return;
+/**
+ * Handles the logic when a user clicks on a cell.
+ * @param {number} row The row index
+ * @param {number} col The column index
+ */
+function openCell(row, col) {
+    if (gameState.status !== STATUS.PROCESS || !isInside(row, col)) return;
 
     if (gameState.isFirstClick) {
         gameState.isFirstClick = false;
-        placeMinesAndCount(r, c);
+        gameState.excludeRow = row;
+        gameState.excludeCol = col;
+        generateField(gameState.rows, gameState.cols, gameState.minesCount);
     }
+
+    const cell = board[row][col];
+    if (cell.state !== CELL_STATE.CLOSED) return;
 
     startTimerOnce();
 
-    if (cell.isMine) {
+    if (cell.type === 'mine') {
         cell.state = CELL_STATE.EXPLODED;
         endGame(STATUS.LOSE);
         return;
     }
 
-    revealCell(r, c);
+    revealCell(row, col);
 
     if (isWin()) {
         endGame(STATUS.WIN);
@@ -135,10 +196,15 @@ function openCell(r, c) {
     }
 }
 
-function toggleFlag(r, c) {
-    if (gameState.status !== STATUS.PROCESS || !isInside(r, c)) return;
+/**
+ * Toggles a flag marker on a closed cell.
+ * @param {number} row The row index
+ * @param {number} col The column index
+ */
+function toggleFlag(row, col) {
+    if (gameState.status !== STATUS.PROCESS || !isInside(row, col)) return;
 
-    const cell = board[r][c];
+    const cell = board[row][col];
 
     if (cell.state === CELL_STATE.CLOSED) {
         if (gameState.flagsCount >= gameState.minesCount) return;
@@ -154,6 +220,10 @@ function toggleFlag(r, c) {
     render();
 }
 
+/**
+ * Concludes the game, stops the timer, and triggers the modal.
+ * @param {string} status 'win' or 'lose'
+ */
 function endGame(status) {
     gameState.status = status;
     stopTimer();
@@ -161,6 +231,9 @@ function endGame(status) {
     showModal(status);
 }
 
+/**
+ * Initializes and starts the interval timer for the game.
+ */
 function startTimer() {
     gameState.timerId = setInterval(() => {
         gameState.gameTime = Math.min(gameState.gameTime + 1, MAX_TIME);
@@ -168,15 +241,26 @@ function startTimer() {
     }, 1000);
 }
 
+/**
+ * Starts the game timer only if it is not already running.
+ */
 function startTimerOnce() {
     if (!gameState.timerId) startTimer();
 }
 
+/**
+ * Clears the active game timer.
+ */
 function stopTimer() {
     clearInterval(gameState.timerId);
     gameState.timerId = null;
 }
 
+/**
+ * Returns the grammatically correct plural form of the word "mine" in Ukrainian.
+ * @param {number} count The number of mines
+ * @returns {string} Correct word form
+ */
 function pluralizeMines(count) {
     const lastTwo = count % 100;
     const last = count % 10;
@@ -186,8 +270,15 @@ function pluralizeMines(count) {
     return 'мін';
 }
 
-function getCellView(cell, r, c) {
-    const position = `рядок ${r + 1}, стовпець ${c + 1}`;
+/**
+ * Generates the view configuration (CSS classes, text, aria label) for a cell.
+ * @param {Object} cell The cell data object
+ * @param {number} row The row index
+ * @param {number} col The column index
+ * @returns {Object} Configuration object for the UI element
+ */
+function getCellView(cell, row, col) {
+    const position = `рядок ${row + 1}, стовпець ${col + 1}`;
     const view = { classes: [], text: '', number: null, label: `Закрита клітинка, ${position}` };
     const gameOver = gameState.status !== STATUS.PROCESS;
 
@@ -200,10 +291,10 @@ function getCellView(cell, r, c) {
 
         case CELL_STATE.OPENED:
             view.classes.push('open');
-            if (cell.neighbourMines > 0) {
-                view.text = String(cell.neighbourMines);
-                view.number = cell.neighbourMines;
-                view.label = `${cell.neighbourMines} ${pluralizeMines(cell.neighbourMines)} поруч, ${position}`;
+            if (cell.neighborMines > 0) {
+                view.text = String(cell.neighborMines);
+                view.number = cell.neighborMines;
+                view.label = `${cell.neighborMines} ${pluralizeMines(cell.neighborMines)} поруч, ${position}`;
             } else {
                 view.label = `Порожня відкрита клітинка, ${position}`;
             }
@@ -213,14 +304,14 @@ function getCellView(cell, r, c) {
             view.classes.push('flagged');
             view.text = ICONS.FLAG;
             view.label = `Клітинка з прапорцем, ${position}`;
-            if (gameState.status === STATUS.LOSE && !cell.isMine) {
+            if (gameState.status === STATUS.LOSE && cell.type !== 'mine') {
                 view.classes.push('false-flag');
                 view.label = `Хибний прапорець, ${position}`;
             }
             break;
 
         default:
-            if (gameOver && cell.isMine) {
+            if (gameOver && cell.type === 'mine') {
                 if (gameState.status === STATUS.WIN) {
                     view.classes.push('flagged');
                     view.text = ICONS.FLAG;
@@ -236,39 +327,52 @@ function getCellView(cell, r, c) {
     return view;
 }
 
-function createCellElement(r, c) {
-    const view = getCellView(board[r][c], r, c);
+/**
+ * Creates a DOM button element representing a cell on the board.
+ * @param {number} row The row index
+ * @param {number} col The column index
+ * @returns {HTMLButtonElement} DOM element
+ */
+function createCellElement(row, col) {
+    const view = getCellView(board[row][col], row, col);
     const btn = document.createElement('button');
 
     btn.type = 'button';
     btn.className = ['cell', ...view.classes].join(' ');
     btn.textContent = view.text;
-    btn.dataset.row = r;
-    btn.dataset.col = c;
+    btn.dataset.row = row;
+    btn.dataset.col = col;
     btn.setAttribute('aria-label', view.label);
     if (view.number !== null) btn.dataset.number = view.number;
 
     return btn;
 }
 
+/**
+ * Constructs and renders the entire game board into the DOM.
+ */
 function renderBoard() {
-    const { row, col } = document.activeElement?.dataset ?? {};
+    const activeRow = document.activeElement?.dataset?.row;
+    const activeCol = document.activeElement?.dataset?.col;
 
     boardEl.style.setProperty('--board-width', gameState.cols);
 
     const fragment = document.createDocumentFragment();
-    for (let r = 0; r < gameState.rows; r++) {
-        for (let c = 0; c < gameState.cols; c++) {
-            fragment.appendChild(createCellElement(r, c));
+    for (let row = 0; row < gameState.rows; row++) {
+        for (let col = 0; col < gameState.cols; col++) {
+            fragment.appendChild(createCellElement(row, col));
         }
     }
     boardEl.replaceChildren(fragment);
 
-    if (row !== undefined && col !== undefined) {
-        boardEl.querySelector(`[data-row="${row}"][data-col="${col}"]`)?.focus();
+    if (activeRow !== undefined && activeCol !== undefined) {
+        boardEl.querySelector(`[data-row="${activeRow}"][data-col="${activeCol}"]`)?.focus();
     }
 }
 
+/**
+ * Updates the user interface counters (timer, flags, game status icon).
+ */
 function updateUI() {
     const flagsLeft = gameState.minesCount - gameState.flagsCount;
 
@@ -277,52 +381,83 @@ function updateUI() {
     startBtnEl.textContent = START_BTN_ICONS[gameState.status];
 }
 
+/**
+ * Triggers a comprehensive update of both the UI state and game board.
+ */
 function render() {
     updateUI();
     renderBoard();
 }
 
+/**
+ * Displays the modal dialog with the result of the game and handles accessibility focus.
+ * @param {string} status The concluding game status ('win' or 'lose')
+ */
 function showModal(status) {
     const isWinner = status === STATUS.WIN;
+    const message = isWinner ? 'Перемога! Всі безпечні клітинки відкриті.' : 'Поразка! Ви натрапили на міну.';
 
     modalTitleEl.textContent = isWinner ? 'Перемога! 🎉' : 'Поразка! 💥';
-    modalTextEl.textContent = isWinner ? 'Всі безпечні клітинки відкриті.' : 'Ви натрапили на міну.';
+    modalTextEl.textContent = message;
+    modalAnnounceEl.textContent = message;
 
-    modalTimeoutId = setTimeout(() => {
+    gameState.previousActiveElement = document.activeElement;
+
+    gameState.modalTimeoutId = setTimeout(() => {
         modalEl.classList.remove('hidden');
         modalBtnEl.focus();
     }, MODAL_DELAY_MS);
 }
 
+/**
+ * Hides the modal dialog and returns focus to the previously active element.
+ */
 function hideModal() {
-    clearTimeout(modalTimeoutId);
+    clearTimeout(gameState.modalTimeoutId);
     modalEl.classList.add('hidden');
+    
+    if (gameState.previousActiveElement) {
+        gameState.previousActiveElement.focus();
+        gameState.previousActiveElement = null;
+    }
 }
 
+/**
+ * Resets all parameters and initializes a fresh game instance.
+ */
 function initGame() {
     hideModal();
     stopTimer();
+
     gameState = createInitialState();
-    generateEmptyField(gameState.rows, gameState.cols);
+    generateField(gameState.rows, gameState.cols, 0); // 0 mines for initial render (safe first click)
     render();
 }
 
+/**
+ * Extracts row and column indexes from a DOM click event.
+ * @param {Event} event The DOM event object
+ * @returns {Object|null} Coordinate object or null if not a cell
+ */
 function getCellCoords(event) {
     const cellEl = event.target.closest('.cell');
     if (!cellEl) return null;
-    return { r: Number(cellEl.dataset.row), c: Number(cellEl.dataset.col) };
+    return { row: Number(cellEl.dataset.row), col: Number(cellEl.dataset.col) };
 }
 
+/**
+ * Binds necessary event listeners to interactive elements.
+ */
 function bindEvents() {
     boardEl.addEventListener('click', (event) => {
         const coords = getCellCoords(event);
-        if (coords) openCell(coords.r, coords.c);
+        if (coords) openCell(coords.row, coords.col);
     });
 
     boardEl.addEventListener('contextmenu', (event) => {
         event.preventDefault();
         const coords = getCellCoords(event);
-        if (coords) toggleFlag(coords.r, coords.c);
+        if (coords) toggleFlag(coords.row, coords.col);
     });
 
     startBtnEl.addEventListener('click', initGame);
