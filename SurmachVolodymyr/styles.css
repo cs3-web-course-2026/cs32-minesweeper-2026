@@ -89,7 +89,7 @@ body {
 /* Game Grid */
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   background-color: var(--border-dark);
   border: 3px solid;
   border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
