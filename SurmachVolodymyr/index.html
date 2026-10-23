@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Classic Minesweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="mobile-app-container">
+    <header class="top-panel">
+        <div class="led-display" role="status" aria-live="polite" aria-label="Mine count">
+            <span class="led-icon" aria-hidden="true">💣</span> 015
+        </div>
+
+        <button type="button" class="smiley-btn" aria-label="Restart game">
+            🙂
+        </button>
+
+        <div class="led-display" role="timer" aria-live="polite" aria-label="Time elapsed">
+            <span class="led-icon" aria-hidden="true">⏰</span> 00:00
+        </div>
+    </header>
+
+    <div id="status-message" role="status" aria-live="polite" class="status-msg"></div>
+
+    <main class="game-grid"></main>
+
+    <footer class="bottom-nav">
+        <button type="button" class="nav-item">
+            <span class="nav-icon" aria-hidden="true">➕</span>
+            <span>New Game</span>
+        </button>
+        <button type="button" class="nav-item active">
+            <span class="nav-icon" aria-hidden="true">🚩</span>
+            <span>Flag</span>
+        </button>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
