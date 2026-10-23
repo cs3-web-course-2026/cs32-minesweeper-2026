@@ -334,3 +334,32 @@ function startTimer() {
         const seconds = String(gameState.gameTime % 60).padStart(2, '0');
         timerElement.textContent = `${minutes}:${seconds}`;
     }, 1000);
+}
+
+function stopTimer() {
+    if (gameState && gameState.timerId) {
+        clearInterval(gameState.timerId);
+        gameState.timerId = null;
+    }
+}
+
+function resetTimer() {
+    stopTimer();
+    gameState.gameTime = 0;
+    timerElement.textContent = '00:00';
+}
+
+function updateStatus(message) {
+    if (gameStatusElement) {
+        gameStatusElement.textContent = message;
+    }
+}
+
+function showModal(title, message) {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    gameModal.classList.remove('hidden');
+    if (modalRestartButton) {
+        modalRestartButton.focus();
+    }
+}
