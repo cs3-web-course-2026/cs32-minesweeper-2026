@@ -170,7 +170,7 @@ function countNeighbourMines(field) {
 function moveMineAwayFrom(field, row, col) {
   const cell = field[row][col];
 
-  if (cell.type !== CELL_TYPE.MINE) {
+  if (cell.type !== CELL_TYPE.MINE || cell.state !== CELL_STATE.CLOSED) {
     return;
   }
 
