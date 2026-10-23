@@ -2,31 +2,24 @@ const gameState = {
     rows: 10,
     cols: 10,
     minesCount: 15,
-    status: 'playing', // 'playing' | 'win' | 'lose'
+    status: 'process', // 'process' | 'win' | 'lose'
     gameTime: 0,
     timerId: null,
     firstMove: true,
     openedSafeCells: 0,
     flagsPlaced: 0,
-    explodedCell: null, // [r, c] of the mine the player hit
+    explodedCell: null,
+    dom: {}
 };
 
-let field = [];   // field[r][c] = { type, state, neighborMines }
-let cellEls = []; // cellEls[r][c] = the matching DOM element
-const dom = {};
+let board = [];
 
-const LONG_PRESS_MS = 400;
-let longPressTimer = null;
-let longPressFired = false;
-let lastPointerType = 'mouse';
-
-
-function createEmptyField(rows, cols) {
+function generateField(rows, cols, minesCount) {
     const grid = [];
     for (let r = 0; r < rows; r++) {
         const row = [];
         for (let c = 0; c < cols; c++) {
-            row.push({ type: 'empty', state: 'closed', neighborMines: 0 });
+            row.push({ type: 'empty', state: 'closed', neighborMines: 0, el: null });
         }
         grid.push(row);
     }
@@ -46,8 +39,6 @@ function forEachNeighbour(r, c, fn) {
     }
 }
 
-// Places mines only after the first click, so the clicked cell and its
-// neighbours are always safe and any flags set earlier are kept.
 function placeMines(grid, minesCount, excludeR, excludeC) {
     const candidates = [];
     for (let r = 0; r < grid.length; r++) {
@@ -57,7 +48,6 @@ function placeMines(grid, minesCount, excludeR, excludeC) {
         }
     }
 
-    // Fisher-Yates shuffle: always terminates, unlike random retry loops
     for (let i = candidates.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
@@ -84,15 +74,15 @@ function countNeighbourMines(grid) {
 }
 
 function openCell(r, c) {
-    if (gameState.status !== 'playing') return;
+    if (gameState.status !== 'process') return;
 
-    const cell = field[r][c];
-    if (cell.state !== 'closed') return; // already opened or flagged
+    const cell = board[r][c];
+    if (cell.state !== 'closed') return;
 
     if (gameState.firstMove) {
         gameState.firstMove = false;
-        placeMines(field, gameState.minesCount, r, c);
-        countNeighbourMines(field);
+        placeMines(board, gameState.minesCount, r, c);
+        countNeighbourMines(board);
         startTimer();
     }
 
@@ -113,26 +103,21 @@ function openCell(r, c) {
     updateUI();
 }
 
-// Iterative flood fill: no recursion limit, and no UI work until it finishes.
-function floodOpen(startR, startC) {
-    const stack = [[startR, startC]];
-    while (stack.length) {
-        const [r, c] = stack.pop();
-        const cell = field[r][c];
-        if (cell.state !== 'closed') continue; // skips opened and flagged cells
+function floodOpen(r, c) {
+    const cell = board[r][c];
+    if (cell.state !== 'closed') return;
 
-        cell.state = 'opened';
-        gameState.openedSafeCells++;
+    cell.state = 'opened';
+    gameState.openedSafeCells++;
 
-        if (cell.neighborMines === 0) {
-            forEachNeighbour(r, c, (nr, nc) => stack.push([nr, nc]));
-        }
+    if (cell.neighborMines === 0) {
+        forEachNeighbour(r, c, (nr, nc) => floodOpen(nr, nc));
     }
 }
 
 function toggleFlag(r, c) {
-    if (gameState.status !== 'playing') return;
-    const cell = field[r][c];
+    if (gameState.status !== 'process') return;
+    const cell = board[r][c];
     if (cell.state === 'opened') return;
 
     if (cell.state === 'flagged') {
@@ -158,10 +143,9 @@ function lose(r, c) {
 function win() {
     gameState.status = 'win';
     stopTimer();
-    // Flag every remaining mine
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
-            const cell = field[r][c];
+            const cell = board[r][c];
             if (cell.type === 'mine' && cell.state !== 'flagged') {
                 cell.state = 'flagged';
                 gameState.flagsPlaced++;
@@ -172,12 +156,10 @@ function win() {
     announce('Congratulations! You won!');
 }
 
-// Open unflagged mines. Correct flags stay as flags; wrong flags are
-// marked in renderCell.
 function revealMines() {
     for (let r = 0; r < gameState.rows; r++) {
         for (let c = 0; c < gameState.cols; c++) {
-            const cell = field[r][c];
+            const cell = board[r][c];
             if (cell.type === 'mine' && cell.state === 'closed') {
                 cell.state = 'opened';
             }
@@ -185,11 +167,11 @@ function revealMines() {
     }
 }
 
-// alert() blocks painting, so wait until the browser has drawn the board.
 function announce(message) {
-    requestAnimationFrame(() => setTimeout(() => alert(message), 0));
+    if (gameState.dom.statusMsg) {
+        gameState.dom.statusMsg.textContent = message;
+    }
 }
-
 
 function startTimer() {
     stopTimer();
@@ -197,7 +179,7 @@ function startTimer() {
     updateTimerDisplay();
     gameState.timerId = setInterval(() => {
         gameState.gameTime++;
-        updateTimerDisplay(); // only touches the timer, never the grid
+        updateTimerDisplay();
     }, 1000);
 }
 
@@ -207,24 +189,23 @@ function stopTimer() {
 }
 
 function updateTimerDisplay() {
-    if (!dom.timer) return;
+    if (!gameState.dom.timer) return;
     const mins = Math.floor(gameState.gameTime / 60).toString().padStart(2, '0');
     const secs = (gameState.gameTime % 60).toString().padStart(2, '0');
-    dom.timer.innerHTML = `<span class="led-icon">⏰</span> ${mins}:${secs}`;
+    gameState.dom.timer.innerHTML = `<span class="led-icon">⏰</span> ${mins}:${secs}`;
 }
 
 function updateMineDisplay() {
-    if (!dom.mines) return;
-    // Clamped at 0. Remove Math.max to show negatives when over-flagging.
+    if (!gameState.dom.mines) return;
     const remaining = Math.max(0, gameState.minesCount - gameState.flagsPlaced);
-    dom.mines.innerHTML = `<span class="led-icon">💣</span> ${remaining.toString().padStart(3, '0')}`;
+    gameState.dom.mines.innerHTML = `<span class="led-icon">💣</span> ${remaining.toString().padStart(3, '0')}`;
 }
 
-// Cells are created once (buildGrid) and updated in place afterwards, so
-// elements never disappear between mousedown and mouseup.
 function renderCell(r, c) {
-    const data = field[r][c];
-    const el = cellEls[r][c];
+    const data = board[r][c];
+    const el = data.el;
+    if (!el) return;
+
     const classes = ['cell'];
     let flagIcon = false;
     let text = '';
@@ -245,7 +226,9 @@ function renderCell(r, c) {
             classes.push('mine');
             text = '💣';
             const ex = gameState.explodedCell;
-            if (ex && ex[0] === r && ex[1] === c) classes.push('exploded');
+            if (ex && ex[0] === r && ex[1] === c) {
+                classes.push('exploded-mine');
+            }
         } else if (data.neighborMines > 0) {
             classes.push(`num-${data.neighborMines}`);
             text = String(data.neighborMines);
@@ -277,93 +260,84 @@ function updateUI() {
 }
 
 function buildGrid() {
-    dom.grid.textContent = '';
-    cellEls = [];
+    gameState.dom.grid.textContent = '';
     for (let r = 0; r < gameState.rows; r++) {
-        const rowEls = [];
         for (let c = 0; c < gameState.cols; c++) {
-            const el = document.createElement('div');
+            const el = document.createElement('button');
+            el.type = 'button';
             el.className = 'cell closed';
             el.dataset.r = r;
             el.dataset.c = c;
-            dom.grid.appendChild(el);
-            rowEls.push(el);
+            gameState.dom.grid.appendChild(el);
+            board[r][c].el = el;
         }
-        cellEls.push(rowEls);
     }
 }
 
 function getCellPos(target) {
     const el = target instanceof Element ? target.closest('.cell') : null;
-    if (!el || !dom.grid.contains(el)) return null;
+    if (!el || !gameState.dom.grid.contains(el)) return null;
     return { r: Number(el.dataset.r), c: Number(el.dataset.c) };
 }
 
-function clearLongPress() {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
-}
-
 function setupGridEvents() {
-    dom.grid.addEventListener('click', (e) => {
-        if (longPressFired) return; // this tap was a long-press flag
+    gameState.dom.grid.addEventListener('click', (e) => {
         const pos = getCellPos(e.target);
         if (pos) openCell(pos.r, pos.c);
     });
 
-    dom.grid.addEventListener('contextmenu', (e) => {
+    gameState.dom.grid.addEventListener('contextmenu', (e) => {
         e.preventDefault();
-        // On touch devices the long-press timer already handled the flag
-        if (lastPointerType === 'touch') return;
         const pos = getCellPos(e.target);
         if (pos) toggleFlag(pos.r, pos.c);
     });
 
-    
-    dom.grid.addEventListener('pointerup', clearLongPress);
-    dom.grid.addEventListener('pointercancel', clearLongPress);
-
-    dom.grid.style.touchAction = 'manipulation';
-    dom.grid.style.userSelect = 'none';
-    dom.grid.style.webkitUserSelect = 'none';
-    dom.grid.style.webkitTouchCallout = 'none';
+    gameState.dom.grid.addEventListener('keydown', (e) => {
+        if (e.key === 'f' || e.key === 'F') {
+            e.preventDefault();
+            const pos = getCellPos(e.target);
+            if (pos) toggleFlag(pos.r, pos.c);
+        }
+    });
 }
 
 function cacheDom() {
-    dom.grid = document.querySelector('.game-grid');
-    dom.mines = document.querySelector('.top-panel .led-display:first-child');
-    dom.timer = document.querySelector('.top-panel .led-display:last-child');
-    dom.smiley = document.querySelector('.smiley-btn');
-    dom.newGame = document.querySelector('.nav-item:first-child');
+    gameState.dom.grid = document.querySelector('.game-grid');
+    gameState.dom.mines = document.querySelector('.top-panel .led-display:first-child');
+    gameState.dom.timer = document.querySelector('.top-panel .led-display:last-child');
+    gameState.dom.smiley = document.querySelector('.smiley-btn');
+    gameState.dom.statusMsg = document.getElementById('status-message');
+
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navItems.length > 0) gameState.dom.newGame = navItems[0];
 }
 
 function initGame() {
     stopTimer();
-    clearLongPress();
+    if (gameState.dom.statusMsg) gameState.dom.statusMsg.textContent = '';
 
-    // Keep room for the 3x3 safe zone around the first click
     const maxMines = Math.max(0, gameState.rows * gameState.cols - 9);
     gameState.minesCount = Math.min(gameState.minesCount, maxMines);
 
-    gameState.status = 'playing';
+    gameState.status = 'process';
     gameState.gameTime = 0;
     gameState.firstMove = true;
     gameState.openedSafeCells = 0;
     gameState.flagsPlaced = 0;
     gameState.explodedCell = null;
 
-    field = createEmptyField(gameState.rows, gameState.cols);
+    board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
     buildGrid();
     updateUI();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     cacheDom();
-    if (!dom.grid) return;
+    if (!gameState.dom.grid) return;
 
     setupGridEvents();
-    if (dom.smiley) dom.smiley.addEventListener('click', initGame);
-    if (dom.newGame) dom.newGame.addEventListener('click', initGame);
+    if (gameState.dom.smiley) gameState.dom.smiley.addEventListener('click', initGame);
+    if (gameState.dom.newGame) gameState.dom.newGame.addEventListener('click', initGame);
 
     initGame();
 });

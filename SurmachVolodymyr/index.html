@@ -9,11 +9,9 @@
 <body>
 
 <div class="mobile-app-container">
-
-    <!-- Top Header Panel -->
     <header class="top-panel">
         <div class="led-display" role="status" aria-live="polite" aria-label="Mine count">
-            <span class="led-icon" aria-hidden="true">💣</span> 004
+            <span class="led-icon" aria-hidden="true">💣</span> 015
         </div>
 
         <button type="button" class="smiley-btn" aria-label="Restart game">
@@ -21,114 +19,16 @@
         </button>
 
         <div class="led-display" role="timer" aria-live="polite" aria-label="Time elapsed">
-            <span class="led-icon" aria-hidden="true">⏰</span> 01:45
+            <span class="led-icon" aria-hidden="true">⏰</span> 00:00
         </div>
     </header>
 
-    <!-- Main Game Grid -->
-    <main class="game-grid">
-        <script src="script.js"></script>
-        <!-- Row 1 -->
-        <div class="cell closed"></div>
-        <div class="cell open mine">💣</div>
-        <div class="cell closed"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
+    <!-- Сообщение статуса без всплывающих alert() -->
+    <div id="status-message" role="status" aria-live="polite" class="status-msg"></div>
 
-        <!-- Row 2 -->
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open mine">💣</div>
-        <div class="cell open num-3">3</div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
+    <!-- Контейнер сетки полностью пустой, генерируется скриптом -->
+    <main class="game-grid"></main>
 
-        <!-- Row 3 -->
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open mine">💣</div>
-        <div class="cell open font-black">?</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-
-        <!-- Row 4 -->
-        <div class="cell open"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell closed flagged-safe"><span class="flag">🚩</span></div>
-        <div class="cell closed"></div>
-        <div class="cell open num-2">2</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-
-        <!-- Row 5 -->
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open font-black">?</div>
-        <div class="cell open num-2">2</div>
-        <div class="cell closed"></div>
-        <div class="cell open mine">💣</div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-
-        <!-- Row 6 -->
-        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell closed"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open num-1">1</div>
-
-        <!-- Row 7 -->
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open mine">💣</div>
-        <div class="cell closed"></div>
-        <div class="cell closed flagged-mine"><span class="flag">🚩</span></div>
-        <div class="cell closed"></div>
-        <div class="cell closed"></div>
-
-        <!-- Row 8 -->
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open"></div>
-        <div class="cell open num-3">3</div>
-        <div class="cell open num-2">2</div>
-        <div class="cell closed"></div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-
-        <!-- Row 9 -->
-        <div class="cell open num-4">4</div>
-        <div class="cell open font-black">?</div>
-        <div class="cell open"></div>
-        <div class="cell open mine">💣</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open exploded-mine">💥</div>
-        <div class="cell open num-1">1</div>
-        <div class="cell open"></div>
-        <div class="cell open num-1">1</div>
-    </main>
-
-    <!-- Bottom Navigation Bar -->
     <footer class="bottom-nav">
         <button type="button" class="nav-item">
             <span class="nav-icon" aria-hidden="true">➕</span>
@@ -138,13 +38,9 @@
             <span class="nav-icon" aria-hidden="true">🚩</span>
             <span>Flag</span>
         </button>
-        <button type="button" class="nav-item">
-            <span class="nav-icon" aria-hidden="true">⚙️</span>
-            <span>Settings</span>
-        </button>
     </footer>
-
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
