@@ -1,17 +1,17 @@
-const startBtn = document.getElementById('start-btn');
-const restartBtn = document.getElementById('restart-btn');
-const modalRestartBtn = document.getElementById('modal-restart-btn');
+const startButton = document.getElementById('start-btn');
+const restartButton = document.getElementById('restart-btn');
+const modalRestartButton = document.getElementById('modal-restart-btn');
 const menuCard = document.getElementById('menu-card');
 const gameContainer = document.getElementById('game-container');
 const boardElement = document.getElementById('board-element');
 const rowsInput = document.getElementById('rows');
 const colsInput = document.getElementById('columns');
 
-const minesCountEl = document.getElementById('mines-count');
-const timerEl = document.getElementById('timer');
-const closedCountEl = document.getElementById('closed-count');
-const gameStatusEl = document.getElementById('game-status');
-const menuErrorEl = document.getElementById('menu-error');
+const minesCountElement = document.getElementById('mines-count');
+const timerElement = document.getElementById('timer');
+const closedCountElement = document.getElementById('closed-count');
+const gameStatusElement = document.getElementById('game-status');
+const menuErrorElement = document.getElementById('menu-error');
 
 const gameModal = document.getElementById('game-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -20,8 +20,9 @@ const modalMessage = document.getElementById('modal-message');
 const MIN_SIZE = 5;
 const MAX_SIZE = 15;
 const MINE_DENSITY = 0.20;
+const INITIAL_MINES = Math.round(MIN_SIZE * MIN_SIZE * MINE_DENSITY);
 
-// Enum-style constants to replace raw strings
+
 const GAME_STATUS = {
     PROCESS: 'process',
     WIN: 'win',
@@ -39,35 +40,33 @@ const CELL_STATE = {
     FLAGGED: 'flagged'
 };
 
-// Required contract structures
 let gameState = {
-    rows: 5,
-    cols: 5,
-    minesCount: 5,
+    rows: MIN_SIZE,
+    cols: MIN_SIZE,
+    minesCount: INITIAL_MINES,
     status: GAME_STATUS.PROCESS,
     gameTime: 0,
     timerId: null
 };
 
-let board = []; // 2D array containing cell objects: { type, state, neighborMines }
+let board = [];
 let safeCellsRemaining = 0;
-let flaggedCount = 0; // Separate variable to track placed flags without mutating total mines
+let flaggedCount = 0;
 
 function startGame() {
     const rows = parseInt(rowsInput.value, 10);
     const cols = parseInt(colsInput.value, 10);
 
     if (isNaN(rows) || isNaN(cols) || rows < MIN_SIZE || rows > MAX_SIZE || cols < MIN_SIZE || cols > MAX_SIZE) {
-        menuErrorEl.textContent = `Please enter valid field dimensions between ${MIN_SIZE} and ${MAX_SIZE}.`;
+        menuErrorElement.textContent = `Please enter valid field dimensions between ${MIN_SIZE} and ${MAX_SIZE}.`;
         return;
     }
 
-    menuErrorEl.textContent = '';
+    menuErrorElement.textContent = '';
     menuCard.classList.add('hidden');
     gameContainer.classList.remove('hidden');
     gameModal.classList.add('hidden');
 
-    // Stop active timer before re-creating gameState to prevent multiple timers running
     stopTimer();
 
     const totalCells = rows * cols;
@@ -85,8 +84,8 @@ function startGame() {
     safeCellsRemaining = totalCells - minesCount;
     flaggedCount = 0;
 
-    minesCountEl.textContent = gameState.minesCount - flaggedCount;
-    closedCountEl.textContent = safeCellsRemaining;
+    minesCountElement.textContent = gameState.minesCount - flaggedCount;
+    closedCountElement.textContent = safeCellsRemaining;
 
     generateField(rows, cols, minesCount);
     countNeighbourMines();
@@ -97,9 +96,9 @@ function startGame() {
     updateStatus(`Game started. Mines: ${minesCount}, remaining safe cells: ${safeCellsRemaining}`);
 }
 
-startBtn.addEventListener('click', startGame);
-if (restartBtn) restartBtn.addEventListener('click', startGame);
-if (modalRestartBtn) modalRestartBtn.addEventListener('click', startGame);
+startButton.addEventListener('click', startGame);
+if (restartButton) restartButton.addEventListener('click', startGame);
+if (modalRestartButton) modalRestartButton.addEventListener('click', startGame);
 
 function generateField(rows, cols, minesCount) {
     board = [];
@@ -185,8 +184,8 @@ function renderBoard() {
                 focusCell(row, col);
             });
 
-            cellButton.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
+            cellButton.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
                 if (gameState.status !== GAME_STATUS.PROCESS) return;
                 toggleFlag(row, col);
                 renderBoard();
@@ -216,7 +215,7 @@ function openCell(row, col) {
 
     cellData.state = CELL_STATE.OPENED;
     safeCellsRemaining--;
-    closedCountEl.textContent = safeCellsRemaining;
+    closedCountElement.textContent = safeCellsRemaining;
 
     // Flood fill algorithm if neighborMines === 0
     if (cellData.neighborMines === 0) {
@@ -257,7 +256,7 @@ function toggleFlag(row, col) {
     }
 
     const currentMinesLeft = gameState.minesCount - flaggedCount;
-    minesCountEl.textContent = currentMinesLeft;
+    minesCountElement.textContent = currentMinesLeft;
     updateStatus(`Mines count: ${currentMinesLeft}`);
 }
 
@@ -282,9 +281,9 @@ function focusCell(row, col) {
 function startTimer() {
     gameState.timerId = setInterval(() => {
         gameState.gameTime++;
-        const mins = String(Math.floor(gameState.gameTime / 60)).padStart(2, '0');
-        const secs = String(gameState.gameTime % 60).padStart(2, '0');
-        timerEl.textContent = `${mins}:${secs}`;
+        const minutes = String(Math.floor(gameState.gameTime / 60)).padStart(2, '0');
+        const seconds = String(gameState.gameTime % 60).padStart(2, '0');
+        timerElement.textContent = `${minutes}:${seconds}`;
     }, 1000);
 }
 
@@ -298,12 +297,12 @@ function stopTimer() {
 function resetTimer() {
     stopTimer();
     gameState.gameTime = 0;
-    timerEl.textContent = '00:00';
+    timerElement.textContent = '00:00';
 }
 
 function updateStatus(message) {
-    if (gameStatusEl) {
-        gameStatusEl.textContent = message;
+    if (gameStatusElement) {
+        gameStatusElement.textContent = message;
     }
 }
 
@@ -311,7 +310,7 @@ function showModal(title, message) {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
     gameModal.classList.remove('hidden');
-    if (modalRestartBtn) {
-        modalRestartBtn.focus();
+    if (modalRestartButton) {
+        modalRestartButton.focus();
     }
 }
