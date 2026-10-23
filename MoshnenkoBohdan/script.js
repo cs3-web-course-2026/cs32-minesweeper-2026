@@ -22,7 +22,7 @@ const MAX_SIZE = 15;
 const MINE_DENSITY = 0.20;
 const INITIAL_MINES = Math.round(MIN_SIZE * MIN_SIZE * MINE_DENSITY);
 
-// Enum-style constants to replace raw strings
+
 const GAME_STATUS = {
     PROCESS: 'process',
     WIN: 'win',
@@ -51,6 +51,7 @@ let gameState = {
 };
 
 let board = [];
+
 
 function getFlaggedCount() {
     let count = 0;
@@ -90,7 +91,7 @@ function startGame() {
     gameContainer.classList.remove('hidden');
     gameModal.classList.add('hidden');
 
-    // Stop active timer before re-creating gameState to prevent multiple timers running
+
     stopTimer();
 
     const totalCells = rows * cols;
@@ -190,6 +191,19 @@ function renderBoard() {
             cellButton.dataset.row = row;
             cellButton.dataset.col = col;
 
+            // Build dynamic aria-label for accessibility (row, col, state, values)
+            let ariaLabel = `Row ${row + 1}, column ${col + 1}, ${cellData.state}`;
+            if (cellData.state === CELL_STATE.OPENED) {
+                if (cellData.type === CELL_TYPE.MINE) {
+                    ariaLabel = `Row ${row + 1}, column ${col + 1}, mine opened`;
+                } else if (cellData.neighborMines > 0) {
+                    ariaLabel = `Row ${row + 1}, column ${col + 1}, ${cellData.neighborMines} neighboring mines`;
+                } else {
+                    ariaLabel = `Row ${row + 1}, column ${col + 1}, empty opened`;
+                }
+            }
+            cellButton.setAttribute('aria-label', ariaLabel);
+
             if (cellData.state === CELL_STATE.OPENED) {
                 cellButton.classList.add('revealed');
                 if (cellData.type === CELL_TYPE.MINE) {
@@ -222,7 +236,7 @@ function renderBoard() {
         }
     }
 
-    // Update info UI dynamically based on board data
+
     closedCountElement.textContent = getSafeCellsRemaining();
     const currentMinesLeft = gameState.minesCount - getFlaggedCount();
     minesCountElement.textContent = currentMinesLeft;
