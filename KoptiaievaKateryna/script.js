@@ -95,6 +95,16 @@ function countFlagsLeft(field, minesCount) {
 }
 
 
+function hasOpenedCells(field) {
+  return field.flat().some((cell) => cell.state === CELL_STATE.OPENED);
+}
+
+
+function getRandomIndex(length) {
+  return Math.floor(Math.random() * length);
+}
+
+
 function isEverySafeCellOpened(field) {
   return field
     .flat()
@@ -116,16 +126,17 @@ function formatTime(totalSeconds) {
 /* Game logic */
 
 function generateField(rows, cols, minesCount) {
+  if (minesCount >= rows * cols) {
+    throw new RangeError('minesCount must be less than the number of cells');
+  }
+
   const field = Array.from({ length: rows }, () =>
     Array.from({ length: cols }, createCell),
   );
   let placedMines = 0;
 
   while (placedMines < minesCount) {
-    const cell =
-      field[Math.floor(Math.random() * rows)][
-        Math.floor(Math.random() * cols)
-      ];
+    const cell = field[getRandomIndex(rows)][getRandomIndex(cols)];
 
     if (cell.type === CELL_TYPE.MINE) {
       continue;
@@ -152,6 +163,24 @@ function countNeighbourMines(field) {
       ).length;
     });
   });
+}
+
+
+// Keeps the first opened cell safe: a mine under it moves to a random empty cell.
+function moveMineAwayFrom(field, row, col) {
+  const cell = field[row][col];
+
+  if (cell.type !== CELL_TYPE.MINE) {
+    return;
+  }
+
+  const emptyCells = field
+    .flat()
+    .filter((candidate) => candidate.type === CELL_TYPE.EMPTY);
+
+  emptyCells[getRandomIndex(emptyCells.length)].type = CELL_TYPE.MINE;
+  cell.type = CELL_TYPE.EMPTY;
+  countNeighbourMines(field);
 }
 
 
@@ -409,6 +438,10 @@ function handleBoardClick(event) {
 
   if (!position) {
     return;
+  }
+
+  if (!hasOpenedCells(board)) {
+    moveMineAwayFrom(board, position.row, position.col);
   }
 
   startTimerOnFirstMove();
