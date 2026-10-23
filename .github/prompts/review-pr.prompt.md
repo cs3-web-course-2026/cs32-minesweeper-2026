@@ -27,7 +27,7 @@ Write every review comment as a **friendly but honest teacher**:
 > clear to anyone reading the code — including future you!"_
 
 > ❌ Too soft for a violation: _"You might want to consider not including JS files."_
-> ✅ Good: _"🔴 **lab1 requires HTML and CSS only — no JavaScript.** The file `script.js` must
+> ✅ Good: _"🔴 **lab1 requires HTML and CSS only — no JavaScript.** The file `../../MoshnenkoBohdan/script.js` must
 > be removed before this PR can be merged. lab1 is specifically designed to practise pure HTML
 > structure and CSS styling. Please delete the file, update html and push again."_
 
