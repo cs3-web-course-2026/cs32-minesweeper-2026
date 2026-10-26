@@ -193,8 +193,18 @@ function finishGame(result, explodedCell = null) {
   renderField(explodedCell);
 }
 
+
 // Створює HTML-клітинки на основі актуального стану масиву
-function renderField(explodedCell = null) {
+function renderField(explodedRow = null, explodedCol = null) {
+  const activeElement = document.activeElement;
+  let activeRow = null;
+  let activeCol = null;
+
+  if (activeElement && activeElement.classList.contains('cell')) {
+    activeRow = activeElement.dataset.row;
+    activeCol = activeElement.dataset.col;
+  }
+
   const fragment = document.createDocumentFragment();
 
   gameState.field.forEach((row, rowIndex) => {
@@ -204,10 +214,8 @@ function renderField(explodedCell = null) {
       button.className = 'cell';
       button.dataset.row = String(rowIndex);
       button.dataset.col = String(colIndex);
-      button.setAttribute('role', 'gridcell');
 
-      const isExploded = explodedCell &&
-        explodedCell[0] === rowIndex && explodedCell[1] === colIndex;
+      const isExploded = explodedRow === rowIndex && explodedCol === colIndex;
 
       if (cell.state === 'opened') {
         button.classList.add('cell-opened');
@@ -229,8 +237,6 @@ function renderField(explodedCell = null) {
         button.textContent = '🚩';
       }
 
-      if (isExploded) button.classList.add('cell-exploded');
-
       if (gameState.status !== 'process') {
         button.disabled = true;
       } else {
@@ -244,6 +250,17 @@ function renderField(explodedCell = null) {
   });
 
   boardElement.replaceChildren(fragment);
+
+  // Відновлюємо фокус на клітинці після перемальовки поля
+  if (activeRow !== null && activeCol !== null) {
+    const newActiveCell = boardElement.querySelector(
+      `[data-row="${activeRow}"][data-col="${activeCol}"]`
+    );
+    if (newActiveCell && !newActiveCell.disabled) {
+      newActiveCell.focus();
+    }
+  }
+
   updateMineCounter();
   updateTimer();
 }
