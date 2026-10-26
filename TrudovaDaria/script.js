@@ -213,7 +213,7 @@ function renderField(explodedCell = null) {
         button.classList.add('cell-opened');
 
         if (cell.type === 'mine') {
-          button.classList.add('cell-mine');
+          button.classList.add(isExploded ? 'cell-mine-hit' : 'cell-mine');
           button.textContent = '💣';
         } else if (cell.neighborMines > 0) {
           button.textContent = String(cell.neighborMines);
