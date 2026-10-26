@@ -9,6 +9,7 @@ const gameState = {
     openedSafeCells: 0,
     flagsPlaced: 0,
     explodedCell: null,
+    flagMode: false,
     dom: {}
 };
 
@@ -251,7 +252,7 @@ function renderCell(r, c) {
     const classes = ['cell'];
     let flagIcon = false;
     let text = '';
-    let accessibleState = 'closed'; // Track a11y state for screen readers
+    let accessibleState = 'closed';
 
     if (data.state === 'flagged') {
         if (gameState.status === 'lose' && data.type !== 'mine') {
@@ -289,7 +290,6 @@ function renderCell(r, c) {
 
     el.className = classes.join(' ');
     el.textContent = text;
-    // Set dynamic accessible name based on cell state
     el.setAttribute('aria-label', `Row ${r + 1}, column ${c + 1}, ${accessibleState}`);
 
     if (flagIcon) {
@@ -323,7 +323,6 @@ function buildGrid() {
             el.className = 'cell closed';
             el.dataset.r = r;
             el.dataset.c = c;
-            // Set initial accessible name identifying row/col and state
             el.setAttribute('aria-label', `Row ${r + 1}, column ${c + 1}, closed`);
             gameState.dom.grid.appendChild(el);
             board[r][c].el = el;
@@ -338,9 +337,16 @@ function getCellPos(target) {
 }
 
 function setupGridEvents() {
+    // Grid interactions
     gameState.dom.grid.addEventListener('click', (e) => {
         const pos = getCellPos(e.target);
-        if (pos) openCell(pos.r, pos.c);
+        if (pos) {
+            if (gameState.flagMode) {
+                toggleFlag(pos.r, pos.c);
+            } else {
+                openCell(pos.r, pos.c);
+            }
+        }
     });
 
     gameState.dom.grid.addEventListener('contextmenu', (e) => {
@@ -350,13 +356,24 @@ function setupGridEvents() {
     });
 
     gameState.dom.grid.addEventListener('keydown', (e) => {
-        // Stop execution if key event is auto-repeating to fix the toggle bug
         if ((e.key === 'f' || e.key === 'F') && !e.repeat) {
             e.preventDefault();
             const pos = getCellPos(e.target);
             if (pos) toggleFlag(pos.r, pos.c);
         }
     });
+
+    // Flag button toggle
+    if (gameState.dom.flagBtn) {
+        gameState.dom.flagBtn.addEventListener('click', () => {
+            gameState.flagMode = !gameState.flagMode;
+            if (gameState.flagMode) {
+                gameState.dom.flagBtn.classList.add('active');
+            } else {
+                gameState.dom.flagBtn.classList.remove('active');
+            }
+        });
+    }
 }
 
 function cacheDom() {
@@ -368,6 +385,7 @@ function cacheDom() {
 
     const navItems = document.querySelectorAll('.nav-item');
     if (navItems.length > 0) gameState.dom.newGame = navItems[0];
+    if (navItems.length > 1) gameState.dom.flagBtn = navItems[1]; // Ensure the flag button is cached
 }
 
 function initGame() {
@@ -383,6 +401,11 @@ function initGame() {
     gameState.openedSafeCells = 0;
     gameState.flagsPlaced = 0;
     gameState.explodedCell = null;
+    gameState.flagMode = false; // Reset flag mode
+
+    if (gameState.dom.flagBtn) {
+        gameState.dom.flagBtn.classList.remove('active'); // Reset visual button state
+    }
 
     board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
     buildGrid();
