@@ -28,27 +28,28 @@ function forEachNeighbour(r, c, fn) {
     }
 }
 
+// Fixed: Descriptive variable names applied here
 function countNeighbourMines(grid) {
-    const rows = grid.length;
-    const cols = grid[0].length;
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            if (grid[r][c].type === 'mine') {
-                grid[r][c].neighborMines = 0;
+    const rowsCount = grid.length;
+    const colsCount = grid[0].length;
+    for (let row = 0; row < rowsCount; row++) {
+        for (let col = 0; col < colsCount; col++) {
+            if (grid[row][col].type === 'mine') {
+                grid[row][col].neighborMines = 0;
                 continue;
             }
             let count = 0;
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) continue;
-                    const nr = r + dr;
-                    const nc = c + dc;
-                    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-                        if (grid[nr][nc].type === 'mine') count++;
+            for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+                for (let colOffset = -1; colOffset <= 1; colOffset++) {
+                    if (rowOffset === 0 && colOffset === 0) continue;
+                    const neighborRow = row + rowOffset;
+                    const neighborCol = col + colOffset;
+                    if (neighborRow >= 0 && neighborRow < rowsCount && neighborCol >= 0 && neighborCol < colsCount) {
+                        if (grid[neighborRow][neighborCol].type === 'mine') count++;
                     }
                 }
             }
-            grid[r][c].neighborMines = count;
+            grid[row][col].neighborMines = count;
         }
     }
 }
@@ -337,7 +338,6 @@ function getCellPos(target) {
 }
 
 function setupGridEvents() {
-    // Grid interactions
     gameState.dom.grid.addEventListener('click', (e) => {
         const pos = getCellPos(e.target);
         if (pos) {
@@ -363,14 +363,15 @@ function setupGridEvents() {
         }
     });
 
-    // Flag button toggle
     if (gameState.dom.flagBtn) {
         gameState.dom.flagBtn.addEventListener('click', () => {
             gameState.flagMode = !gameState.flagMode;
             if (gameState.flagMode) {
                 gameState.dom.flagBtn.classList.add('active');
+                gameState.dom.flagBtn.setAttribute('aria-pressed', 'true');
             } else {
                 gameState.dom.flagBtn.classList.remove('active');
+                gameState.dom.flagBtn.setAttribute('aria-pressed', 'false');
             }
         });
     }
@@ -385,7 +386,7 @@ function cacheDom() {
 
     const navItems = document.querySelectorAll('.nav-item');
     if (navItems.length > 0) gameState.dom.newGame = navItems[0];
-    if (navItems.length > 1) gameState.dom.flagBtn = navItems[1]; // Ensure the flag button is cached
+    if (navItems.length > 1) gameState.dom.flagBtn = navItems[1];
 }
 
 function initGame() {
@@ -401,10 +402,11 @@ function initGame() {
     gameState.openedSafeCells = 0;
     gameState.flagsPlaced = 0;
     gameState.explodedCell = null;
-    gameState.flagMode = false; // Reset flag mode
+    gameState.flagMode = false;
 
     if (gameState.dom.flagBtn) {
-        gameState.dom.flagBtn.classList.remove('active'); // Reset visual button state
+        gameState.dom.flagBtn.classList.remove('active');
+        gameState.dom.flagBtn.setAttribute('aria-pressed', 'false');
     }
 
     board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
