@@ -177,7 +177,7 @@ function checkWin() {
   if (allSafeCellsOpened) finishGame('win');
 }
 
-// Завершує гру та зупиняє таймер
+// Завершує гру та зупиняє таймер.
 function finishGame(result, explodedCell = null) {
   gameState.status = result;
   stopTimer();
