@@ -189,10 +189,15 @@ function finishGame(result, explodedCell = null) {
     messageElement.textContent = 'Гру завершено: ти натрапив(ла) на міну☹️. Спробуй ще раз!';
     messageElement.className = 'game-message is-lose';
   }
-  // Після завершення показуємо всі міни, неправильні прапорці позначаємо
-  renderField(explodedCell);
-}
 
+  // Розпаковуємо масив координат [row, col], якщо він переданий
+  if (Array.isArray(explodedCell)) {
+    const [row, col] = explodedCell;
+    renderField(row, col);
+  } else {
+    renderField();
+  }
+}
 
 // Створює HTML-клітинки на основі актуального стану масиву
 function renderField(explodedRow = null, explodedCol = null) {
