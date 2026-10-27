@@ -4,13 +4,12 @@
   --border-dark: #7b7b7b;
   --open-border: #9e9e9e;
   
-  /* Fixed: Board size defined as a CSS variable */
   --board-size: 10; 
 
-  /* Number Colors */
+  /* Number Colors (WCAG >= 4.5:1 contrast against #c0c0c0) */
   --c-1: #00f;
-  --c-2: #008000;
-  --c-3: #f00;
+  --c-2: #005a00;
+  --c-3: #a30000;
   --c-4: #000080;
 }
 
@@ -90,19 +89,19 @@ body {
   font-size: 22px;
 }
 
-.status-msg {
+.status-msg,
+#status-message {
   height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
-  color: #fff;
+  color: #222;
   text-align: center;
   background-color: var(--bg-grey);
 }
 
-/* Fixed: Grid uses custom property */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(var(--board-size), minmax(0, 1fr));
