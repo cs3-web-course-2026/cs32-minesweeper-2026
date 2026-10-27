@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <header class="game-header">
+        <div class="counter" aria-label="Кількість мін">
+          <span class="icon">&#9873;</span> 010
+        </div>
+        <button class="restart-btn" type="button" aria-label="Нова гра">
+          &#8635;
+        </button>
+        <div class="timer" aria-label="Час">
+          <span class="icon">&#9201;</span> 000
+        </div>
+      </header>
+
+      <main class="game-grid" aria-label="Ігрове поле Minesweeper">
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell open num-1" type="button">1</button>
+        <button
+          class="cell closed flagged"
+          type="button"
+          aria-label="Прапорець"
+        >
+          &#9873;
+        </button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell open num-1" type="button">1</button>
+        <button class="cell open num-1" type="button">1</button>
+        <button class="cell open num-2" type="button">2</button>
+        <button class="cell open mine-exploded" type="button">&#10038;</button>
+        <button class="cell open num-1" type="button">1</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell open num-1" type="button">1</button>
+        <button
+          class="cell closed flagged"
+          type="button"
+          aria-label="Прапорець"
+        >
+          &#9873;
+        </button>
+        <button class="cell open num-2" type="button">2</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell open num-2" type="button">2</button>
+        <button class="cell open num-2" type="button">2</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell open mine" type="button">&#9673;</button>
+        <button class="cell closed" type="button"></button>
+        <button class="cell closed" type="button"></button>
+      </main>
+    </div>
+  </body>
+</html>
