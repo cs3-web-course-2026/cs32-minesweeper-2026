@@ -91,7 +91,7 @@ function generateField(rows, cols, minesCount) {
                 type: CELL_TYPE.EMPTY,
                 state: CELL_STATE.CLOSED,
                 neighborMines: 0,
-                el: null
+                element: null
             });
         }
         grid.push(currentRow);
@@ -245,8 +245,8 @@ function revealMines() {
 }
 
 function announce(message) {
-    if (gameState.dom.statusMsg) {
-        gameState.dom.statusMsg.textContent = message;
+    if (gameState.dom.statusMessage) {
+        gameState.dom.statusMessage.textContent = message;
     }
 }
 
@@ -267,9 +267,9 @@ function stopTimer() {
 
 function updateTimerDisplay() {
     if (!gameState.dom.timer) return;
-    const mins = Math.floor(gameState.gameTime / 60).toString().padStart(2, '0');
-    const secs = (gameState.gameTime % 60).toString().padStart(2, '0');
-    gameState.dom.timer.innerHTML = `<span class="led-icon">⏰</span> ${mins}:${secs}`;
+    const minutes = Math.floor(gameState.gameTime / 60).toString().padStart(2, '0');
+    const seconds = (gameState.gameTime % 60).toString().padStart(2, '0');
+    gameState.dom.timer.innerHTML = `<span class="led-icon">⏰</span> ${minutes}:${seconds}`;
 }
 
 function updateMineDisplay() {
@@ -280,8 +280,8 @@ function updateMineDisplay() {
 
 function renderCell(row, col) {
     const data = board[row][col];
-    const el = data.el;
-    if (!el) return;
+    const element = data.element;
+    if (!element) return;
 
     const classes = ['cell'];
     let flagIcon = false;
@@ -322,15 +322,15 @@ function renderCell(row, col) {
         }
     }
 
-    el.className = classes.join(' ');
-    el.textContent = text;
-    el.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, ${accessibleState}`);
+    element.className = classes.join(' ');
+    element.textContent = text;
+    element.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, ${accessibleState}`);
 
     if (flagIcon) {
         const span = document.createElement('span');
         span.className = 'flag';
         span.textContent = '🚩';
-        el.appendChild(span);
+        element.appendChild(span);
     }
 }
 
@@ -352,59 +352,59 @@ function buildGrid() {
     gameState.dom.grid.textContent = '';
     for (let row = 0; row < gameState.rows; row++) {
         for (let col = 0; col < gameState.cols; col++) {
-            const el = document.createElement('button');
-            el.type = 'button';
-            el.className = 'cell closed';
-            el.dataset.row = row;
-            el.dataset.col = col;
-            el.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, closed`);
-            gameState.dom.grid.appendChild(el);
-            board[row][col].el = el;
+            const element = document.createElement('button');
+            element.type = 'button';
+            element.className = 'cell closed';
+            element.dataset.row = row;
+            element.dataset.col = col;
+            element.setAttribute('aria-label', `Row ${row + 1}, column ${col + 1}, closed`);
+            gameState.dom.grid.appendChild(element);
+            board[row][col].element = element;
         }
     }
 }
 
 function getCellPos(target) {
-    const el = target instanceof Element ? target.closest('.cell') : null;
-    if (!el || !gameState.dom.grid.contains(el)) return null;
-    return { row: Number(el.dataset.row), col: Number(el.dataset.col) };
+    const element = target instanceof Element ? target.closest('.cell') : null;
+    if (!element || !gameState.dom.grid.contains(element)) return null;
+    return { row: Number(element.dataset.row), col: Number(element.dataset.col) };
 }
 
 function setupGridEvents() {
     gameState.dom.grid.addEventListener('click', (event) => {
-        const pos = getCellPos(event.target);
-        if (pos) {
+        const position = getCellPos(event.target);
+        if (position) {
             if (gameState.flagMode) {
-                toggleFlag(pos.row, pos.col);
+                toggleFlag(position.row, position.col);
             } else {
-                openCell(pos.row, pos.col);
+                openCell(position.row, position.col);
             }
         }
     });
 
     gameState.dom.grid.addEventListener('contextmenu', (event) => {
         event.preventDefault();
-        const pos = getCellPos(event.target);
-        if (pos) toggleFlag(pos.row, pos.col);
+        const position = getCellPos(event.target);
+        if (position) toggleFlag(position.row, position.col);
     });
 
     gameState.dom.grid.addEventListener('keydown', (event) => {
         if ((event.key === 'f' || event.key === 'F') && !event.repeat) {
             event.preventDefault();
-            const pos = getCellPos(event.target);
-            if (pos) toggleFlag(pos.row, pos.col);
+            const position = getCellPos(event.target);
+            if (position) toggleFlag(position.row, position.col);
         }
     });
 
-    if (gameState.dom.flagBtn) {
-        gameState.dom.flagBtn.addEventListener('click', () => {
+    if (gameState.dom.flagButton) {
+        gameState.dom.flagButton.addEventListener('click', () => {
             gameState.flagMode = !gameState.flagMode;
             if (gameState.flagMode) {
-                gameState.dom.flagBtn.classList.add('active');
-                gameState.dom.flagBtn.setAttribute('aria-pressed', 'true');
+                gameState.dom.flagButton.classList.add('active');
+                gameState.dom.flagButton.setAttribute('aria-pressed', 'true');
             } else {
-                gameState.dom.flagBtn.classList.remove('active');
-                gameState.dom.flagBtn.setAttribute('aria-pressed', 'false');
+                gameState.dom.flagButton.classList.remove('active');
+                gameState.dom.flagButton.setAttribute('aria-pressed', 'false');
             }
         });
     }
@@ -415,16 +415,16 @@ function cacheDom() {
     gameState.dom.mines = document.querySelector('.top-panel .led-display:first-child');
     gameState.dom.timer = document.querySelector('.top-panel .led-display:last-child');
     gameState.dom.smiley = document.querySelector('.smiley-btn');
-    gameState.dom.statusMsg = document.getElementById('status-message');
+    gameState.dom.statusMessage = document.getElementById('status-message');
 
     const navItems = document.querySelectorAll('.nav-item');
     if (navItems.length > 0) gameState.dom.newGame = navItems[0];
-    if (navItems.length > 1) gameState.dom.flagBtn = navItems[1];
+    if (navItems.length > 1) gameState.dom.flagButton = navItems[1];
 }
 
 function initGame() {
     stopTimer();
-    if (gameState.dom.statusMsg) gameState.dom.statusMsg.textContent = '';
+    if (gameState.dom.statusMessage) gameState.dom.statusMessage.textContent = '';
 
     const maxMines = Math.max(0, gameState.rows * gameState.cols - 9);
     gameState.minesCount = Math.min(gameState.minesCount, maxMines);
@@ -437,9 +437,9 @@ function initGame() {
     gameState.explodedCell = null;
     gameState.flagMode = false;
 
-    if (gameState.dom.flagBtn) {
-        gameState.dom.flagBtn.classList.remove('active');
-        gameState.dom.flagBtn.setAttribute('aria-pressed', 'false');
+    if (gameState.dom.flagButton) {
+        gameState.dom.flagButton.classList.remove('active');
+        gameState.dom.flagButton.setAttribute('aria-pressed', 'false');
     }
 
     board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
