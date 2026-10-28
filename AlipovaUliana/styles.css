@@ -1,0 +1,215 @@
+/* ==========================================================================
+   Основні налаштування та змінні
+   ========================================================================== */
+:root {
+    --bg-color: #e3e8ee;
+    --panel-bg: #c0c0c0;
+    --border-light: #ffffff;
+    --border-dark: #808080;
+    --border-darker: #404040;
+    --cell-size: 36px;
+
+    /* Кольори цифр кількості мін поблизу */
+    --color-1: #0000ff;
+    --color-2: #007b00;
+    --color-3: #ff0000;
+    --color-4: #00007b;
+    --color-5: #7b0000;
+    --color-6: #007b7b;
+    --color-7: #000000;
+    --color-8: #7b7b7b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none; /* Запобігає виділенню тексту при частих кліках */
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 16px;
+}
+
+/* ==========================================================================
+   Головний контейнер та Хедер
+   ========================================================================== */
+.game-container {
+    background-color: var(--panel-bg);
+    padding: 12px;
+    border: 3px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+}
+
+.game-header {
+    background-color: var(--panel-bg);
+    padding: 8px 12px;
+    border: 2px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-box {
+    background-color: #000;
+    color: #ff0000;
+    padding: 2px 6px;
+    border: 1px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 2px;
+}
+
+.status-box .icon {
+    font-size: 14px;
+}
+
+.digital-display {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.restart-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    background-color: var(--panel-bg);
+    border: 2px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    transition: transform 0.05s ease;
+}
+
+.restart-btn:active {
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+}
+
+/* ==========================================================================
+   Ігрове поле та клітинки
+   ========================================================================== */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(10, var(--cell-size));
+    gap: 0;
+    border: 3px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    background-color: var(--border-dark);
+    overflow: auto;
+}
+
+/* 1. Закрита клітинка (базовий стан) */
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: var(--panel-bg);
+    border: 3px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 0;
+}
+
+.cell:active:not(.revealed):not(.flagged) {
+    border-width: 1px;
+    border-color: var(--border-dark);
+}
+
+/* 2. Відкрита клітинка */
+.cell.revealed {
+    border: 1px solid var(--border-dark);
+    background-color: #bdbdbd;
+    cursor: default;
+}
+
+/* 3. Клітинка з прапорцем */
+.cell.flagged::before {
+    content: '🚩';
+    font-size: 16px;
+}
+
+/* Помилковий прапорець (показується при програшу) */
+.cell.flagged.wrong-flag::after {
+    content: '❌';
+    position: absolute;
+    font-size: 16px;
+}
+
+/* 4. Клітинка з міною */
+.cell.revealed.mine::before {
+    content: '💣';
+    font-size: 18px;
+}
+
+/* Міна, на яку натиснув гравець (вибух) */
+.cell.revealed.mine.exploded {
+    background-color: #ff3333;
+}
+
+/* Стилі для чисел навколо мін */
+.cell.val-1 { color: var(--color-1); }
+.cell.val-2 { color: var(--color-2); }
+.cell.val-3 { color: var(--color-3); }
+.cell.val-4 { color: var(--color-4); }
+.cell.val-5 { color: var(--color-5); }
+.cell.val-6 { color: var(--color-6); }
+.cell.val-7 { color: var(--color-7); }
+.cell.val-8 { color: var(--color-8); }
+
+/* ==========================================================================
+   Адаптивність (Responsive Design)
+   ========================================================================== */
+@media (max-width: 480px) {
+    :root {
+        --cell-size: 28px;
+    }
+
+    .game-container {
+        padding: 8px;
+    }
+
+    .digital-display {
+        font-size: 16px;
+    }
+
+    .restart-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .cell {
+        font-size: 14px;
+        border-width: 2px;
+    }
+
+    .cell.flagged::before,
+    .cell.revealed.mine::before {
+        font-size: 14px;
+    }
+}
