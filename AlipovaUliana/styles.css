@@ -4,19 +4,19 @@
 :root {
     --bg-color: #e3e8ee;
     --panel-bg: #c0c0c0;
-    --border-light: #ffffff;
+    --border-light: #fff;
     --border-dark: #808080;
     --border-darker: #404040;
     --cell-size: 36px;
 
     /* Кольори цифр кількості мін поблизу */
-    --color-1: #0000ff;
+    --color-1: #00f;
     --color-2: #007b00;
-    --color-3: #ff0000;
+    --color-3: #f00;
     --color-4: #00007b;
     --color-5: #7b0000;
     --color-6: #007b7b;
-    --color-7: #000000;
+    --color-7: #000;
     --color-8: #7b7b7b;
 }
 
@@ -45,7 +45,7 @@ body {
     padding: 12px;
     border: 3px solid;
     border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgb(0 0 0 / 15%);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -64,7 +64,7 @@ body {
 
 .status-box {
     background-color: #000;
-    color: #ff0000;
+    color: #f00;
     padding: 2px 6px;
     border: 1px solid var(--border-dark);
     display: flex;
@@ -168,7 +168,7 @@ body {
 
 /* Міна, на яку натиснув гравець (вибух) */
 .cell.revealed.mine.exploded {
-    background-color: #ff3333;
+    background-color: #f33;
 }
 
 /* Стилі для чисел навколо мін */
@@ -184,7 +184,7 @@ body {
 /* ==========================================================================
    Адаптивність (Responsive Design)
    ========================================================================== */
-@media (max-width: 480px) {
+@media (width <= 480px) {
     :root {
         --cell-size: 28px;
     }
