@@ -1,3 +1,8 @@
+:root {
+    --board-columns: 10;
+    --animation-duration: 0.15s;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -51,7 +56,7 @@ body {
     background: #eee;
     font-size: 26px;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform var(--animation-duration) ease;
 }
 
 .new-game:hover {
@@ -60,7 +65,7 @@ body {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(var(--board-columns), 1fr);
     width: 100%;
     border: 4px solid #151520;
     background: #151520;
