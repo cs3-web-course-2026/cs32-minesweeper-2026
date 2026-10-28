@@ -112,11 +112,18 @@ function openCell(row, col) {
   if (!isInsideField(row, col)) return;
 
   const cell = gameState.field[row][col];
+  
   // Якщо клітинка вже відкрита або на ній прапорець — нічого не робимо
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
   startTimer();
   cell.state = 'opened';
+
+  // Якщо натрапили на міну, гра завершується
+  if (cell.type === 'mine') {
+    finishGame('lose', [row, col]);
+    return;
+  }
 
   // Якщо поруч немає мін, відкриваємо ВСІХ закритих сусідів
   if (cell.neighborMines === 0) {
