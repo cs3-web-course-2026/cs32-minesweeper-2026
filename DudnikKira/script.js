@@ -38,9 +38,6 @@ function initGame() {
   renderBoard();
 }
 
-/**
- * Генерує ігрове поле заданого розміру та одразу розміщує міни
- */
 function generateField(rows, cols, minesCount) {
   const newBoard = [];
   for (let r = 0; r < rows; r++) {
@@ -214,7 +211,7 @@ function revealAllMines() {
   }
 }
 
-// Рендеринг сітки із збереженням фокусу клавіатури
+// Рендеринг сітки із збереженням фокусу клавіатури та повною доступністю (a11y)
 function renderBoard() {
   const activeElement = document.activeElement;
   const focusedIndex = activeElement && activeElement.parentElement === boardElement
@@ -229,7 +226,22 @@ function renderBoard() {
       const cellBtn = document.createElement('button');
       cellBtn.type = 'button';
       cellBtn.classList.add('cell');
-      cellBtn.setAttribute('aria-label', `Клітинка рядок ${r + 1}, колонка ${c + 1}`);
+
+      // Формуємо детальний динамічний aria-label відповідно до вимог код-рев'ю
+      let stateDescription = 'закрита клітинка';
+      if (cellData.state === 'opened') {
+        if (cellData.type === 'mine') {
+          stateDescription = 'відкрита міна';
+        } else {
+          stateDescription = cellData.neighborMines > 0
+            ? `відкрито, мін навколо: ${cellData.neighborMines}`
+            : 'відкрита порожня клітинка';
+        }
+      } else if (cellData.state === 'flagged') {
+        stateDescription = 'з прапорцем';
+      }
+
+      cellBtn.setAttribute('aria-label', `Рядок ${r + 1}, колонка ${c + 1}, ${stateDescription}`);
 
       if (cellData.state === 'opened') {
         cellBtn.classList.add('open');
@@ -250,10 +262,19 @@ function renderBoard() {
         }
       }
 
+      // Клік мишею
       cellBtn.addEventListener('click', () => openCell(r, c));
       cellBtn.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         toggleFlag(r, c);
+      });
+
+      // Керування прапорцем з клавіатури (клавіша F або f)
+      cellBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'f' || e.key === 'F') {
+          e.preventDefault();
+          toggleFlag(r, c);
+        }
       });
 
       boardElement.appendChild(cellBtn);
