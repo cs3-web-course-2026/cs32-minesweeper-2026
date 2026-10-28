@@ -23,6 +23,7 @@ const NEIGHBOUR_OFFSETS = [
   [0, -1],             [0, 1],
   [1, -1],  [1, 0],   [1, 1]
 ];
+const DEFAULT_MESSAGE = 'Відкрий клітинку, щоб почати гру. Правий клік - поставити прапорець.';
 
 // Створює двовимірний масив клітинок і випадково розміщує міни
 function generateField(rows, cols, minesCount) {
@@ -117,13 +118,6 @@ function openCell(row, col) {
   startTimer();
   cell.state = 'opened';
 
-  // Якщо натрапили на міну гра завершується
-  if (cell.type === 'mine') {
-    finishGame('lose', [row, col]);
-    renderField();
-    return;
-  }
-
   // Якщо поруч немає мін, відкриваємо ВСІХ закритих сусідів
   if (cell.neighborMines === 0) {
     getNeighbours(row, col).forEach(([nextRow, nextCol]) => {
@@ -163,6 +157,9 @@ function toggleFlag(row, col) {
     cell.state = 'flagged';
     startTimer();
   }
+
+  // Після успішного перемикання повертаємо звичайну підказку
+  messageElement.textContent = DEFAULT_MESSAGE;
 
   updateMineCounter();
   renderField();
@@ -279,8 +276,7 @@ function startNewGame() {
   gameState.started = false;
   gameState.field = generateField(gameState.rows, gameState.cols, gameState.minesCount);
   countNeighbourMines(gameState.field);
-
-  messageElement.textContent = 'Відкрий клітинку, щоб почати гру. Правий клік - поставити прапорець.';
+  messageElement.textContent = DEFAULT_MESSAGE;
   messageElement.className = 'game-message';
 
   renderField();
