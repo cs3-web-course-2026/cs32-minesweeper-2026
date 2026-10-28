@@ -135,7 +135,8 @@ body {
     padding: 0;
 }
 
-.cell:active:not(.revealed):not(.flagged) {
+/* Виправлено рядок з :not() нотацією відповідно до вимог лінтера */
+.cell:active:not(.revealed, .flagged) {
     border-width: 1px;
     border-color: var(--border-dark);
 }
