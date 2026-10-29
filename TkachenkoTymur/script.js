@@ -279,8 +279,18 @@ function getCellAriaLabel(cell, row, col) {
 }
 
 function renderBoard() {
+  // Зберігаємо координати клітинки, яка у фокусі перед очищенням
+  let focusedRow = null;
+  let focusedCol = null;
+  if (document.activeElement && document.activeElement.classList.contains('cell')) {
+    focusedRow = document.activeElement.dataset.row;
+    focusedCol = document.activeElement.dataset.col;
+  }
+
   boardElement.innerHTML = '';
   boardElement.style.setProperty('--cols', String(gameState.cols));
+
+  let cellToFocus = null;
 
   for (let r = 0; r < gameState.rows; r += 1) {
     for (let c = 0; c < gameState.cols; c += 1) {
@@ -315,10 +325,20 @@ function renderBoard() {
 
       button.setAttribute('aria-label', getCellAriaLabel(cell, r, c));
       boardElement.appendChild(button);
+
+      // Знаходимо клітинку для відновлення фокусу
+      if (focusedRow === String(r) && focusedCol === String(c)) {
+        cellToFocus = button;
+      }
     }
   }
 
   updateUIHeader();
+
+  // Відновлюємо фокус
+  if (cellToFocus) {
+    cellToFocus.focus();
+  }
 }
 
 function initGame() {
