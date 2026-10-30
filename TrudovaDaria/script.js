@@ -112,7 +112,7 @@ function openCell(row, col) {
   if (!isInsideField(row, col)) return;
 
   const cell = gameState.field[row][col];
-  
+
   // Якщо клітинка вже відкрита або на ній прапорець — нічого не робимо
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
@@ -203,6 +203,27 @@ function finishGame(result, explodedCell = null) {
   }
 }
 
+// Формує текст для скрінридерів з урахуванням стану клітинки
+function getCellLabel(cell, rowIndex, colIndex) {
+  const position = `Рядок ${rowIndex + 1}, стовпець ${colIndex + 1}`;
+
+  if (cell.state === 'flagged') return `${position}, прапорець`;
+
+  if (cell.state === 'opened') {
+    if (cell.type === 'mine') return `${position}, міна`;
+    if (cell.neighborMines > 0) {
+      return `${position}, відкрита клітинка, мін поруч: ${cell.neighborMines}`;
+    }
+    return `${position}, відкрита порожня клітинка`;
+  }
+
+  if (gameState.status !== 'process' && cell.type === 'mine') {
+    return `${position}, міна`;
+  }
+
+  return `${position}, закрита клітинка`;
+}
+
 // Створює HTML-клітинки на основі актуального стану масиву
 function renderField(explodedRow = null, explodedCol = null) {
   const activeElement = document.activeElement;
@@ -226,7 +247,7 @@ function renderField(explodedRow = null, explodedCol = null) {
 
       const isExploded = explodedRow === rowIndex && explodedCol === colIndex;
 
-      if (cell.state === 'opened') {
+        if (cell.state === 'opened') {
         button.classList.add('cell-opened');
 
         if (cell.type === 'mine') {
@@ -238,20 +259,18 @@ function renderField(explodedRow = null, explodedCol = null) {
         } else {
           button.textContent = '';
         }
-      } else if (gameState.status !== 'process' && cell.type === 'mine') {
-        button.classList.add('cell-opened', 'cell-mine');
-        button.textContent = '💣';
       } else if (cell.state === 'flagged') {
         button.classList.add('cell-flagged');
         button.textContent = '🚩';
+      } else if (gameState.status !== 'process' && cell.type === 'mine') {
+        button.classList.add('cell-opened', 'cell-mine');
+        button.textContent = '💣';
       }
+
+      button.setAttribute('aria-label', getCellLabel(cell, rowIndex, colIndex));
 
       if (gameState.status !== 'process') {
         button.disabled = true;
-      } else {
-        button.setAttribute('aria-label', cell.state === 'opened'
-          ? `Рядок ${rowIndex + 1}, стовпець ${colIndex + 1}, відкрита клітинка`
-          : `Рядок ${rowIndex + 1}, стовпець ${colIndex + 1}, закрита клітинка`);
       }
 
       fragment.appendChild(button);
