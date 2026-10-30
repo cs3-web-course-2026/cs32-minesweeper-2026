@@ -49,6 +49,7 @@ body::before {
     overflow: hidden;
     background: rgb(255 255 255 / 5%);
     backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgb(0 0 0 / 50%);
 }
 
 .card-header {
@@ -56,7 +57,7 @@ body::before {
     text-align: center;
     border-bottom: 2px solid rgb(255 255 255 / 20%);
     width: 100%;
-    padding: 10px 40px;
+    padding: 15px 40px;
 }
 
 .card-body {
@@ -64,7 +65,7 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 15px;
     width: 100%;
 }
 
@@ -73,13 +74,22 @@ body::before {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    padding: 20px;
+    padding: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
 }
 
 .size-selector input {
-    width: 45px;
+    width: 50px;
     height: 45px;
     background: rgb(0 0 0 / 30%);
     border: 2px solid rgb(255 255 255 / 30%);
@@ -105,10 +115,21 @@ body::before {
 .multiply {
     font-weight: 700;
     color: rgb(255 255 255 / 70%);
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.error-text {
+    color: #f87171;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 20px;
+    text-align: center;
 }
 
 .btn-start {
-    width: 25%;
+    width: 100%;
+    max-width: 200px;
     padding: 12px;
     background: transparent;
     border: 1px solid rgb(255 255 255 / 40%);
@@ -198,6 +219,7 @@ body::before {
     font-size: 16px;
     font-weight: bold;
     user-select: none;
+    color: inherit;
     transition: background var(--transition-speed);
 }
 
@@ -206,20 +228,14 @@ body::before {
 }
 
 .cell.revealed {
-    background: rgb(255 255 255 / 15%) !important;
+    background: rgb(255 255 255 / 15%);
     border-color: rgb(255 255 255 / 10%);
     cursor: default;
 }
 
-.cell.flagged,
-.cell.flagged-safe {
+.cell.flagged {
     background: rgb(239 68 68 / 20%);
     border-color: rgb(239 68 68 / 50%);
-}
-
-.cell.flagged-mine {
-    background: rgb(34 197 94 / 20%);
-    border-color: rgb(34 197 94 / 50%);
 }
 
 .cell.number-1 { color: #38bdf8; }
@@ -246,6 +262,51 @@ body::before {
 
 .btn-restart:hover {
     background: rgb(255 255 255 / 15%);
+}
+
+/* Modal Popup Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 0 / 60%);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-card {
+    background: rgb(15 23 42 / 90%);
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 60%);
+    min-width: 280px;
+}
+
+.modal-card h2 {
+    font-size: 22px;
+    color: #fff;
+}
+
+.modal-card p {
+    font-size: 14px;
+    color: rgb(255 255 255 / 80%);
+}
+
+.modal-card .btn-start {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .board-wrapper {
