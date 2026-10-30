@@ -1,12 +1,14 @@
 :root {
-  --bg-body: #1e1e2f;
-  --bg-board: #fff;
-  --cell-closed: #b2bec3;
-  --cell-open: #dfe6e9;
-  --cell-hover: #95a5a6;
-  --danger: #d63031;
-  --accent: #0984e3;
-  --cell-size: 36px;
+  --bg-body: #222;
+  --bg-board: #c55c00;
+  --cell-closed: #676666;
+  --cell-open: #e5c158;
+  --cell-hover: #ff6a00;
+  --danger: #c00;
+  --success: #187a42;
+  --accent: #ff1500;
+  --cols: 10;
+  --cell-size: 32px;
 }
 
 body {
@@ -21,7 +23,7 @@ body {
 
 .game-wrapper {
   background-color: var(--bg-board);
-  padding: 20px;
+  padding: 16px;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0 0 0 / 40%);
   display: inline-block;
@@ -31,16 +33,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   padding: 10px;
-  background-color: #f1f2f6;
+  background-color: #fff;
   border-radius: 8px;
-  border: 1px solid #ced6e0;
+  border: 1px solid #040404;
 }
 
 .display {
-  background-color: #2f3542;
-  color: #2ed573;
+  background-color: #2e2e2e;
+  color: #fb1e13;
   font-family: monospace;
   font-size: 20px;
   font-weight: bold;
@@ -63,16 +65,38 @@ body {
 }
 
 .start-btn:hover {
-  background-color: #74b9ff;
+  background-color: #c0392b;
+}
+
+.game-status {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 12px;
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #f1f2f6;
+  color: #2d3436;
+}
+
+.game-status.status-win {
+  background-color: var(--success);
+  color: #fff;
+}
+
+.game-status.status-lose {
+  background-color: var(--danger);
+  color: #fff;
 }
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(8, var(--cell-size));
+  grid-template-columns: repeat(var(--cols), var(--cell-size));
   gap: 2px;
-  background-color: #636e72;
+  background-color: #959595;
   padding: 4px;
   border-radius: 6px;
+  user-select: none;
 }
 
 .cell {
@@ -82,7 +106,7 @@ body {
   border: none;
   border-radius: 3px;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,8 +135,8 @@ body {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 9px solid var(--danger);
-  top: 7px;
-  left: 13px;
+  top: 6px;
+  left: 11px;
   z-index: 2;
 }
 
@@ -120,10 +144,10 @@ body {
   content: "";
   position: absolute;
   width: 2px;
-  height: 16px;
-  background-color: #2d3436;
-  top: 7px;
-  left: 11px;
+  height: 14px;
+  background-color: #f3f4f5;
+  top: 6px;
+  left: 9px;
 }
 
 .cell.false-flag {
@@ -139,8 +163,8 @@ body {
 .cell.mine::before {
   content: "";
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background-color: #2d3436;
   border-radius: 50%;
 }
@@ -152,18 +176,30 @@ body {
   height: 4px;
   background-color: #fff;
   border-radius: 50%;
-  top: 10px;
-  left: 11px;
+  top: 9px;
+  left: 10px;
   opacity: 0.8;
 }
 
 .num-1 { color: #0984e3; }
 .num-2 { color: #00b894; }
-.num-3 { color: #d63031; }
-.num-4 { color: #6c5ce7; }
+.num-3 { color: #8b0000; }
+.num-4 { color: #3f136e; }
+.num-5 { color: #b73812; }
+.num-6 { color: #005f60; }
+.num-7 { color: #000; }
+.num-8 { color: #2d3436; }
 
-@media (width <= 350px) {
+@media (width <= 400px) {
   :root {
-    --cell-size: 30px;
+    --cell-size: 25px;
+  }
+
+  .game-wrapper {
+    padding: 10px;
+  }
+
+  .cell {
+    font-size: 13px;
   }
 }
