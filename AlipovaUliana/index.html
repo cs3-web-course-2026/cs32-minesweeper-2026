@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper — Сапер</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="game-container">
+    <!-- Хедер гри -->
+    <header class="game-header">
+        <!-- Індикатор кількості прапорців -->
+        <div class="status-box" title="Залишилось мін / прапорців">
+            <span class="icon">🚩</span>
+            <span id="mines-count" class="digital-display">010</span>
+        </div>
+
+        <!-- Кнопка старту / перезапуску -->
+        <button type="button" class="restart-btn" aria-label="Почати нову гру" id="restart-btn">
+            🙂
+        </button>
+
+        <!-- Таймер -->
+        <div class="status-box" title="Час гри">
+            <span class="icon">⏱️</span>
+            <span id="timer" class="digital-display">000</span>
+        </div>
+    </header>
+
+    <!-- Ігрове поле (10x10) -->
+    <section class="game-board" id="board" aria-label="Ігрове поле Сапер">
+
+        <!-- Приклади різних станів клітинок для візуації -->
+
+        <!-- 1. Закриті клітинки -->
+        <button class="cell" aria-label="Клітинка"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+        <!-- 2. Відкриті порожні та цифрові клітинки -->
+        <button class="cell revealed"></button>
+        <button class="cell revealed val-1">1</button>
+        <button class="cell revealed val-2">2</button>
+        <button class="cell revealed val-3">3</button>
+        <button class="cell revealed val-4">4</button>
+        <button class="cell revealed val-5">5</button>
+        <button class="cell revealed val-6">6</button>
+        <button class="cell revealed val-7">7</button>
+        <button class="cell revealed val-8">8</button>
+        <button class="cell"></button>
+
+        <!-- 3. Клітинки з прапорцем (правильним та помилковим) -->
+        <button class="cell flagged" aria-label="Прапорцем позначено"></button>
+        <button class="cell flagged" aria-label="Прапорцем позначено"></button>
+        <!-- Помилково поставлений прапорець (після програшу) -->
+        <button class="cell flagged wrong-flag" aria-label="Невірно поставлений прапорець"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+        <!-- 4. Міни: звичайна відкрита міна та міна, на яку натиснули (вибух) -->
+        <button class="cell revealed mine" aria-label="Міна"></button>
+        <button class="cell revealed mine exploded" aria-label="Вибух міни"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+        <button class="cell"></button>
+
+        <!-- Решта закріплювальних закритих клітинок (доповнення до 100) -->
+        <!-- Рядок 5 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        <!-- Рядок 6 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        <!-- Рядок 7 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        <!-- Рядок 8 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        <!-- Рядок 9 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+        <!-- Рядок 10 -->
+        <button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button><button class="cell"></button>
+
+    </section>
+</main>
+
+</body>
+</html>
