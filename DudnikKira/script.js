@@ -2,7 +2,7 @@ const ROWS = 10;
 const COLS = 10;
 const MINES_COUNT = 15;
 
-// Константи типів клітинок (згідно з зауваженням CodeRabbit щодо UPPER_SNAKE_CASE)
+// Константи типів клітинок (enum-стиль)
 const CELL_TYPES = {
   EMPTY: 'empty',
   MINE: 'mine'
@@ -81,14 +81,29 @@ function generateField(rows, cols, minesCount) {
   return newBoard;
 }
 
-// Перерозподіл мін із захистом першого кліку
+// Захист першого кліку: перенесення міни без скидання прапорців та станів дошки
 function placeMinesWithFirstClickSafety(excludeRow, excludeCol) {
-  while (board[excludeRow][excludeCol].type === CELL_TYPES.MINE) {
-    board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
+  if (board[excludeRow][excludeCol].type === CELL_TYPES.MINE) {
+    // Прибираємо міну з клітинки, куди клікнули
+    board[excludeRow][excludeCol].type = CELL_TYPES.EMPTY;
+
+    // Шукаємо іншу порожню клітинку, щоб перемістити туди міну
+    let placed = false;
+    while (!placed) {
+      const r = Math.floor(Math.random() * gameState.rows);
+      const c = Math.floor(Math.random() * gameState.cols);
+      if ((r !== excludeRow || c !== excludeCol) && board[r][c].type !== CELL_TYPES.MINE) {
+        board[r][c].type = CELL_TYPES.MINE;
+        placed = true;
+      }
+    }
+
+    // Перераховуємо сусідні міни для всього поля
+    countNeighbourMines(board, gameState.rows, gameState.cols);
   }
 }
 
-// Обов'язкова вимога: точна назва функції countNeighbourMines
+// Підрахунок сусідніх мін (точна назва згідно з вимогами)
 function countNeighbourMines(targetBoard, rows, cols) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -123,8 +138,7 @@ function openCell(row, col) {
     gameState.isFirstClick = false;
     if (cellData.type === CELL_TYPES.MINE) {
       placeMinesWithFirstClickSafety(row, col);
-      // Оновлюємо посилання на клітинку з нового згенерованого поля
-      cellData = board[row][col];
+      cellData = board[row][col]; // оновлюємо посилання
     }
     startTimer();
   }
@@ -224,7 +238,7 @@ function revealAllMines() {
   }
 }
 
-// Рендеринг сітки із збереженням фокусу клавіатури та повною доступністю (a11y)
+// Рендеринг сітки із збереженням фокусу клавіатури та доступністю (a11y)
 function renderBoard() {
   const activeElement = document.activeElement;
   const focusedIndex = activeElement && activeElement.parentElement === boardElement
@@ -266,7 +280,7 @@ function renderBoard() {
           cellBtn.textContent = cellData.neighborMines;
           cellBtn.classList.add(`number-${cellData.neighborMines}`);
         }
-      } else if (cellData.state === 'flagged') {
+      } else if (cellData.state === CELL_STATES.FLAGGED) {
         if (cellData.type === CELL_TYPES.MINE) {
           cellBtn.classList.add('flag-mine');
         } else {
