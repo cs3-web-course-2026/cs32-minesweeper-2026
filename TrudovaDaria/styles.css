@@ -1,11 +1,11 @@
 /* Основні змінні гри */
 :root {
-  --board-columns: 9;
-  --cell-size: 2.5rem;
-  --game-width: 25.2rem;
+  --board-columns: 10;
+  --cell-size: 2.2rem;
+  --game-width: 27rem;
   --border-radius: 0.75rem;
   --shadow-size: 0.75rem;
-  --cell-font-size: 1.25rem;
+  --cell-font-size: 1.2rem;
   --transition-duration: 0.15s;
 }
 
@@ -21,8 +21,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: #dfe6e9;
-  color: #2d3436;
+  background: #e0f2fe;
+  color: #0c4a6e;
   font-family: Arial, sans-serif;
 }
 
@@ -30,9 +30,9 @@ body {
 .game {
   width: min(100%, var(--game-width));
   padding: 1rem;
-  border: 0.15rem solid #b2bec3;
+  border: 0.15rem solid #7dd3fc;
   border-radius: var(--border-radius);
-  background: #f5f6fa;
+  background: #f0f9ff;
   box-shadow: 0 var(--shadow-size) 1.5rem rgb(0 0 0 / 15%);
 }
 
@@ -76,9 +76,9 @@ body {
 .restart-button {
   width: 3rem;
   height: 3rem;
-  border: 0.15rem solid #636e72;
+  border: 0.15rem solid #7dd3fc;
   border-radius: 0.5rem;
-  background: #dfe6e9;
+  background: #e0f2fe;
   font-size: 1.5rem;
   cursor: pointer;
   transition:
@@ -103,8 +103,8 @@ body {
   grid-template-columns: repeat(var(--board-columns), var(--cell-size));
   justify-content: center;
   overflow: auto;
-  border: 0.2rem solid #636e72;
-  background: #636e72;
+  border: 0.2rem solid #0284c7;
+  background: #0284c7;
 }
 
 /* Загальні стилі клітинок */
@@ -114,7 +114,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.1rem solid #636e72;
+  border: 0.1rem solid #0369a1;
   border-radius: 0;
   font-size: var(--cell-font-size);
   font-weight: 700;
@@ -128,39 +128,21 @@ body {
   outline-offset: 0.1rem;
 }
 
-/* Закрита клітинка */
-.cell-closed {
-  background: #b2bec3;
-  border-color: #fff #636e72 #636e72 #fff;
-}
-
-.cell-closed:hover {
-  background: #dfe6e9;
-}
-
 /* Відкрита клітинка */
 .cell-opened {
-  background: #dfe6e9;
+  background: #bae6fd;
+  border: 0.1rem solid #7dd3fc;
+  box-shadow: none;
   cursor: default;
-}
-
-/* Кольори чисел у відкритих клітинках */
-.cell-number-1 {
-  color: #0984e3;
-}
-
-.cell-number-2 {
-  color: #00b894;
-}
-
-.cell-number-3 {
-  color: #d63031;
 }
 
 /* Клітинка з прапорцем */
 .cell-flagged {
-  background: #b2bec3;
-  border-color: #fff #636e72 #636e72 #fff;
+  background: #fff;
+  border-top: 0.1rem solid #fff;
+  border-left: 0.1rem solid #fff;
+  border-right: 0.1rem solid #0369a1;
+  border-bottom: 0.1rem solid #0369a1;
 }
 
 /* Прапорець на клітинці з міною */
@@ -181,12 +163,44 @@ body {
   cursor: default;
 }
 
+/* Закриті клітинки */
+.cell:not(.cell-opened, .cell-flagged) {
+  background: #38bdf8;
+  border-color: #7dd3fc #0284c7 #0284c7 #7dd3fc;
+}
+
+.cell:not(.cell-opened, .cell-flagged):hover {
+  background: #7dd3fc;
+}
+
+/* Кольори чисел у відкритих клітинках */
+.cell-number-1 { color: #0284c7; }
+.cell-number-2 { color: #00875a; }
+.cell-number-3 { color: #d63031; }
+.cell-number-4 { color: #6c5ce7; }
+.cell-number-5 { color: #c0392b; }
+.cell-number-6 { color: #008b8b; }
+.cell-number-7 { color: #2d3436; }
+.cell-number-8 { color: #636e72; }
+
+.cell-exploded {
+  background: #ff7675 !important;
+}
+
 /* Повідомлення про стан гри */
 .game-message {
   margin: 1rem 0 0;
   text-align: center;
   font-size: 0.95rem;
   font-weight: 600;
+}
+
+.game-message.is-win {
+  color: #008000;
+}
+
+.game-message.is-lose {
+  color: #d63031;
 }
 
 /* Адаптація інтерфейсу для маленьких екранів */
