@@ -8,9 +8,11 @@ const gameState = {
   status: 'process',
   gameTime: 0,
   timerId: null,
-  field: [],
   started: false
 };
+
+// Двовимірний масив клітинок
+let board = [];
 
 const boardElement = document.querySelector('#board');
 const timerElement = document.querySelector('#timer');
@@ -100,7 +102,7 @@ function updateTimer() {
 
 // Кількість прапорців, які ще можна поставити
 function updateMineCounter() {
-  const flagsCount = gameState.field.flat()
+  const flagsCount = board.flat()
     .filter((cell) => cell.state === 'flagged').length;
 
   mineCounterElement.textContent = String(gameState.minesCount - flagsCount);
@@ -111,7 +113,7 @@ function openCell(row, col) {
   if (gameState.status !== 'process') return;
   if (!isInsideField(row, col)) return;
 
-  const cell = gameState.field[row][col];
+  const cell = board[row][col];
 
   // Якщо клітинка вже відкрита або на ній прапорець — нічого не робимо
   if (cell.state === 'opened' || cell.state === 'flagged') return;
@@ -128,7 +130,7 @@ function openCell(row, col) {
   // Якщо поруч немає мін, відкриваємо ВСІХ закритих сусідів
   if (cell.neighborMines === 0) {
     getNeighbours(row, col).forEach(([nextRow, nextCol]) => {
-      const neighbour = gameState.field[nextRow][nextCol];
+      const neighbour = board[nextRow][nextCol];
       if (neighbour.state === 'closed') {
         openCell(nextRow, nextCol);
       }
@@ -148,13 +150,13 @@ function isInsideField(row, col) {
 function toggleFlag(row, col) {
   if (gameState.status !== 'process' || !isInsideField(row, col)) return;
 
-  const cell = gameState.field[row][col];
+  const cell = board[row][col];
   if (cell.state === 'opened') return;
 
   if (cell.state === 'flagged') {
     cell.state = 'closed';
   } else {
-    const flagsCount = gameState.field.flat()
+    const flagsCount = board.flat()
       .filter((item) => item.state === 'flagged').length;
 
     if (flagsCount >= gameState.minesCount) {
@@ -174,7 +176,7 @@ function toggleFlag(row, col) {
 
 // Перевіряє, чи відкриті всі клітинки без мін
 function checkWin() {
-  const allSafeCellsOpened = gameState.field.flat().every((cell) =>
+  const allSafeCellsOpened = board.flat().every((cell) =>
     cell.type === 'mine' || cell.state === 'opened'
   );
 
@@ -237,7 +239,7 @@ function renderField(explodedRow = null, explodedCol = null) {
 
   const fragment = document.createDocumentFragment();
 
-  gameState.field.forEach((row, rowIndex) => {
+  board.forEach((row, rowIndex) => {
     row.forEach((cell, colIndex) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -247,7 +249,7 @@ function renderField(explodedRow = null, explodedCol = null) {
 
       const isExploded = explodedRow === rowIndex && explodedCol === colIndex;
 
-        if (cell.state === 'opened') {
+      if (cell.state === 'opened') {
         button.classList.add('cell-opened');
 
         if (cell.type === 'mine') {
@@ -300,8 +302,8 @@ function startNewGame() {
   gameState.status = 'process';
   gameState.gameTime = 0;
   gameState.started = false;
-  gameState.field = generateField(gameState.rows, gameState.cols, gameState.minesCount);
-  countNeighbourMines(gameState.field);
+  board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
+  countNeighbourMines(board);
   messageElement.textContent = DEFAULT_MESSAGE;
   messageElement.className = 'game-message';
 
