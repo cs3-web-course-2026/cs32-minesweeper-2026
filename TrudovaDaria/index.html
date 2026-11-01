@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minesweeper</title>
+    <title lang="en">Minesweeper</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -11,24 +11,24 @@
     <main class="game">
       <header class="game-header">
         <div class="game-stat">
-          <span class="game-stat-label">Mines</span>
+          <span class="game-stat-label" lang="en">Mines</span>
           <span class="game-stat-value" id="mine-counter">10</span>
         </div>
 
-        <button id="restart-button" class="restart-button" type="button" aria-label="Restart game">
+        <button id="restart-button" class="restart-button" type="button" aria-label="Restart game" lang="en">
           🔁
         </button>
 
         <div class="game-stat">
-          <span class="game-stat-label">Time</span>
+          <span class="game-stat-label" lang="en">Time</span>
           <span class="game-stat-value" id="timer">000</span>
         </div>
       </header>
 
-      <section class="game-board" id="board" aria-label="Minesweeper board"></section>
-      
+      <section class="game-board" id="board" aria-label="Minesweeper board" lang="en"></section>
+
       <p class="game-message" role="status" aria-live="polite">
-        Find all the mines!
+        Знайди всі міни!
       </p>
     </main>
     <script src="script.js"></script>
