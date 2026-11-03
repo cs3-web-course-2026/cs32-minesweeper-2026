@@ -215,6 +215,7 @@ h1 {
 .number-8 {
     color: #868e96;
 }
+
 /* Інтерактивні клітинки */
 
 .board .cell {
@@ -243,6 +244,7 @@ h1 {
     font-size: 14px;
     color: #adb5bd;
 }
+
 /* Адаптивність */
 
 @media (width <= 520px) {
