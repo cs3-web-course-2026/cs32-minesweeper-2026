@@ -8,7 +8,6 @@ const gameState = {
     status: 'process',
     gameTime: 0,
     timerId: null,
-    field: [],
     flagsCount: 0,
     firstMove: true,
     explodedCell: null
@@ -76,25 +75,24 @@ function countNeighbourMines(field) {
             let count = 0;
 
             // Перевіряємо вісім сусідніх клітинок
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) {
+            for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+                for (let colOffset = -1; colOffset <= 1; colOffset++) {
+                    if (rowOffset === 0 && colOffset === 0) {
                         continue;
                     }
 
-                    const nr = row + dr;
-                    const nc = col + dc;
+                    const neighborRow = row + rowOffset;
+                    const neighborCol = col + colOffset;
 
                     if (
-                        nr >= 0 && nr < rows &&
-                        nc >= 0 && nc < cols &&
-                        field[nr][nc].type === 'mine'
+                        neighborRow >= 0 && neighborRow < rows &&
+                        neighborCol >= 0 && neighborCol < cols &&
+                        field[neighborRow][neighborCol].type === 'mine'
                     ) {
                         count++;
                     }
                 }
             }
-
             cell.neighborMines = count;
         }
     }
@@ -169,14 +167,13 @@ function openCell(row, col) {
         // Зберігаємо встановлені прапорці
         const flaggedPositions = [];
 
-        board.forEach((cells, r) => {
-            cells.forEach((item, c) => {
-                if (item.state === 'flagged') {
-                    flaggedPositions.push([r, c]);
+        board.forEach((cells, flaggedRow) => {
+            cells.forEach((cellToCheck, flaggedCol) => {
+                if (cellToCheck.state === 'flagged') {
+                    flaggedPositions.push([flaggedRow, flaggedCol]);
                 }
             });
         });
-
         // Створюємо поле без міни на місці першого кліку
         board = generateField(
             gameState.rows,
@@ -185,10 +182,10 @@ function openCell(row, col) {
             { row, col }
         );
 
-        flaggedPositions.forEach(([r, c]) => {
-            board[r][c].state = 'flagged';
+        flaggedPositions.forEach(([flaggedRow, flaggedCol]) => {
+            board[flaggedRow][flaggedCol].state = 'flagged';
         });
-
+        
         gameState.firstMove = false;
         startTimer();
     }
@@ -231,13 +228,13 @@ function revealCell(row, col) {
 
     // Рекурсивно відкриваємо сусідів порожньої клітинки
     if (cell.neighborMines === 0) {
-        for (let dr = -1; dr <= 1; dr++) {
-            for (let dc = -1; dc <= 1; dc++) {
-                if (dr === 0 && dc === 0) {
+        for (let rowOffset = -1; rowOffset <= 1; rowOffset++) {
+            for (let colOffset = -1; colOffset <= 1; colOffset++) {
+                if (rowOffset === 0 && colOffset === 0) {
                     continue;
                 }
 
-                revealCell(row + dr, col + dc);
+                revealCell(row + rowOffset, col + colOffset);
             }
         }
     }
