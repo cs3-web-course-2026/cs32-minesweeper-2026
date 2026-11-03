@@ -1,4 +1,6 @@
 // Стан гри та її основні параметри
+'use strict';
+
 const gameState = {
     rows: 9,
     cols: 9,
@@ -11,6 +13,8 @@ const gameState = {
     firstMove: true,
     explodedCell: null
 };
+
+let board = [];
 
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('#timer');
@@ -121,7 +125,7 @@ function stopTimer() {
 
 function checkWin() {
     // Перемога настає, коли відкрито всі безпечні клітинки
-    const allSafeOpened = gameState.field.every(row =>
+    const allSafeOpened = board.every(row =>
         row.every(cell =>
             cell.type === 'mine' || cell.state === 'opened'
         )
@@ -132,7 +136,7 @@ function checkWin() {
         stopTimer();
 
         // Автоматично позначаємо міни після перемоги
-        gameState.field.forEach(row => {
+        board.forEach(row => {
             row.forEach(cell => {
                 if (cell.type === 'mine' && cell.state !== 'flagged') {
                     cell.state = 'flagged';
@@ -154,7 +158,7 @@ function openCell(row, col) {
         return;
     }
 
-    const cell = gameState.field[row][col];
+    const cell = board[row][col];
 
     // Не відкриваємо вже відкриті клітинки або прапорці
     if (cell.state !== 'closed') {
@@ -165,7 +169,7 @@ function openCell(row, col) {
         // Зберігаємо встановлені прапорці
         const flaggedPositions = [];
 
-        gameState.field.forEach((cells, r) => {
+        board.forEach((cells, r) => {
             cells.forEach((item, c) => {
                 if (item.state === 'flagged') {
                     flaggedPositions.push([r, c]);
@@ -174,7 +178,7 @@ function openCell(row, col) {
         });
 
         // Створюємо поле без міни на місці першого кліку
-        gameState.field = generateField(
+        board = generateField(
             gameState.rows,
             gameState.cols,
             gameState.minesCount,
@@ -182,7 +186,7 @@ function openCell(row, col) {
         );
 
         flaggedPositions.forEach(([r, c]) => {
-            gameState.field[r][c].state = 'flagged';
+            board[r][c].state = 'flagged';
         });
 
         gameState.firstMove = false;
@@ -209,7 +213,7 @@ function revealCell(row, col) {
         return;
     }
 
-    const cell = gameState.field[row][col];
+    const cell = board[row][col];
 
     if (cell.state !== 'closed') {
         return;
@@ -244,7 +248,7 @@ function toggleFlag(row, col) {
         return;
     }
 
-    const cell = gameState.field[row][col];
+    const cell = board[row][col];
 
     // Не дозволяємо ставити прапорець на відкриту клітинку
     if (cell.state === 'opened') {
@@ -264,13 +268,27 @@ function toggleFlag(row, col) {
 }
 
 function renderBoard() {
+    const activeElement = document.activeElement;
+
+    const hadCellFocus =
+        activeElement?.classList.contains('cell') &&
+        boardElement.contains(activeElement);
+
+    const focusedRow = hadCellFocus
+        ? Number(activeElement.dataset.row)
+        : null;
+
+    const focusedCol = hadCellFocus
+        ? Number(activeElement.dataset.col)
+        : null;
+    
     // Кількість стовпців визначається параметрами гри
     boardElement.style.setProperty('--board-columns', gameState.cols);
     boardElement.replaceChildren();
 
     const fragment = document.createDocumentFragment();
 
-    gameState.field.forEach((cells, row) => {
+    board.forEach((cells, row) => {
         cells.forEach((cell, col) => {
             const button = document.createElement('button');
 
@@ -348,6 +366,26 @@ function renderBoard() {
     });
 
     boardElement.appendChild(fragment);
+
+    if (hadCellFocus) {
+        if (gameState.status !== 'process') {
+            restartButton.focus();
+        } else {
+            const previousCell = boardElement.querySelector(
+                `.cell[data-row="${focusedRow}"][data-col="${focusedCol}"]`
+            );
+
+            const nextCell = previousCell && !previousCell.disabled
+                ? previousCell
+                : boardElement.querySelector('.cell:not(:disabled)');
+
+            if (nextCell) {
+                nextCell.focus();
+            } else {
+                restartButton.focus();
+            }
+        }
+    }
 }
 
 function updateUI() {
@@ -392,7 +430,7 @@ function startGame() {
     gameState.explodedCell = null;
 
     // Генеруємо нове ігрове поле
-    gameState.field = generateField(
+    board = generateField(
         gameState.rows,
         gameState.cols,
         gameState.minesCount
