@@ -155,7 +155,7 @@ const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('.time');
 const flagsElement = document.querySelector('.flag-count');
 const startBtn = document.querySelector('.start-btn');
-const statusElement = document.querySelector('[role="status"]');
+const statusElement = document.querySelector('.game-status');
 
 function endGame(status) {
   gameState.status = status;
