@@ -15,9 +15,15 @@
           <span class="game-stat-value" id="mine-counter">10</span>
         </div>
 
-        <button id="restart-button" class="restart-button" type="button" aria-label="Restart game" lang="en">
-          🔁
-        </button>
+        <div class="game-controls">
+          <button id="restart-button" class="restart-button" type="button" aria-label="Restart game" lang="en">
+            🔁
+          </button>
+
+          <button id="flag-mode-button" class="flag-mode-button" type="button" aria-pressed="false" aria-label="Режим прапорця">
+            🚩
+          </button>
+        </div>
 
         <div class="game-stat">
           <span class="game-stat-label" lang="en">Time</span>
@@ -26,10 +32,6 @@
       </header>
 
       <section class="game-board" id="board" aria-label="Ігрове поле сапера"></section>
-
-      <button id="flag-mode-button" class="flag-mode-button" type="button" aria-pressed="false">
-        🚩 Режим прапорця
-      </button>
 
       <p class="game-message" role="status" aria-live="polite">
         Знайди всі міни!

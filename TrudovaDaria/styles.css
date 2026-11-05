@@ -72,6 +72,12 @@ body {
   color: #fff;
 }
 
+/* Контейнер кнопок керування у хедері */
+.game-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
 /* Кнопка початку нової гри */
 .restart-button {
   width: 3rem;
@@ -189,15 +195,12 @@ body {
 
 /* Кнопка режиму прапорця для дотикових екранів */
 .flag-mode-button {
-  display: block;
-  margin: 1rem auto 0;
-  padding: 0.6rem 1rem;
+  width: 3rem;
+  height: 3rem;
   border: 0.15rem solid #7dd3fc;
   border-radius: 0.5rem;
   background: #e0f2fe;
-  color: #0c4a6e;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -213,7 +216,6 @@ body {
 .flag-mode-button.is-active {
   background: #0284c7;
   border-color: #0369a1;
-  color: #fff;
 }
 
 /* Повідомлення про стан гри */
