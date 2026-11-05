@@ -101,7 +101,6 @@ body {
 .game-board {
   display: grid;
   grid-template-columns: repeat(var(--board-columns), var(--cell-size));
-  justify-content: center;
   justify-content: safe center;
   overflow: auto;
   border: 0.2rem solid #0284c7;
