@@ -19,6 +19,8 @@ const timerElement = document.querySelector('#timer');
 const mineCounterElement = document.querySelector('#mine-counter');
 const messageElement = document.querySelector('.game-message');
 const restartButton = document.querySelector('#restart-button');
+const flagModeButton = document.querySelector('#flag-mode-button');
+let isFlagMode = false;
 
 const NEIGHBOUR_OFFSETS = [
   [-1, -1], [-1, 0], [-1, 1],
@@ -306,8 +308,15 @@ function startNewGame() {
   countNeighbourMines(board);
   messageElement.textContent = DEFAULT_MESSAGE;
   messageElement.className = 'game-message';
-
+  setFlagMode(false);
   renderField();
+}
+
+// Вмикає або вимикає режим прапорця
+function setFlagMode(enabled) {
+  isFlagMode = enabled;
+  flagModeButton.setAttribute('aria-pressed', String(enabled));
+  flagModeButton.classList.toggle('is-active', enabled);
 }
 
 // Делегування подій: обробляємо кліки на полі через один обробник
@@ -317,7 +326,12 @@ boardElement.addEventListener('click', (event) => {
 
   const row = Number(cellElement.dataset.row);
   const col = Number(cellElement.dataset.col);
-  openCell(row, col);
+
+  if (isFlagMode) {
+    toggleFlag(row, col);
+  } else {
+    openCell(row, col);
+  }
 });
 
 // Вимикаємо стандартне контекстне меню та ставимо/знімаємо прапорець
@@ -333,6 +347,7 @@ boardElement.addEventListener('contextmenu', (event) => {
 });
 
 restartButton.addEventListener('click', startNewGame);
+flagModeButton.addEventListener('click', () => setFlagMode(!isFlagMode));
 
 // Початкове створення поля
 startNewGame();

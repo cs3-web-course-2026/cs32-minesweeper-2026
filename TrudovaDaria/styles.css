@@ -102,6 +102,7 @@ body {
   display: grid;
   grid-template-columns: repeat(var(--board-columns), var(--cell-size));
   justify-content: center;
+  justify-content: safe center;
   overflow: auto;
   border: 0.2rem solid #0284c7;
   background: #0284c7;
@@ -185,6 +186,35 @@ body {
 
 .cell-exploded {
   background: #ff7675 !important;
+}
+
+/* Кнопка режиму прапорця для дотикових екранів */
+.flag-mode-button {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.6rem 1rem;
+  border: 0.15rem solid #7dd3fc;
+  border-radius: 0.5rem;
+  background: #e0f2fe;
+  color: #0c4a6e;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.flag-mode-button:hover {
+  background: #fff;
+}
+
+.flag-mode-button:focus-visible {
+  outline: 0.2rem solid #0984e3;
+  outline-offset: 0.1rem;
+}
+
+.flag-mode-button.is-active {
+  background: #0284c7;
+  border-color: #0369a1;
+  color: #fff;
 }
 
 /* Повідомлення про стан гри */
