@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper — Сапер</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="game">
+        <header class="game-header">
+            <div>
+                <p class="eyebrow">Класична гра</p>
+                <h1>Minesweeper</h1>
+                <p class="subtitle">Знайди всі безпечні клітинки!</p>
+            </div>
+        </header>
+
+        <section class="game-panel" aria-label="Панель керування грою">
+            <div class="counter">
+                <span class="counter-label">Міни</span>
+                <strong id="mine-counter">15</strong>
+            </div>
+
+            <button id="restart-button" type="button"
+                    aria-label="Почати нову гру">🙂 Нова гра</button>
+
+            <div class="counter">
+                <span class="counter-label">Час</span>
+                <strong id="timer">000</strong>
+            </div>
+        </section>
+
+        <p id="game-message" class="game-message" aria-live="polite">
+            Натисни на клітинку, щоб почати.
+        </p>
+
+        <div class="board-wrapper">
+            <div id="game-board" class="game-board"
+                 role="grid" aria-label="Ігрове поле 10 на 10"></div>
+        </div>
+
+        <footer class="game-footer">
+            <span>Ліва кнопка — відкрити</span>
+            <span>Права кнопка — прапорець</span>
+        </footer>
+    </main>
+</body>
+</html>
