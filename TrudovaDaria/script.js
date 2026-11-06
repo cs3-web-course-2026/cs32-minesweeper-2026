@@ -110,7 +110,22 @@ function updateMineCounter() {
   mineCounterElement.textContent = String(gameState.minesCount - flagsCount);
 }
 
-// Відкриває клітинку, для порожніх клітинок рекурсивно відкриває всіх закритих сусідів
+// Лише змінює стан: відкриває клітинку та, якщо поруч немає мін, її закритих сусідів
+function openCellState(row, col) {
+  const cell = board[row][col];
+
+  if (cell.state !== 'closed') return;
+
+  cell.state = 'opened';
+
+  if (cell.type === 'mine' || cell.neighborMines > 0) return;
+
+  getNeighbours(row, col).forEach(([nextRow, nextCol]) => {
+    openCellState(nextRow, nextCol);
+  });
+}
+
+// Відкриває клітинку, перевіряє перемогу й малює поле один раз
 function openCell(row, col) {
   if (gameState.status !== 'process') return;
   if (!isInsideField(row, col)) return;
@@ -121,26 +136,21 @@ function openCell(row, col) {
   if (cell.state === 'opened' || cell.state === 'flagged') return;
 
   startTimer();
-  cell.state = 'opened';
 
   // Якщо натрапили на міну, гра завершується
   if (cell.type === 'mine') {
+    cell.state = 'opened';
     finishGame('lose', [row, col]);
     return;
   }
 
-  // Якщо поруч немає мін, відкриваємо ВСІХ закритих сусідів
-  if (cell.neighborMines === 0) {
-    getNeighbours(row, col).forEach(([nextRow, nextCol]) => {
-      const neighbour = board[nextRow][nextCol];
-      if (neighbour.state === 'closed') {
-        openCell(nextRow, nextCol);
-      }
-    });
-  }
-
+  openCellState(row, col);
   checkWin();
-  renderField();
+
+  // finishGame уже малює поле, тому тут малюємо лише якщо гра триває
+  if (gameState.status === 'process') {
+    renderField();
+  }
 }
 
 function isInsideField(row, col) {
