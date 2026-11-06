@@ -1,0 +1,170 @@
+:root {
+    --cell-size: 32px;
+    --board-size: calc(var(--cell-size) * 10);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #2c3e50;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.minesweeper-container {
+    background-color: #c0c0c0;
+    border: 3px solid;
+    border-color: #fff #808080 #808080 #fff;
+    padding: 10px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #808080 #fff #fff #808080;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.counter {
+    background-color: #000;
+    color: #f00;
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 5px;
+    letter-spacing: 2px;
+}
+
+.smile-btn {
+    width: 26px;
+    height: 26px;
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    cursor: pointer;
+}
+
+.game-status {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #fff;
+    min-height: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-rows: repeat(10, var(--cell-size));
+    border: 2px solid;
+    border-color: #808080 #fff #fff #808080;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    padding: 0;
+}
+
+.cell.open {
+    border: 1px solid #7b7b7b;
+    background-color: #bdbdbd;
+}
+
+.cell.flag-safe {
+    background-color: #c0c0c0;
+}
+
+.cell.flag-safe::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
+.cell.flag-mine {
+    background-color: #c0c0c0;
+}
+
+.cell.flag-mine::after {
+    content: "🚩";
+    font-size: 12px;
+}
+
+.cell.mine {
+    background-color: #c0c0c0;
+    border-color: #dfdfdf #707070 #707070 #dfdfdf;
+}
+
+.cell.mine::after {
+    content: "💣";
+    font-size: 12px;
+}
+
+.cell.mine.exploded {
+    background-color: #f00;
+    border-color: #ff8080 #800000 #800000 #ff8080;
+}
+
+.cell.mine.exploded::after {
+    content: "💣";
+    font-size: 12px;
+}
+
+.number-1 {
+    color: #00f;
+}
+
+.number-2 {
+    color: #008000;
+}
+
+.number-3 {
+    color: #f00;
+}
+
+.number-4 {
+    color: #000080;
+}
+
+.number-5 {
+    color: #800000;
+}
+
+.number-6 {
+    color: #008080;
+}
+
+.number-7 {
+    color: #000;
+}
+
+.number-8 {
+    color: #808080;
+}
+
+@media (width <= 400px) {
+    :root {
+        --cell-size: 24px;
+    }
+}
