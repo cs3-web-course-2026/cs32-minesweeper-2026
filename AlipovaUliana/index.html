@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper — Сапер</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main class="game-container">
+    <header class="game-header">
+        <div class="status-box" title="Залишилось мін / прапорців">
+            <span class="icon">🚩</span>
+            <span id="mines-count" class="digital-display">015</span>
+        </div>
+
+        <button type="button" class="restart-btn" aria-label="Почати нову гру" id="restart-btn">
+            🙂
+        </button>
+
+        <div class="status-box" title="Час гри">
+            <span class="icon">⏱️</span>
+            <span id="timer" class="digital-display">000</span>
+        </div>
+    </header>
+
+    <section class="game-board" id="board" aria-label="Ігрове поле Сапер">
+    </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
