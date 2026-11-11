@@ -8,7 +8,6 @@ const gameState = {
   status: 'process',
   gameTime: 0,
   timerId: null,
-  started: false
 };
 
 // Двовимірний масив клітинок
@@ -20,7 +19,6 @@ const mineCounterElement = document.querySelector('#mine-counter');
 const messageElement = document.querySelector('.game-message');
 const restartButton = document.querySelector('#restart-button');
 const flagModeButton = document.querySelector('#flag-mode-button');
-let isFlagMode = false;
 
 const NEIGHBOUR_OFFSETS = [
   [-1, -1], [-1, 0], [-1, 1],
@@ -55,26 +53,29 @@ function generateField(rows, cols, minesCount) {
 }
 
 // Повертає координати сусідів, які перебувають у межах поля
-function getNeighbours(row, col) {
+function getNeighbours(field, row, col) {
+  const rows = field.length;
+  const cols = field[0].length;
+
   return NEIGHBOUR_OFFSETS
     .map(([rowOffset, colOffset]) => [row + rowOffset, col + colOffset])
     .filter(([nextRow, nextCol]) =>
       nextRow >= 0 &&
-      nextRow < gameState.rows &&
+      nextRow < rows &&
       nextCol >= 0 &&
-      nextCol < gameState.cols
+      nextCol < cols
     );
 }
 
 // Для кожної безпечної клітинки рахує кількість мін навколо неї
 function countNeighbourMines(field) {
-  for (let row = 0; row < gameState.rows; row += 1) {
-    for (let col = 0; col < gameState.cols; col += 1) {
+  for (let row = 0; row < field.length; row += 1) {
+    for (let col = 0; col < field[row].length; col += 1) {
       const cell = field[row][col];
 
       if (cell.type === 'mine') continue;
 
-      cell.neighborMines = getNeighbours(row, col)
+      cell.neighborMines = getNeighbours(field, row, col)
         .filter(([nextRow, nextCol]) => field[nextRow][nextCol].type === 'mine')
         .length;
     }
@@ -120,7 +121,7 @@ function openCellState(row, col) {
 
   if (cell.type === 'mine' || cell.neighborMines > 0) return;
 
-  getNeighbours(row, col).forEach(([nextRow, nextCol]) => {
+  getNeighbours(board, row, col).forEach(([nextRow, nextCol]) => {
     openCellState(nextRow, nextCol);
   });
 }
@@ -128,7 +129,7 @@ function openCellState(row, col) {
 // Відкриває клітинку, перевіряє перемогу й малює поле один раз
 function openCell(row, col) {
   if (gameState.status !== 'process') return;
-  if (!isInsideField(row, col)) return;
+  if (!isInsideField(board, row, col)) return;
 
   const cell = board[row][col];
 
@@ -153,14 +154,14 @@ function openCell(row, col) {
   }
 }
 
-function isInsideField(row, col) {
-  return row >= 0 && row < gameState.rows &&
-    col >= 0 && col < gameState.cols;
+function isInsideField(field, row, col) {
+  return row >= 0 && row < field.length &&
+    col >= 0 && col < field[0].length;
 }
 
 // Перемикає прапорець на закритій клітинці
 function toggleFlag(row, col) {
-  if (gameState.status !== 'process' || !isInsideField(row, col)) return;
+  if (gameState.status !== 'process' || !isInsideField(board, row, col)) return;
 
   const cell = board[row][col];
   if (cell.state === 'opened') return;
@@ -313,7 +314,6 @@ function startNewGame() {
 
   gameState.status = 'process';
   gameState.gameTime = 0;
-  gameState.started = false;
   board = generateField(gameState.rows, gameState.cols, gameState.minesCount);
   countNeighbourMines(board);
   messageElement.textContent = DEFAULT_MESSAGE;
@@ -322,9 +322,13 @@ function startNewGame() {
   renderField();
 }
 
+// Читає стан режиму прапорця з атрибута кнопки
+function isFlagModeEnabled() {
+  return flagModeButton.getAttribute('aria-pressed') === 'true';
+}
+
 // Вмикає або вимикає режим прапорця
 function setFlagMode(enabled) {
-  isFlagMode = enabled;
   flagModeButton.setAttribute('aria-pressed', String(enabled));
   flagModeButton.classList.toggle('is-active', enabled);
 }
@@ -337,7 +341,7 @@ boardElement.addEventListener('click', (event) => {
   const row = Number(cellElement.dataset.row);
   const col = Number(cellElement.dataset.col);
 
-  if (isFlagMode) {
+  if (isFlagModeEnabled()) {
     toggleFlag(row, col);
   } else {
     openCell(row, col);
@@ -357,7 +361,7 @@ boardElement.addEventListener('contextmenu', (event) => {
 });
 
 restartButton.addEventListener('click', startNewGame);
-flagModeButton.addEventListener('click', () => setFlagMode(!isFlagMode));
+flagModeButton.addEventListener('click', () => setFlagMode(!isFlagModeEnabled()));
 
 // Початкове створення поля
 startNewGame();
