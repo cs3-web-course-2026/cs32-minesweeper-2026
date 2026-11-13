@@ -1,0 +1,260 @@
+/* Змінні розмірів для гнучкої адаптивності */
+:root {
+    --cell-size: 26px;
+}
+
+/* Базові налаштування */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #2c3e50;
+    padding: 16px;
+}
+
+/* Контейнер гри */
+.minesweeper-container {
+    background-color: #bdbdbd;
+    padding: 16px;
+    border-top: 4px solid #fff;
+    border-left: 4px solid #fff;
+    border-right: 4px solid #7b7b7b;
+    border-bottom: 4px solid #7b7b7b;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    overflow-x: auto;
+    user-select: none;
+}
+
+/* Хедер гри */
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #bdbdbd;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-top: 3px solid #7b7b7b;
+    border-left: 3px solid #7b7b7b;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+}
+
+/* Лічильники (таймер та прапорці) */
+.counter {
+    background-color: #000;
+    color: #f00;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border: 2px solid #7b7b7b;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    letter-spacing: 2px;
+}
+
+/* Кнопка нової гри */
+.start-btn {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #bdbdbd;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #7b7b7b;
+    border-bottom: 3px solid #7b7b7b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-btn:active {
+    border-top: 3px solid #7b7b7b;
+    border-left: 3px solid #7b7b7b;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+}
+
+/* Ігрове поле 16х16 (сітка 16 стовпців) */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(16, var(--cell-size));
+    grid-template-rows: repeat(16, var(--cell-size));
+    gap: 0;
+    border-top: 4px solid #7b7b7b;
+    border-left: 4px solid #7b7b7b;
+    border-right: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    background-color: #7b7b7b;
+}
+
+/* Базовий стан: Закрита клітинка */
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #bdbdbd;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #7b7b7b;
+    border-bottom: 3px solid #7b7b7b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--cell-size) * 0.58);
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Стан: Натискання на закриту клітинку */
+.cell:not(.open):active,
+.cell.pressed {
+    border: 1px solid #7b7b7b;
+    border-top: none;
+    border-left: none;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+/* Стан: Відкрита порожня клітинка */
+.cell.open {
+    border: 1px solid #7b7b7b;
+    border-top: none;
+    border-left: none;
+    background-color: #bdbdbd;
+    cursor: default;
+}
+
+/* Стан: Клітинка з прапорцем (на міні) */
+.cell.flag {
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+/* Стан: Клітинка з прапорцем без міни (помилковий перекреслений прапорець) */
+.cell.false-flag,
+.cell.flag.no-mine {
+    position: relative;
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+.cell.false-flag::after,
+.cell.flag.no-mine::after {
+    content: "✕";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #f00;
+    font-size: calc(var(--cell-size) * 0.85);
+    font-weight: bold;
+    line-height: 1;
+    pointer-events: none;
+}
+
+/* Стан: Клітинка зі знаком питання */
+.cell.question {
+    color: #000;
+}
+
+/* Стан: Звичайна відкрита міна при кінці гри */
+.cell.open.mine {
+    font-size: calc(var(--cell-size) * 0.55);
+}
+
+/* Стан: Міна, на яку натиснув користувач (підрив) */
+.cell.open.mine.clicked {
+    background-color: #f00;
+}
+
+/* Кольори цифр (класична колірна гама Сапера 1–8) */
+.cell.num-1 { color: #00f; }
+.cell.num-2 { color: #008000; }
+.cell.num-3 { color: #f00; }
+.cell.num-4 { color: #000080; }
+.cell.num-5 { color: #800000; }
+.cell.num-6 { color: #008080; }
+.cell.num-7 { color: #000; }
+.cell.num-8 { color: #808080; }
+
+/* Адаптивність для планшетів та середніх екранів */
+@media (width <= 540px) {
+    :root {
+        --cell-size: 22px;
+    }
+
+    .minesweeper-container {
+        padding: 12px;
+    }
+
+    .counter {
+        font-size: 24px;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (width <= 440px) {
+    :root {
+        --cell-size: 19px;
+    }
+
+    .cell {
+        border-width: 2px;
+    }
+
+    .game-board {
+        border-width: 3px;
+    }
+
+    .minesweeper-container {
+        padding: 8px;
+    }
+
+    .game-header {
+        padding: 6px;
+        margin-bottom: 10px;
+    }
+
+    .counter {
+        font-size: 20px;
+        letter-spacing: 1px;
+        padding: 1px 4px;
+    }
+
+    .start-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+}
+
+/* Адаптивність для дуже вузьких екранів (до 360px) */
+@media (width <= 360px) {
+    :root {
+        --cell-size: 16.5px;
+    }
+
+    .minesweeper-container {
+        padding: 6px;
+    }
+
+    .counter {
+        font-size: 17px;
+        letter-spacing: 0.5px;
+        padding: 1px 3px;
+    }
+}
+
