@@ -9,7 +9,7 @@
     --mine-color: #d90429;
     --accent-start: #7b2cbf;
     --accent-end: #9d4edd;
-    --text-color: #ffffff;
+    --text-color: #fff;
     --cell-size: min(8vw, 35px);
 }
 
@@ -130,14 +130,14 @@ h1 {
     appearance: none;
 }
 
-.cell:hover:not(.revealed) {
-    background: var(--cell-hover);
-}
-
 .cell.revealed {
     background: var(--cell-revealed);
     border-color: #3c096c;
     cursor: default;
+}
+
+.cell:hover:not(.revealed) {
+    background: var(--cell-hover);
 }
 
 .cell.mine {
@@ -165,7 +165,7 @@ h1 {
     display: none;
 }
 
-@media (max-width: 420px) {
+@media (width <= 420px) {
     body {
         padding: 10px;
     }
