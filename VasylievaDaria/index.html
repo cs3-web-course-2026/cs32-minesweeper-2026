@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фіолетовий Сапер (Minesweeper)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="game-container">
+    <h1>Сапер</h1>
+
+    <header class="game-header">
+        <div class="stat-box"
+             id="flags-count"
+             role="status"
+             aria-live="polite">🚩 15</div>
+
+        <button type="button"
+                id="restart-btn"
+                class="restart-btn"
+                aria-label="Почати нову гру"
+                title="Почати нову гру">😇</button>
+
+        <div class="stat-box" id="timer">⏱️ 000</div>
+    </header>
+
+    <button type="button"
+            id="new-game-btn"
+            class="action-btn">🔄 Нова гра</button>
+
+    <div id="grid" class="grid"
+         aria-label="Ігрове поле Сапера"></div>
+
+    <div id="message"
+         class="message"
+         role="status"
+         aria-live="polite"></div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
