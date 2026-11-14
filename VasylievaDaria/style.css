@@ -130,6 +130,13 @@ h1 {
     appearance: none;
 }
 
+.cell:focus-visible,
+.restart-btn:focus-visible,
+.action-btn:focus-visible {
+    outline: 3px solid #f5c542;
+    outline-offset: 2px;
+}
+
 .cell.revealed {
     background: var(--cell-revealed);
     border-color: #3c096c;
@@ -146,13 +153,6 @@ h1 {
 
 .cell.flagged {
     background: var(--cell-color);
-}
-
-.cell:focus-visible,
-.restart-btn:focus-visible,
-.action-btn:focus-visible {
-    outline: 3px solid #f5c542;
-    outline-offset: 2px;
 }
 
 .message {
