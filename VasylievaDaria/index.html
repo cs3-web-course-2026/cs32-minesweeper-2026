@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -7,26 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="game-container">
+<main class="game-container">
     <h1>Сапер</h1>
 
-    <!-- Верхня панель зі статистикою та смайликом -->
-    <div class="game-header">
-        <div class="stat-box" id="flags-count">🚩 15</div>
-        <button id="restart-btn" class="restart-btn" title="Скинути стан">😇</button>
+    <header class="game-header">
+        <div class="stat-box"
+             id="flags-count"
+             role="status"
+             aria-live="polite">🚩 15</div>
+
+        <button type="button"
+                id="restart-btn"
+                class="restart-btn"
+                aria-label="Почати нову гру"
+                title="Почати нову гру">😇</button>
+
         <div class="stat-box" id="timer">⏱️ 000</div>
-    </div>
+    </header>
 
-    <!-- Окрема кнопка "Нова гра" -->
-    <button id="new-game-btn" class="action-btn">🔄 Нова гра</button>
+    <button type="button"
+            id="new-game-btn"
+            class="action-btn">🔄 Нова гра</button>
 
-    <!-- Ігрове поле -->
-    <div id="grid" class="grid" oncontextmenu="return false;"></div>
+    <div id="grid" class="grid"
+         aria-label="Ігрове поле Сапера"></div>
 
-    <!-- Повідомлення про статус гри -->
-    <div id="message" class="message"></div>
-</div>
+    <div id="message"
+         class="message"
+         role="status"
+         aria-live="polite"></div>
+</main>
 
 <script src="script.js"></script>
 </body>

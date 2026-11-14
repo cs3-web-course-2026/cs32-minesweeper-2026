@@ -1,84 +1,189 @@
+
+:root {
+    --background-start: #2c1654;
+    --background-end: #1a0b33;
+    --panel-color: #1e0f3c;
+    --cell-color: #560bad;
+    --cell-hover: #7209b7;
+    --cell-revealed: #240046;
+    --mine-color: #d90429;
+    --accent-start: #7b2cbf;
+    --accent-end: #9d4edd;
+    --text-color: #ffffff;
+    --cell-size: min(8vw, 35px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #2c1654, #1a0b33);
-    font-family: Arial, sans-serif;
+    padding: 20px;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    color: #fff;
+    background: linear-gradient(
+            135deg,
+            var(--background-start),
+            var(--background-end)
+    );
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
 }
 
 .game-container {
-    background: #1e0f3c;
+    width: fit-content;
+    max-width: 100%;
     padding: 20px;
+    background: var(--panel-color);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
     text-align: center;
 }
 
-.header {
+h1 {
+    margin: 0 0 20px;
+    font-size: 32px;
+}
+
+.game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     margin-bottom: 15px;
-    font-size: 20px;
-    font-weight: bold;
 }
 
-#restart-btn {
-    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
-    border: none;
-    color: #fff;
-    padding: 8px 16px;
-    font-size: 16px;
+.stat-box {
+    min-width: 65px;
+    font-size: 20px;
     font-weight: bold;
-    border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+.restart-btn {
+    padding: 10px 15px;
+    background: linear-gradient(
+            135deg,
+            var(--accent-start),
+            var(--accent-end)
+    );
+    border: none;
+    border-radius: 10px;
+    color: var(--text-color);
+    font-size: 24px;
     cursor: pointer;
 }
 
-#restart-btn:hover {
-    background: linear-gradient(135deg, #9d4edd, #c77dff);
+.restart-btn:hover {
+    filter: brightness(1.2);
 }
 
-.board {
+.action-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, #9d4edd, #e5007d);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    filter: brightness(1.15);
+}
+
+.grid {
     display: grid;
-    grid-template-columns: repeat(10, 35px);
-    grid-template-rows: repeat(10, 35px);
+    grid-template-columns: repeat(10, var(--cell-size));
     gap: 2px;
-    background-color: #3c096c;
     padding: 5px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    background: #3c096c;
     border-radius: 6px;
 }
 
 .cell {
-    width: 35px;
-    height: 35px;
-    background-color: #560bad;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
+    background: var(--cell-color);
+    border: 1px solid #8440d1;
+    border-radius: 3px;
+    color: var(--text-color);
+    font-family: inherit;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     user-select: none;
-    border-radius: 3px;
+    appearance: none;
 }
 
-.cell:hover {
-    background-color: #7209b7;
+.cell:hover:not(.revealed) {
+    background: var(--cell-hover);
 }
 
 .cell.revealed {
-    background-color: #240046;
+    background: var(--cell-revealed);
+    border-color: #3c096c;
     cursor: default;
 }
 
 .cell.mine {
-    background-color: #d90429;
+    background: var(--mine-color);
 }
 
 .cell.flagged {
-    background-color: #560bad;
+    background: var(--cell-color);
+}
+
+.cell:focus-visible,
+.restart-btn:focus-visible,
+.action-btn:focus-visible {
+    outline: 3px solid #f5c542;
+    outline-offset: 2px;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.message:empty {
+    display: none;
+}
+
+@media (max-width: 420px) {
+    body {
+        padding: 10px;
+    }
+
+    .game-container {
+        padding: 12px;
+    }
+
+    .stat-box {
+        min-width: 50px;
+        font-size: 16px;
+    }
+
+    .game-header {
+        gap: 6px;
+    }
+
+    .cell {
+        font-size: 14px;
+    }
 }
