@@ -22,7 +22,9 @@
   --color-text: #e6e7ea;
   --color-text-muted: #9a9ca3;
   --color-accent: #4f8cff;
-  --color-accent-hover: #6b9fff;
+  --color-button-text: #fff;
+  --color-button-background: #2563eb;
+  --color-button-background-hover: #1d4ed8;
 
   /* Кольори клітинок */
   --color-cell-closed: #3a3c42;
@@ -115,14 +117,14 @@ body {
   font-family: inherit;
   font-size: var(--button-font-size);
   font-weight: 600;
-  color: #fff;
-  background-color: var(--color-accent);
+  color: var(--color-button-text);
+  background-color: var(--color-button-background);
   cursor: pointer;
   transition: background-color var(--transition-duration) ease;
 }
 
 .new-game-button:hover {
-  background-color: var(--color-accent-hover);
+  background-color: var(--color-button-background-hover);
 }
 
 .new-game-button:focus-visible {
