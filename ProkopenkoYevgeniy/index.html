@@ -1,54 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minesweeper 16x16</title>
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div
-      class="minesweeper-container"
-      role="application"
-      aria-label="Гра Сапер 16х16"
-    >
-      <!-- Хедер гри -->
-      <header class="game-header">
-        <div
-          class="counter flags-counter"
-          id="flags-counter"
-          aria-label="Кількість доступних прапорців"
-        >
-          040
-        </div>
-        <button
-          type="button"
-          class="start-btn"
-          id="start-btn"
-          aria-label="Нова гра"
-        >
-          🙂
-        </button>
-        <div class="counter timer" id="timer" aria-label="Час гри">000</div>
-      </header>
+</head>
+<body>
+    <div class="minesweeper-container" role="application" aria-label="Гра Сапер 16х16">
+        <!-- Хедер гри -->
+        <header class="game-header">
+            <div class="counter flags-counter"
+                 id="flags-counter"
+                 role="status"
+                 aria-live="polite"
+                 aria-label="Кількість доступних прапорців">
+                040
+            </div>
+            <button type="button" class="start-btn" id="start-btn" aria-label="Нова гра">🙂</button>
+            <div class="counter timer" id="timer" aria-label="Час гри">000</div>
+        </header>
 
-      <!-- Повідомлення про статус гри (перемога / поразка) -->
-      <div
-        class="status-banner hidden"
-        id="status-banner"
-        role="status"
-        aria-live="polite"
-      ></div>
+        <!-- Повідомлення про статус гри (перемога / поразка) -->
+        <div class="status-banner hidden" id="status-banner" role="status" aria-live="polite"></div>
 
-      <!-- Ігрове поле: генерується динамічно через script.js (Крок 5) -->
-      <main
-        class="game-board"
-        id="game-board"
-        role="grid"
-        aria-label="Ігрове поле"
-      ></main>
+        <!-- Ігрове поле: генерується динамічно через script.js (Крок 5) -->
+        <main class="game-board" id="game-board" role="grid" aria-label="Ігрове поле"></main>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
