@@ -596,7 +596,7 @@ header {
   color: #f1dfcb;
 }
 
-@media (width <= 640px) {
+@media (max-width: 640px) {
   h1 {
     font-size: 1.4rem;
   }
