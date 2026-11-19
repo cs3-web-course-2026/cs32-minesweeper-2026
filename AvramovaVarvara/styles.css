@@ -399,8 +399,33 @@ header {
   display: var(--cell-input-display, none);
 }
 
-.f:checked {
+.o:checked {
+  display: none;
+}
+
+.cell:has(.f:checked) {
   counter-increment: cats -1;
+}
+
+.cell:has(.o:checked) .f:not(:checked) {
+  display: none;
+}
+
+.cell:has(.f:checked) .o {
+  display: none;
+}
+
+.game-board:has(.z1:checked) .r1:not(:has(.f:checked)) .f,
+.game-board:has(.z2:checked) .r2:not(:has(.f:checked)) .f,
+.game-board:has(.z3:checked) .r3:not(:has(.f:checked)) .f,
+.game-board:has(.z4:checked) .r4:not(:has(.f:checked)) .f,
+.game-board:has(.z5:checked) .r5:not(:has(.f:checked)) .f,
+.game-board:has(.z6:checked) .r6:not(:has(.f:checked)) .f,
+.game-board:has(.z7:checked) .r7:not(:has(.f:checked)) .f,
+.game-board:has(.z8:checked) .r8:not(:has(.f:checked)) .f,
+.game-board:has(.z9:checked) .r9:not(:has(.f:checked)) .f,
+.game-board:has(.z10:checked) .r10:not(:has(.f:checked)) .f {
+  display: none;
 }
 
 .t0 {
@@ -532,9 +557,6 @@ header {
   display: block;
 }
 
-.o:checked {
-  display: none;
-}
 
 #game:where(:has(#mode-open:checked)) .cell .f,
 #game:where(:has(#mode-flag:checked)) .cell .o {
