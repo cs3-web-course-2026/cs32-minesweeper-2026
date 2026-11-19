@@ -1,4 +1,3 @@
-
 body {
   background-color: #f1dfcb;
 }
@@ -79,7 +78,7 @@ header {
 }
 
 .timer {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 16px;
   font-weight: bold;
   color: #673303;
@@ -90,7 +89,7 @@ header {
 }
 
 .cats-count {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 20px;
   font-weight: bold;
   color: #673303;
@@ -112,7 +111,7 @@ header {
 .msg {
   display: none;
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 16px;
   font-weight: bold;
   color: #673303;
@@ -165,345 +164,149 @@ header {
   --cell-input-display: none;
 }
 
-#game:where(:has(
-    .z1:checked
-  ):has(
-    #o4:checked, .z1:checked
-  ):has(
-    #o6:checked
-  ):has(
-    #o7:checked
-  ):has(
-    #o8:checked
-  ):has(
-    #o9:checked
-  ):has(
-    #o11:checked
-  ):has(
-    #o12:checked
-  ):has(
-    #o14:checked, .z2:checked
-  ):has(
-    .z2:checked
-  ):has(
-    #o20:checked, .z1:checked
-  ):has(
-    #o21:checked
-  ):has(
-    #o22:checked
-  ):has(
-    #o23:checked
-  ):has(
-    #o25:checked
-  ):has(
-    #o26:checked
-  ):has(
-    #o27:checked
-  ):has(
-    #o29:checked, .z2:checked
-  ):has(
-    #o30:checked, .z2:checked
-  ):has(
-    #o32:checked, .z1:checked
-  ):has(
-    #o33:checked, .z1:checked
-  ):has(
-    #o36:checked, .z1:checked
-  ):has(
-    #o37:checked
-  ):has(
-    #o38:checked, .z3:checked
-  ):has(
-    #o39:checked, .z3:checked
-  ):has(
-    #o40:checked, .z3:checked
-  ):has(
-    #o41:checked
-  ):has(
-    #o44:checked, .z2:checked
-  ):has(
-    #o45:checked, .z2:checked
-  ):has(
-    #o49:checked, .z1:checked
-  ):has(
-    #o52:checked, .z1:checked
-  ):has(
-    #o54:checked, .z3:checked
-  ):has(
-    .z3:checked
-  ):has(
-    #o56:checked, .z3:checked
-  ):has(
-    #o58:checked
-  ):has(
-    #o59:checked
-  ):has(
-    #o60:checked, .z2:checked
-  ):has(
-    #o64:checked, .z4:checked
-  ):has(
-    #o65:checked, .z1:checked, .z4:checked
-  ):has(
-    #o66:checked, .z1:checked
-  ):has(
-    #o67:checked, .z1:checked
-  ):has(
-    #o68:checked, .z1:checked
-  ):has(
-    #o70:checked, .z3:checked
-  ):has(
-    #o72:checked, .z3:checked
-  ):has(
-    #o73:checked
-  ):has(
-    #o75:checked
-  ):has(
-    #o76:checked, .z2:checked
-  ):has(
-    #o77:checked, .z2:checked
-  ):has(
-    #o78:checked, .z2:checked
-  ):has(
-    .z4:checked
-  ):has(
-    #o81:checked, .z4:checked
-  ):has(
-    #o83:checked
-  ):has(
-    #o85:checked
-  ):has(
-    #o86:checked, .z3:checked
-  ):has(
-    #o87:checked, .z3:checked
-  ):has(
-    #o88:checked, .z3:checked, .z5:checked
-  ):has(
-    #o89:checked, .z5:checked
-  ):has(
-    #o90:checked, .z5:checked
-  ):has(
-    #o91:checked, .z5:checked
-  ):has(
-    #o92:checked, .z5:checked
-  ):has(
-    #o94:checked, .z2:checked
-  ):has(
-    #o97:checked, .z4:checked
-  ):has(
-    #o98:checked, .z4:checked
-  ):has(
-    #o99:checked
-  ):has(
-    #o102:checked
-  ):has(
-    #o104:checked, .z5:checked
-  ):has(
-    .z5:checked
-  ):has(
-    #o108:checked, .z5:checked
-  ):has(
-    #o110:checked, .z2:checked
-  ):has(
-    #o111:checked, .z2:checked
-  ):has(
-    #o114:checked, .z4:checked
-  ):has(
-    #o117:checked
-  ):has(
-    #o118:checked
-  ):has(
-    #o119:checked
-  ):has(
-    #o120:checked, .z5:checked
-  ):has(
-    #o121:checked, .z5:checked
-  ):has(
-    #o122:checked, .z5:checked
-  ):has(
-    #o123:checked, .z5:checked
-  ):has(
-    #o124:checked, .z5:checked
-  ):has(
-    #o125:checked
-  ):has(
-    #o127:checked
-  ):has(
-    #o130:checked, .z4:checked
-  ):has(
-    #o131:checked
-  ):has(
-    #o132:checked, .z6:checked
-  ):has(
-    #o133:checked, .z6:checked
-  ):has(
-    #o134:checked, .z6:checked
-  ):has(
-    #o135:checked
-  ):has(
-    #o136:checked
-  ):has(
-    #o138:checked
-  ):has(
-    #o140:checked
-  ):has(
-    #o142:checked, .z7:checked
-  ):has(
-    #o143:checked, .z7:checked
-  ):has(
-    #o146:checked, .z4:checked
-  ):has(
-    #o147:checked
-  ):has(
-    #o148:checked, .z6:checked
-  ):has(
-    .z6:checked
-  ):has(
-    #o150:checked, .z6:checked
-  ):has(
-    #o152:checked
-  ):has(
-    #o153:checked
-  ):has(
-    #o154:checked
-  ):has(
-    #o155:checked
-  ):has(
-    #o156:checked
-  ):has(
-    #o157:checked
-  ):has(
-    #o158:checked, .z7:checked
-  ):has(
-    .z7:checked
-  ):has(
-    #o162:checked, .z4:checked
-  ):has(
-    #o164:checked, .z6:checked
-  ):has(
-    #o165:checked, .z6:checked
-  ):has(
-    #o166:checked, .z6:checked
-  ):has(
-    #o167:checked
-  ):has(
-    #o168:checked
-  ):has(
-    #o170:checked
-  ):has(
-    #o171:checked
-  ):has(
-    #o172:checked
-  ):has(
-    #o173:checked
-  ):has(
-    #o174:checked, .z7:checked
-  ):has(
-    #o175:checked, .z7:checked
-  ):has(
-    #o176:checked, .z4:checked
-  ):has(
-    #o177:checked, .z4:checked, .z8:checked
-  ):has(
-    #o178:checked, .z4:checked, .z8:checked
-  ):has(
-    #o179:checked, .z8:checked
-  ):has(
-    #o180:checked, .z8:checked
-  ):has(
-    #o182:checked
-  ):has(
-    #o183:checked
-  ):has(
-    #o185:checked, .z9:checked
-  ):has(
-    #o186:checked, .z9:checked
-  ):has(
-    #o187:checked, .z9:checked
-  ):has(
-    #o189:checked
-  ):has(
-    #o190:checked
-  ):has(
-    #o193:checked, .z8:checked
-  ):has(
-    .z8:checked
-  ):has(
-    #o196:checked, .z8:checked
-  ):has(
-    #o197:checked, .z8:checked
-  ):has(
-    #o199:checked
-  ):has(
-    #o200:checked, .z9:checked
-  ):has(
-    #o201:checked, .z9:checked
-  ):has(
-    .z9:checked
-  ):has(
-    #o203:checked, .z9:checked
-  ):has(
-    #o204:checked, .z9:checked
-  ):has(
-    #o205:checked
-  ):has(
-    #o206:checked, .z10:checked
-  ):has(
-    #o207:checked, .z10:checked
-  ):has(
-    #o208:checked
-  ):has(
-    #o209:checked, .z8:checked
-  ):has(
-    #o213:checked, .z8:checked
-  ):has(
-    #o214:checked
-  ):has(
-    #o216:checked, .z9:checked
-  ):has(
-    #o220:checked, .z9:checked
-  ):has(
-    #o221:checked
-  ):has(
-    #o222:checked, .z10:checked
-  ):has(
-    .z10:checked
-  ):has(
-    #o224:checked
-  ):has(
-    #o225:checked, .z8:checked
-  ):has(
-    #o226:checked, .z8:checked
-  ):has(
-    #o229:checked, .z8:checked
-  ):has(
-    #o231:checked, .z9:checked
-  ):has(
-    #o232:checked, .z9:checked
-  ):has(
-    #o234:checked, .z9:checked
-  ):has(
-    #o235:checked, .z9:checked
-  ):has(
-    #o236:checked, .z9:checked
-  ):has(
-    #o238:checked, .z10:checked
-  ):has(
-    #o242:checked, .z8:checked
-  ):has(
-    #o245:checked, .z8:checked
-  ):has(
-    #o246:checked
-  ):has(
-    #o247:checked, .z9:checked
-  ):has(
-    #o250:checked, .z9:checked
-  ):has(
-    #o252:checked
-  ):has(
-    #o253:checked
-  ):has(
-    #o254:checked, .z10:checked
-  ):not(:has(.safe .f:checked))) {
+#game:where(
+  :has(.z1:checked):has(#o4:checked, .z1:checked):has(#o6:checked):has(
+      #o7:checked
+    ):has(#o8:checked):has(#o9:checked):has(#o11:checked):has(#o12:checked):has(
+      #o14:checked,
+      .z2:checked
+    ):has(.z2:checked):has(#o20:checked, .z1:checked):has(#o21:checked):has(
+      #o22:checked
+    ):has(#o23:checked):has(#o25:checked):has(#o26:checked):has(
+      #o27:checked
+    ):has(#o29:checked, .z2:checked):has(#o30:checked, .z2:checked):has(
+      #o32:checked,
+      .z1:checked
+    ):has(#o33:checked, .z1:checked):has(#o36:checked, .z1:checked):has(
+      #o37:checked
+    ):has(#o38:checked, .z3:checked):has(#o39:checked, .z3:checked):has(
+      #o40:checked,
+      .z3:checked
+    ):has(#o41:checked):has(#o44:checked, .z2:checked):has(
+      #o45:checked,
+      .z2:checked
+    ):has(#o49:checked, .z1:checked):has(#o52:checked, .z1:checked):has(
+      #o54:checked,
+      .z3:checked
+    ):has(.z3:checked):has(#o56:checked, .z3:checked):has(#o58:checked):has(
+      #o59:checked
+    ):has(#o60:checked, .z2:checked):has(#o64:checked, .z4:checked):has(
+      #o65:checked,
+      .z1:checked,
+      .z4:checked
+    ):has(#o66:checked, .z1:checked):has(#o67:checked, .z1:checked):has(
+      #o68:checked,
+      .z1:checked
+    ):has(#o70:checked, .z3:checked):has(#o72:checked, .z3:checked):has(
+      #o73:checked
+    ):has(#o75:checked):has(#o76:checked, .z2:checked):has(
+      #o77:checked,
+      .z2:checked
+    ):has(#o78:checked, .z2:checked):has(.z4:checked):has(
+      #o81:checked,
+      .z4:checked
+    ):has(#o83:checked):has(#o85:checked):has(#o86:checked, .z3:checked):has(
+      #o87:checked,
+      .z3:checked
+    ):has(#o88:checked, .z3:checked, .z5:checked):has(
+      #o89:checked,
+      .z5:checked
+    ):has(#o90:checked, .z5:checked):has(#o91:checked, .z5:checked):has(
+      #o92:checked,
+      .z5:checked
+    ):has(#o94:checked, .z2:checked):has(#o97:checked, .z4:checked):has(
+      #o98:checked,
+      .z4:checked
+    ):has(#o99:checked):has(#o102:checked):has(#o104:checked, .z5:checked):has(
+      .z5:checked
+    ):has(#o108:checked, .z5:checked):has(#o110:checked, .z2:checked):has(
+      #o111:checked,
+      .z2:checked
+    ):has(#o114:checked, .z4:checked):has(#o117:checked):has(#o118:checked):has(
+      #o119:checked
+    ):has(#o120:checked, .z5:checked):has(#o121:checked, .z5:checked):has(
+      #o122:checked,
+      .z5:checked
+    ):has(#o123:checked, .z5:checked):has(#o124:checked, .z5:checked):has(
+      #o125:checked
+    ):has(#o127:checked):has(#o130:checked, .z4:checked):has(#o131:checked):has(
+      #o132:checked,
+      .z6:checked
+    ):has(#o133:checked, .z6:checked):has(#o134:checked, .z6:checked):has(
+      #o135:checked
+    ):has(#o136:checked):has(#o138:checked):has(#o140:checked):has(
+      #o142:checked,
+      .z7:checked
+    ):has(#o143:checked, .z7:checked):has(#o146:checked, .z4:checked):has(
+      #o147:checked
+    ):has(#o148:checked, .z6:checked):has(.z6:checked):has(
+      #o150:checked,
+      .z6:checked
+    ):has(#o152:checked):has(#o153:checked):has(#o154:checked):has(
+      #o155:checked
+    ):has(#o156:checked):has(#o157:checked):has(#o158:checked, .z7:checked):has(
+      .z7:checked
+    ):has(#o162:checked, .z4:checked):has(#o164:checked, .z6:checked):has(
+      #o165:checked,
+      .z6:checked
+    ):has(#o166:checked, .z6:checked):has(#o167:checked):has(#o168:checked):has(
+      #o170:checked
+    ):has(#o171:checked):has(#o172:checked):has(#o173:checked):has(
+      #o174:checked,
+      .z7:checked
+    ):has(#o175:checked, .z7:checked):has(#o176:checked, .z4:checked):has(
+      #o177:checked,
+      .z4:checked,
+      .z8:checked
+    ):has(#o178:checked, .z4:checked, .z8:checked):has(
+      #o179:checked,
+      .z8:checked
+    ):has(#o180:checked, .z8:checked):has(#o182:checked):has(#o183:checked):has(
+      #o185:checked,
+      .z9:checked
+    ):has(#o186:checked, .z9:checked):has(#o187:checked, .z9:checked):has(
+      #o189:checked
+    ):has(#o190:checked):has(#o193:checked, .z8:checked):has(.z8:checked):has(
+      #o196:checked,
+      .z8:checked
+    ):has(#o197:checked, .z8:checked):has(#o199:checked):has(
+      #o200:checked,
+      .z9:checked
+    ):has(#o201:checked, .z9:checked):has(.z9:checked):has(
+      #o203:checked,
+      .z9:checked
+    ):has(#o204:checked, .z9:checked):has(#o205:checked):has(
+      #o206:checked,
+      .z10:checked
+    ):has(#o207:checked, .z10:checked):has(#o208:checked):has(
+      #o209:checked,
+      .z8:checked
+    ):has(#o213:checked, .z8:checked):has(#o214:checked):has(
+      #o216:checked,
+      .z9:checked
+    ):has(#o220:checked, .z9:checked):has(#o221:checked):has(
+      #o222:checked,
+      .z10:checked
+    ):has(.z10:checked):has(#o224:checked):has(#o225:checked, .z8:checked):has(
+      #o226:checked,
+      .z8:checked
+    ):has(#o229:checked, .z8:checked):has(#o231:checked, .z9:checked):has(
+      #o232:checked,
+      .z9:checked
+    ):has(#o234:checked, .z9:checked):has(#o235:checked, .z9:checked):has(
+      #o236:checked,
+      .z9:checked
+    ):has(#o238:checked, .z10:checked):has(#o242:checked, .z8:checked):has(
+      #o245:checked,
+      .z8:checked
+    ):has(#o246:checked):has(#o247:checked, .z9:checked):has(
+      #o250:checked,
+      .z9:checked
+    ):has(#o252:checked):has(#o253:checked):has(
+      #o254:checked,
+      .z10:checked
+    ):not(:has(.safe .f:checked))
+) {
   --lock: none;
   --play: paused;
   --win: block;
@@ -511,19 +314,19 @@ header {
 }
 
 @property --s {
-  syntax: '<integer>';
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
 
 @property --m {
-  syntax: '<integer>';
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
 
 @property --h {
-  syntax: '<integer>';
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
@@ -546,10 +349,9 @@ header {
   }
 }
 
-
 .timer::before {
-  content: counter(h, decimal-leading-zero) ':' counter(m, decimal-leading-zero) ':'
-    counter(s, decimal-leading-zero);
+  content: counter(h, decimal-leading-zero) ":" counter(m, decimal-leading-zero)
+    ":" counter(s, decimal-leading-zero);
 }
 
 .cats-count::before {
@@ -600,7 +402,6 @@ header {
 .f:checked {
   counter-increment: cats -1;
 }
-
 
 .t0 {
   --closed: url("image/odejalo_x.jpg");
@@ -730,7 +531,16 @@ header {
 #game:where(:has(#mode-flag:checked)) .hit-f {
   display: block;
 }
-
+#game:where(:has(#mode-open:checked)) .cell .f,
+#game:where(:has(#mode-flag:checked)) .cell .o {
+  display: none;
+}
+#game:where(:has(.start-box:checked)) .start-box {
+  display: none;
+}
+.o:checked {
+  display: none;
+}
 .mode {
   order: -1;
   display: flex;
@@ -776,13 +586,13 @@ header {
   white-space: nowrap;
 }
 
-#game:where(:has(#mode-open:checked)) label[for='mode-open'],
-#game:where(:has(#mode-flag:checked)) label[for='mode-flag'] {
+#game:where(:has(#mode-open:checked)) label[for="mode-open"],
+#game:where(:has(#mode-flag:checked)) label[for="mode-flag"] {
   background-color: #673303;
   color: #f1dfcb;
 }
 
-@media (width <= 640px) {
+@media (max-width: 640px) {
   h1 {
     font-size: 1.4rem;
   }
@@ -813,8 +623,8 @@ header {
 
 #game:has(.start-box:focus-visible) .start,
 #game:has(.start-box:focus-visible) .restart,
-#game:has(#mode-open:focus-visible) label[for='mode-open'],
-#game:has(#mode-flag:focus-visible) label[for='mode-flag'] {
+#game:has(#mode-open:focus-visible) label[for="mode-open"],
+#game:has(#mode-flag:focus-visible) label[for="mode-flag"] {
   outline: 3px solid #b94131;
   outline-offset: 2px;
 }
@@ -825,7 +635,7 @@ header {
 }
 
 .game-board:has(.cat .o:checked) .cell:not(.cat):has(.f:checked) .face::after {
-  content: '✕';
+  content: "✕";
   position: absolute;
   inset: 0;
   display: flex;
