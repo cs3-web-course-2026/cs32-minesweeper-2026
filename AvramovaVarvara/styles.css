@@ -531,16 +531,20 @@ header {
 #game:where(:has(#mode-flag:checked)) .hit-f {
   display: block;
 }
+
+.o:checked {
+  display: none;
+}
+
 #game:where(:has(#mode-open:checked)) .cell .f,
 #game:where(:has(#mode-flag:checked)) .cell .o {
   display: none;
 }
+
 #game:where(:has(.start-box:checked)) .start-box {
   display: none;
 }
-.o:checked {
-  display: none;
-}
+
 .mode {
   order: -1;
   display: flex;
@@ -592,7 +596,7 @@ header {
   color: #f1dfcb;
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   h1 {
     font-size: 1.4rem;
   }
