@@ -557,7 +557,6 @@ header {
   display: block;
 }
 
-
 #game:where(:has(#mode-open:checked)) .cell .f,
 #game:where(:has(#mode-flag:checked)) .cell .o {
   display: none;
