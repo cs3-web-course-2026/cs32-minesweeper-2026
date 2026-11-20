@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сапер — Прохоренко Микита</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="game-header">
+      <p class="game-counter">
+        <span class="visually-hidden">Залишилось прапорців:</span>
+        <span class="game-counter-icon" aria-hidden="true">🚩</span>
+        <span class="game-counter-value">008</span>
+      </p>
+      <button type="button" class="new-game-button">Нова гра</button>
+      <p class="game-timer">
+        <span class="visually-hidden">Час гри, секунд:</span>
+        <span class="game-timer-icon" aria-hidden="true">⏱️</span>
+        <span class="game-timer-value">042</span>
+      </p>
+    </header>
+    <main class="game">
+      <div class="board" role="group" aria-label="Ігрове поле 9 на 9">
+        <button type="button" class="cell cell-open" aria-label="Рядок 1, стовпець 1, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 1, стовпець 2, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 1, стовпець 3, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open cell-number-1" aria-label="Рядок 1, стовпець 4, відкрита, 1 міна поруч">1</button>
+        <button type="button" class="cell" aria-label="Рядок 1, стовпець 5, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 1, стовпець 6, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 1, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 1, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 1, стовпець 9, закрита"></button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 2, стовпець 1, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 2, стовпець 2, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 2, стовпець 3, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open cell-number-1" aria-label="Рядок 2, стовпець 4, відкрита, 1 міна поруч">1</button>
+        <button type="button" class="cell cell-flagged" aria-label="Рядок 2, стовпець 5, прапорець">🚩</button>
+        <button type="button" class="cell cell-open cell-number-2" aria-label="Рядок 2, стовпець 6, відкрита, 2 міни поруч">2</button>
+        <button type="button" class="cell" aria-label="Рядок 2, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 2, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 2, стовпець 9, закрита"></button>
+        <button type="button" class="cell cell-open cell-number-1" aria-label="Рядок 3, стовпець 1, відкрита, 1 міна поруч">1</button>
+        <button type="button" class="cell cell-open cell-number-1" aria-label="Рядок 3, стовпець 2, відкрита, 1 міна поруч">1</button>
+        <button type="button" class="cell cell-open" aria-label="Рядок 3, стовпець 3, відкрита, порожня"></button>
+        <button type="button" class="cell cell-open cell-number-1" aria-label="Рядок 3, стовпець 4, відкрита, 1 міна поруч">1</button>
+        <button type="button" class="cell cell-open cell-number-2" aria-label="Рядок 3, стовпець 5, відкрита, 2 міни поруч">2</button>
+        <button type="button" class="cell cell-open cell-number-3" aria-label="Рядок 3, стовпець 6, відкрита, 3 міни поруч">3</button>
+        <button type="button" class="cell" aria-label="Рядок 3, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 3, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 3, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 4, стовпець 1, закрита"></button>
+        <button type="button" class="cell cell-open cell-flag-wrong" aria-label="Рядок 4, стовпець 2, помилковий прапорець">🚩</button>
+        <button type="button" class="cell cell-open cell-number-2" aria-label="Рядок 4, стовпець 3, відкрита, 2 міни поруч">2</button>
+        <button type="button" class="cell cell-open cell-number-2" aria-label="Рядок 4, стовпець 4, відкрита, 2 міни поруч">2</button>
+        <button type="button" class="cell cell-open cell-number-4" aria-label="Рядок 4, стовпець 5, відкрита, 4 міни поруч">4</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 4, стовпець 6, міна">💣</button>
+        <button type="button" class="cell" aria-label="Рядок 4, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 4, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 4, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 5, стовпець 1, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 5, стовпець 2, закрита"></button>
+        <button type="button" class="cell cell-open cell-mine cell-mine-exploded" aria-label="Рядок 5, стовпець 3, підірвана міна">💣</button>
+        <button type="button" class="cell cell-open cell-number-3" aria-label="Рядок 5, стовпець 4, відкрита, 3 міни поруч">3</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 5, стовпець 5, міна">💣</button>
+        <button type="button" class="cell cell-open cell-number-5" aria-label="Рядок 5, стовпець 6, відкрита, 5 мін поруч">5</button>
+        <button type="button" class="cell" aria-label="Рядок 5, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 5, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 5, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 6, стовпець 1, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 6, стовпець 2, закрита"></button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 6, стовпець 3, міна">💣</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 6, стовпець 4, міна">💣</button>
+        <button type="button" class="cell cell-open cell-number-6" aria-label="Рядок 6, стовпець 5, відкрита, 6 мін поруч">6</button>
+        <button type="button" class="cell cell-open cell-number-7" aria-label="Рядок 6, стовпець 6, відкрита, 7 мін поруч">7</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 6, стовпець 7, міна">💣</button>
+        <button type="button" class="cell" aria-label="Рядок 6, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 6, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 7, стовпець 1, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 7, стовпець 2, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 7, стовпець 3, закрита"></button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 7, стовпець 4, міна">💣</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 7, стовпець 5, міна">💣</button>
+        <button type="button" class="cell cell-open cell-number-8" aria-label="Рядок 7, стовпець 6, відкрита, 8 мін поруч">8</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 7, стовпець 7, міна">💣</button>
+        <button type="button" class="cell" aria-label="Рядок 7, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 7, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 8, стовпець 1, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 8, стовпець 2, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 8, стовпець 3, закрита"></button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 8, стовпець 4, міна">💣</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 8, стовпець 5, міна">💣</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 8, стовпець 6, міна">💣</button>
+        <button type="button" class="cell cell-open cell-mine" aria-label="Рядок 8, стовпець 7, міна">💣</button>
+        <button type="button" class="cell" aria-label="Рядок 8, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 8, стовпець 9, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 1, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 2, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 3, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 4, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 5, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 6, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 7, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 8, закрита"></button>
+        <button type="button" class="cell" aria-label="Рядок 9, стовпець 9, закрита"></button>
+      </div>
+      <p class="game-message" role="status" aria-live="polite">
+        Ви натрапили на міну! Гру завершено.
+      </p>
+    </main>
+  </body>
+</html>
