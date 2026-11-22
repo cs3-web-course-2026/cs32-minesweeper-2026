@@ -9,7 +9,7 @@ const gameState = {
 
 let board = [];
 
-function generateBoard(rows, cols, minesCount) {
+function generateField(rows, cols, minesCount) {
   board = [];
   for (let r = 0; r < rows; r++) {
     const row = [];
@@ -288,7 +288,7 @@ function initGame() {
     statusElement.textContent = '';
   }
 
-  generateBoard(gameState.rows, gameState.cols, gameState.minesCount);
+  generateField(gameState.rows, gameState.cols, gameState.minesCount);
   renderBoard();
   updateHeaderUI();
 }
