@@ -10,7 +10,7 @@
     --accent-start: #7b2cbf;
     --accent-end: #9d4edd;
     --text-color: #fff;
-    --cell-size: min(8vw, 35px);
+    --cell-size: 44px;
 }
 
 * {
@@ -25,9 +25,9 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(
-            135deg,
-            var(--background-start),
-            var(--background-end)
+        135deg,
+        var(--background-start),
+        var(--background-end)
     );
     font-family: Arial, sans-serif;
     color: var(--text-color);
@@ -36,11 +36,13 @@ body {
 .game-container {
     width: fit-content;
     max-width: 100%;
+    min-width: 0;
     padding: 20px;
     background: var(--panel-color);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgb(0 0 0 / 50%);
     text-align: center;
+    overflow-x: auto;
 }
 
 h1 {
@@ -66,9 +68,9 @@ h1 {
 .restart-btn {
     padding: 10px 15px;
     background: linear-gradient(
-            135deg,
-            var(--accent-start),
-            var(--accent-end)
+        135deg,
+        var(--accent-start),
+        var(--accent-end)
     );
     border: none;
     border-radius: 10px;
@@ -104,8 +106,8 @@ h1 {
     grid-template-columns: repeat(10, var(--cell-size));
     gap: 2px;
     padding: 5px;
-    width: fit-content;
-    max-width: 100%;
+    width: max-content;
+    max-width: none;
     margin: 0 auto;
     background: #3c096c;
     border-radius: 6px;
@@ -114,6 +116,8 @@ h1 {
 .cell {
     width: var(--cell-size);
     height: var(--cell-size);
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -123,11 +127,12 @@ h1 {
     border-radius: 3px;
     color: var(--text-color);
     font-family: inherit;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
     appearance: none;
+    touch-action: manipulation;
 }
 
 .cell:focus-visible,
@@ -168,10 +173,16 @@ h1 {
 @media (width <= 420px) {
     body {
         padding: 10px;
+        align-items: flex-start;
     }
 
     .game-container {
+        width: 100%;
         padding: 12px;
+    }
+
+    h1 {
+        font-size: 26px;
     }
 
     .stat-box {
@@ -184,6 +195,6 @@ h1 {
     }
 
     .cell {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
