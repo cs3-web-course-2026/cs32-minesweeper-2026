@@ -29,6 +29,12 @@ function generateField(rows, cols, minesCount) {
         minesCount < 0 || minesCount >= rows * cols) {
         throw new RangeError('Invalid field dimensions or mine count');
     }
+    
+        gameState.rows = rows;
+    gameState.cols = cols;
+    gameState.minesCount = minesCount;
+    gameState.flagsCount = 0;
+    gameState.revealedCount = 0;
 
     board = Array.from({ length: rows }, () =>
         Array.from({ length: cols }, () => ({
