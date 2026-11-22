@@ -135,6 +135,7 @@ function toggleFlag(row, col) {
   if (cell.state === 'opened') return;
 
   if (cell.state === 'closed') {
+    if (getFlaggedCount() >= gameState.minesCount) return; // <-- додати цю перевірку
     cell.state = 'flagged';
   } else if (cell.state === 'flagged') {
     cell.state = 'closed';
@@ -154,7 +155,7 @@ function startTimer() {
 const boardElement = document.querySelector('.board');
 const timerElement = document.querySelector('.time');
 const flagsElement = document.querySelector('.flag-count');
-const startBtn = document.querySelector('.start-btn');
+const startBtn = document.querySelector('.start-button');
 const statusElement = document.querySelector('.game-status');
 
 function endGame(status) {
@@ -185,6 +186,10 @@ function endGame(status) {
 
 function renderBoard() {
   if (!boardElement) return;
+  const activeCell = document.activeElement?.closest?.('.cell');
+  const focusedRow = activeCell ? activeCell.dataset.row : null;
+  const focusedCol = activeCell ? activeCell.dataset.col : null;
+
   boardElement.innerHTML = '';
 
   for (let r = 0; r < gameState.rows; r++) {
@@ -193,30 +198,48 @@ function renderBoard() {
 
     for (let c = 0; c < gameState.cols; c++) {
       const cellData = board[r][c];
-      const cellElement = document.createElement('div');
+      const cellElement = document.createElement('button'); 
+      cellElement.type = 'button';
       cellElement.classList.add('cell');
 
       cellElement.dataset.row = r;
       cellElement.dataset.col = c;
 
+      let stateLabel = 'closed';
       if (cellData.state === 'opened') {
         cellElement.classList.add('opened');
         if (cellData.type === 'mine') {
           cellElement.classList.add('mined');
+          stateLabel = cellData.exploded ? 'exploded mine' : 'mine';
           if (cellData.exploded) {
             cellElement.classList.add('exploded');
           }
         } else if (cellData.neighborMines > 0) {
           cellElement.textContent = cellData.neighborMines;
           cellElement.dataset.number = cellData.neighborMines;
+          stateLabel = `${cellData.neighborMines} neighbor mines`;
+        } else {
+          stateLabel = 'opened empty';
         }
       } else if (cellData.state === 'flagged') {
         cellElement.classList.add('flagged');
+        stateLabel = 'flagged';
       }
+
+      cellElement.setAttribute('aria-label', `Row ${r + 1}, Column ${c + 1}, ${stateLabel}`);
 
       rowElement.appendChild(cellElement);
     }
     boardElement.appendChild(rowElement);
+  }
+
+  if (focusedRow !== null && focusedCol !== null) {
+    const nextFocusTarget = boardElement.querySelector(
+      `.cell[data-row="${focusedRow}"][data-col="${focusedCol}"]`
+    );
+    if (nextFocusTarget) {
+      nextFocusTarget.focus();
+    }
   }
 }
 
@@ -271,6 +294,20 @@ function setupEventListeners() {
 
     toggleFlag(row, col);
     renderBoard();
+  });
+
+  boardElement.addEventListener('keydown', (event) => {
+    const cellElement = event.target.closest('.cell');
+    if (!cellElement) return;
+
+    if (event.key === 'f' || event.key === 'F') {
+      event.preventDefault();
+      const row = parseInt(cellElement.dataset.row, 10);
+      const col = parseInt(cellElement.dataset.col, 10);
+
+      toggleFlag(row, col);
+      renderBoard();
+    }
   });
 
   if (startBtn) {
