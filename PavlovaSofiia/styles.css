@@ -61,7 +61,7 @@ body {
   margin-right: auto;
 }
 
-.field {
+.board {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
