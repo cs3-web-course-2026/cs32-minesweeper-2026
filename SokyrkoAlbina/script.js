@@ -428,7 +428,8 @@ function hideModal() {
 function initGame() {
     hideModal();
     stopTimer();
-
+    modalAnnounceEl.textContent = '';
+    
     gameState = createInitialState();
     generateField(gameState.rows, gameState.cols, 0); // 0 mines for initial render (safe first click)
     render();
