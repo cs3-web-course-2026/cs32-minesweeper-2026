@@ -11,6 +11,7 @@
     --accent-end: #9d4edd;
     --text-color: #fff;
     --cell-size: 44px;
+    --board-columns: 10;
 }
 
 * {
@@ -103,7 +104,7 @@ h1 {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(10, var(--cell-size));
+    grid-template-columns: repeat(var(--board-columns), var(--cell-size));
     gap: 2px;
     padding: 5px;
     width: max-content;
