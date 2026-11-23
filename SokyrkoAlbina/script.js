@@ -9,7 +9,7 @@ const MODAL_DELAY_MS = 300;
 /** @enum {string} */
 const STATUS = { PROCESS: 'process', WIN: 'win', LOSE: 'lose' };
 /** @enum {string} */
-const CELL_STATE = { CLOSED: 'closed', OPENED: 'opened', FLAGGED: 'flagged', EXPLODED: 'exploded' };
+const CELL_STATE = { CLOSED: 'closed', OPENED: 'opened', FLAGGED: 'flagged' };
 
 /** @enum {string} */
 const ICONS = { MINE: '💣', FLAG: '🏴‍☠️' };
@@ -23,6 +23,7 @@ const START_BTN_ICONS = {
 /** @type {number[][]} */
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 
+const headerEl = document.querySelector('.game-header');
 const boardEl = document.querySelector('.game-board');
 const timerEl = document.getElementById('timer');
 const flagsCountEl = document.getElementById('flags-count');
@@ -50,6 +51,7 @@ function createInitialState() {
         isFirstClick: true,
         excludeRow: -1,
         excludeCol: -1,
+        explodedCell: null,
         modalTimeoutId: null,
         previousActiveElement: null
     };
@@ -98,6 +100,10 @@ function generateField(rows, cols, minesCount) {
         throw new RangeError('Кількість мін перевищує доступну кількість клітинок');
     }
 
+    const flaggedCells = board.length === rows
+        ? board.map((row) => row.map((cell) => cell.state === CELL_STATE.FLAGGED))
+        : [];
+
     board = Array.from({ length: rows }, () => Array.from({ length: cols }, createCell));
 
     let minesPlaced = 0;
@@ -110,6 +116,14 @@ function generateField(rows, cols, minesCount) {
         if (board[row][col].type !== 'mine') {
             board[row][col].type = 'mine';
             minesPlaced++;
+        }
+    }
+
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            if (flaggedCells[row]?.[col]) {
+                board[row][col].state = CELL_STATE.FLAGGED;
+            }
         }
     }
 
@@ -182,7 +196,8 @@ function openCell(row, col) {
     startTimerOnce();
 
     if (cell.type === 'mine') {
-        cell.state = CELL_STATE.EXPLODED;
+        cell.state = CELL_STATE.OPENED;
+        gameState.explodedCell = { row, col };
         endGame(STATUS.LOSE);
         return;
     }
@@ -283,15 +298,13 @@ function getCellView(cell, row, col) {
     const gameOver = gameState.status !== STATUS.PROCESS;
 
     switch (cell.state) {
-        case CELL_STATE.EXPLODED:
-            view.classes.push('open', 'mine', 'exploded');
-            view.text = ICONS.MINE;
-            view.label = `Вибухнула міна, ${position}`;
-            break;
-
         case CELL_STATE.OPENED:
             view.classes.push('open');
-            if (cell.neighborMines > 0) {
+            if (gameState.explodedCell?.row === row && gameState.explodedCell?.col === col) {
+                view.classes.push('mine', 'exploded');
+                view.text = ICONS.MINE;
+                view.label = `Вибухнула міна, ${position}`;
+            } else if (cell.neighborMines > 0) {
                 view.text = String(cell.neighborMines);
                 view.number = cell.neighborMines;
                 view.label = `${cell.neighborMines} ${pluralizeMines(cell.neighborMines)} поруч, ${position}`;
@@ -404,6 +417,8 @@ function showModal(status) {
     gameState.previousActiveElement = document.activeElement;
 
     gameState.modalTimeoutId = setTimeout(() => {
+        headerEl.inert = true;
+        boardEl.inert = true;
         modalEl.classList.remove('hidden');
         modalBtnEl.focus();
     }, MODAL_DELAY_MS);
@@ -415,7 +430,9 @@ function showModal(status) {
 function hideModal() {
     clearTimeout(gameState.modalTimeoutId);
     modalEl.classList.add('hidden');
-    
+    headerEl.inert = false;
+    boardEl.inert = false;
+
     if (gameState.previousActiveElement) {
         gameState.previousActiveElement.focus();
         gameState.previousActiveElement = null;
@@ -429,7 +446,8 @@ function initGame() {
     hideModal();
     stopTimer();
     modalAnnounceEl.textContent = '';
-    
+
+    board = [];
     gameState = createInitialState();
     generateField(gameState.rows, gameState.cols, 0); // 0 mines for initial render (safe first click)
     render();
