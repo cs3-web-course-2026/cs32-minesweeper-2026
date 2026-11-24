@@ -182,6 +182,7 @@ function isWin() {
  */
 function openCell(row, col) {
     if (gameState.status !== STATUS.PROCESS || !isInside(row, col)) return;
+    if (board[row][col].state !== CELL_STATE.CLOSED) return;
 
     if (gameState.isFirstClick) {
         gameState.isFirstClick = false;
@@ -191,7 +192,6 @@ function openCell(row, col) {
     }
 
     const cell = board[row][col];
-    if (cell.state !== CELL_STATE.CLOSED) return;
 
     startTimerOnce();
 
