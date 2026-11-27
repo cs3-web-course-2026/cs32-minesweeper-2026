@@ -1,8 +1,17 @@
 :root {
-  /* Розміри поля */
-  --board-columns: 9;
-  --cell-size: clamp(1.875rem, 9vw, 2.75rem);
+  /* Розміри поля (--board-columns оновлює script.js) */
+  --board-columns: 10;
   --cell-gap: 0.25rem;
+  --board-side-space: 4.25rem;
+  --cell-size: clamp(
+    1.25rem,
+    (
+        100vw - var(--board-side-space) - (var(--board-columns) - 1) *
+          var(--cell-gap)
+      ) /
+      var(--board-columns),
+    2.75rem
+  );
   --cell-radius: 0.375rem;
   --card-radius: 0.875rem;
   --card-padding: 1rem;
@@ -34,6 +43,10 @@
   --color-cell-exploded: #d93a3a;
   --color-cell-wrong-flag: #3d2a2a;
   --color-wrong-flag-cross: #ff5c5c;
+
+  /* Кольори повідомлень про результат гри */
+  --color-message-win: #4fc27a;
+  --color-message-lose: #ff6b6b;
 
   /* Кольори цифр 1–8 */
   --color-number-1: #5b9bff;
@@ -149,6 +162,7 @@ body {
   border: 1px solid var(--color-card-border);
   border-radius: var(--card-radius);
   background-color: var(--color-card-background);
+  user-select: none;
 }
 
 .game-message {
@@ -156,6 +170,16 @@ body {
   font-size: var(--message-font-size);
   color: var(--color-text-muted);
   text-align: center;
+}
+
+.game-message-win {
+  font-weight: 600;
+  color: var(--color-message-win);
+}
+
+.game-message-lose {
+  font-weight: 600;
+  color: var(--color-message-lose);
 }
 
 /* Клітинка: закрита (стан за замовчуванням) */
@@ -262,11 +286,17 @@ body {
   background-color: var(--color-cell-exploded);
 }
 
+/* Гра завершена: клітинки більше не реагують на наведення курсору */
+.board-finished .cell {
+  cursor: default;
+}
+
 /* Адаптивність для вузьких екранів */
 @media (width <= 400px) {
   :root {
     --cell-gap: 0.1875rem;
     --card-padding: 0.625rem;
+    --board-side-space: 2.5rem;
     --header-font-size: 1rem;
     --button-font-size: 0.875rem;
   }
