@@ -58,10 +58,9 @@ body {
   justify-content: space-around;
   margin-top: 50px;
   margin-left: auto;
-  margin-right: auto;
 }
 
-.field {
+.board {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
